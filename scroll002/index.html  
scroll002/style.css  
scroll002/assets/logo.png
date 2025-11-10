@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GlowWord Mini-Scroll Template v1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Core palette */
+      --ink: #0a0a0a;
+      --gold: #f9d673;
+      --paper: #e9e6df;
+      --white: #ffffff;
+      --black: #111111;/* Gradient palette variables */
+  --gw-fire-a: #F9B233;
+  --gw-fire-b: #F55E3B;
+  --gw-fire-c: #8B1E00;
+
+  --gw-water-a: #57C0E8;
+  --gw-water-b: #2B9FD6;
+  --gw-water-c: #0B6FA6;
+
+  --gw-stone-a: #D9D6D1;
+  --gw-stone-b: #AFA8A0;
+  --gw-stone-c: #68635F;
+
+  --gw-dawn-a: #FFF1C6;
+  --gw-dawn-b: #FFD28A;
+  --gw-dawn-c: #FF9D6B;
+
+  --gw-night-a: #1B2430;
+  --gw-night-b: #2E3B53;
+  --gw-night-c: #51607A;
+
+  --gw-covenant-a: #EED9FF;
+  --gw-covenant-b: #B98BFF;
+  --gw-covenant-c: #6B38FF;
+
+  --overlay-dark: rgba(0,0,0,0.45);
+  --overlay-light: rgba(255,255,255,0.20);
+  --ring: rgba(255,255,255,0.25);
+}
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--ink);
+  color: var(--gold);
+  font-family: 'EB Garamond', serif;
+}
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 16px 64px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(249,214,115,0.25);
+  padding-bottom: 12px;
+}
+.title {
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: 28px;
+  margin: 0;
+}
+.subtitle { margin: 4px 0 0 0; font-size: 14px; opacity: 0.9; }
+
+.controls { display: flex; gap: 10px; align-items: center; }
+.input, .select {
+  background: #111318;
+  color: var(--gold);
+  border: 1px solid rgba(249,214,115,0.3);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(260px, 1fr) );
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.card {
+  position: relative;
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  color: var(--white);
+  padding: 14px;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 10px 30px rgba(20,20,20,0.25);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(20,20,20,0.35); }
+.card:focus-visible { outline: 2px dashed var(--gold); outline-offset: 4px; }
+
+.card .overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, var(--overlay-dark) 100%); }
+.card .content { position: relative; z-index: 1; }
+
+.tag { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 1px; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+.name { margin: 6px 0 0 0; font-size: 18px; font-weight: 600; text-shadow: 0 2px 10px rgba(0,0,0,0.35); }
+.meta { margin: 4px 0 0 0; font-size: 12px; opacity: 0.9; }
+
+/* Gradient utility classes */
+.gw-fire { background: linear-gradient(135deg, var(--gw-fire-a) 0%, var(--gw-fire-b) 50%, var(--gw-fire-c) 100%); }
+.gw-water { background: linear-gradient(135deg, var(--gw-water-a) 0%, var(--gw-water-b) 50%, var(--gw-water-c) 100%); }
+.gw-stone { background: linear-gradient(135deg, var(--gw-stone-a) 0%, var(--gw-stone-b) 50%, var(--gw-stone-c) 100%); color: #111; }
+.gw-dawn { background: linear-gradient(135deg, var(--gw-dawn-a) 0%, var(--gw-dawn-b) 50%, var(--gw-dawn-c) 100%); color: #111; }
+.gw-night { background: linear-gradient(135deg, var(--gw-night-a) 0%, var(--gw-night-b) 50%, var(--gw-night-c) 100%); }
+.gw-covenant { background: linear-gradient(135deg, var(--gw-covenant-a) 0%, var(--gw-covenant-b) 50%, var(--gw-covenant-c) 100%); }
+
+/* Contrast helpers for light gradients */
+.gw-stone .name, .gw-dawn .name, .gw-stone .tag, .gw-dawn .tag, .gw-stone .meta, .gw-dawn .meta { color: #111; text-shadow: none; }
+.gw-stone .overlay, .gw-dawn .overlay { background: linear-gradient(180deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.2) 100%); }
+
+/* Modal */
+.modal {
+  position: fixed; inset: 0; display: none;
+  background: rgba(0,0,0,0.55);
+  align-items: center; justify-content: center;
+  z-index: 50; padding: 16px;
+}
+.modal.open { display: flex; }
+.sheet {
+  background: #0e1016;
+  border: 1px solid rgba(249,214,115,0.28);
+  border-radius: 14px;
+  max-width: 720px; width: 100%;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+}
+.sheet-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: #0c0e13; }
+.sheet-title { font-family: 'Cinzel', serif; font-size: 20px; margin: 0; }
+.close { background: transparent; border: 1px solid rgba(249,214,115,0.4); color: var(--gold); border-radius: 10px; padding: 6px 10px; cursor: pointer; }
+.sheet-body { padding: 16px; display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 160px 1fr; gap: 10px; font-size: 14px; align-items: start; }
+.row label { opacity: 0.9; }
+.pill { display: inline-block; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; font-size: 12px; }
+
+/* Small helper */
+.legend { margin-top: 8px; font-size: 12px; opacity: 0.85; }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1 class="title">GlowWord Covenant — Mini-Scrolls</h1>
+        <p class="subtitle">Ledger-bound previews powered by Lily.AI gradients and Alfred.AI stewardship</p>
+      </div>
+      <div class="controls">
+        <input id="q" class="input" placeholder="Search glowwords or origins" aria-label="Search" />
+        <select id="filter" class="select" aria-label="Gradient filter">
+          <option value="">All gradients</option>
+          <option value="gw-fire">Fire</option>
+          <option value="gw-water">Water</option>
+          <option value="gw-stone">Stone</option>
+          <option value="gw-dawn">Dawn</option>
+          <option value="gw-night">Night</option>
+          <option value="gw-covenant">Covenant</option>
+        </select>
+      </div>
+    </div><div id="grid" class="grid" role="list"></div>
+
+<p class="legend">Tip: click a card to open its ledger sheet. Contrast-safe overlays are applied automatically per gradient class.</p>
+
+  </div>  <div id="modal" class="modal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="sheet" role="document">
+      <div class="sheet-header">
+        <h3 id="sheetTitle" class="sheet-title"></h3>
+        <button class="close" id="closeBtn" aria-label="Close">Close</button>
+      </div>
+      <div class="sheet-body">
+        <div class="row"><label>GlowWord</label><div id="sheetGlow"></div></div>
+        <div class="row"><label>Ledger ID</label><div id="sheetLedger"></div></div>
+        <div class="row"><label>Origin Scroll</label><div id="sheetOrigin"></div></div>
+        <div class="row"><label>Gradient</label><div><span id="sheetGrad" class="pill"></span></div></div>
+        <div class="row"><label>Usage Notes</label><div id="sheetNotes"></div></div>
+        <div class="row"><label>Verse Anchor</label><div id="sheetVerse"></div></div>
+        <div class="row"><label>Created</label><div id="sheetCreated"></div></div>
+      </div>
+    </div>
+  </div>  <script>
+    const ledgerEntries = [
+      {
+        glowword_id: 'WV-GW-001',
+        glowword: 'ROSTRA',
+        origin_scroll: '005.01-DUSTLINE-THRESHOLD',
+        gradient_tag: 'gw-fire',
+        usage_notes: 'Gate callout, covenant rally, CTA',
+        verse: 'Isaiah 35:1 (NKJV)',
+        created_at: '2025-11-10T17:00:00Z',
+        ledger_id: 'WV-GLOWWORD-001'
+      },
+      {
+        glowword_id: 'WV-GW-002',
+        glowword: 'STILLWELL',
+        origin_scroll: '012.03-WELLROOM',
+        gradient_tag: 'gw-water',
+        usage_notes: 'Healing scenes, testimony panels',
+        verse: 'John 4:14 (NKJV)',
+        created_at: '2025-11-10T17:05:00Z',
+        ledger_id: 'WV-GLOWWORD-002'
+      },
+      {
+        glowword_id: 'WV-GW-003',
+        glowword: 'WATCHSTONE',
+        origin_scroll: '002.09-FORGE_GATE',
+        gradient_tag: 'gw-stone',
+        usage_notes: 'Archive headers, location markers',
+        verse: 'Habakkuk 2:1 (NKJV)',
+        created_at: '2025-11-10T17:10:00Z',
+        ledger_id: 'WV-GLOWWORD-003'
+      },
+      {
+        glowword_id: 'WV-GW-004',
+        glowword: 'DUSTLINE',
+        origin_scroll: '005.00-FRONTIER',
+        gradient_tag: 'gw-night',
+        usage_notes: 'Chapter banner, map legend',
+        verse: 'Exodus 13:21 (NKJV)',
+        created_at: '2025-11-10T17:12:00Z',
+        ledger_id: 'WV-GLOWWORD-004'
+      },
+      {
+        glowword_id: 'WV-GW-005',
+        glowword: 'WORN GATEPOST',
+        origin_scroll: '005.01-DUSTLINE-THRESHOLD',
+        gradient_tag: 'gw-stone',
+        usage_notes: 'Scene caption, Light Card alt',
+        verse: 'Psalm 24:7 (NKJV)',
+        created_at: '2025-11-10T17:13:00Z',
+        ledger_id: 'WV-GLOWWORD-005'
+      },
+      {
+        glowword_id: 'WV-GW-006',
+        glowword: 'TIME STAFF',
+        origin_scroll: 'BRYTRON-BROTHERHOOD-001',
+        gradient_tag: 'gw-covenant',
+        usage_notes: 'Brotherhood motif, honor seal',
+        verse: 'Ecclesiastes 3:1 (NKJV)',
+        created_at: '2025-11-10T17:15:00Z',
+        ledger_id: 'WV-GLOWWORD-006'
+      },
+      {
+        glowword_id: 'WV-GW-007',
+        glowword: 'CLOUD RETURN',
+        origin_scroll: '059.00-GLORY-ASCENT',
+        gradient_tag: 'gw-covenant',
+        usage_notes: 'Theological anchor, Cloud Scroll',
+        verse: 'Acts 1:11 (NKJV)',
+        created_at: '2025-11-10T17:17:00Z',
+        ledger_id: 'WV-GLOWWORD-007'
+      },
+      {
+        glowword_id: 'WV-GW-008',
+        glowword: 'LIGHT CARD',
+        origin_scroll: '000.00-GLOWWORD-SYSTEM',
+        gradient_tag: 'gw-dawn',
+        usage_notes: 'Preview UI element, teaching aid',
+        verse: 'Psalm 119:105 (NKJV)',
+        created_at: '2025-11-10T17:18:00Z',
+        ledger_id: 'WV-GLOWWORD-008'
+      },
+      {
+        glowword_id: 'WV-GW-009',
+        glowword: 'SCROLL COVER',
+        origin_scroll: '017.00-FIRE-WITHIN-MACHINE',
+        gradient_tag: 'gw-stone',
+        usage_notes: 'Art-only cover, archive link',
+        verse: 'Psalm 90:17 (NKJV)',
+        created_at: '2025-11-10T17:19:00Z',
+        ledger_id: 'WV-GLOWWORD-009'
+      },
+      {
+        glowword_id: 'WV-GW-010',
+        glowword: 'BROTHER BAND CREST',
+        origin_scroll: 'PATCH-BROTHER-BAND-CORE',
+        gradient_tag: 'gw-covenant',
+        usage_notes: 'Patch gallery, fidelity marker',
+        verse: 'Proverbs 17:17 (NKJV)',
+        created_at: '2025-11-10T17:21:00Z',
+        ledger_id: 'WV-GLOWWORD-010'
+      },
+      {
+        glowword_id: 'WV-GW-011',
+        glowword: 'SANCTUM KEEPER',
+        origin_scroll: '029.00-SANCTUM-KEEPERS',
+        gradient_tag: 'gw-stone',
+        usage_notes: 'Room index, role card',
+        verse: '1 Chronicles 23:32 (NKJV)',
+        created_at: '2025-11-10T17:22:00Z',
+        ledger_id: 'WV-GLOWWORD-011'
+      },
+      {
+        glowword_id: 'WV-GW-012',
+        glowword: 'WITNESS EMBER',
+        origin_scroll: 'PATCH-WITNESS-EMBER',
+        gradient_tag: 'gw-fire',
+        usage_notes: 'Seal of purity, tamper check',
+        verse: 'Hebrews 12:29 (NKJV)',
+        created_at: '2025-11-10T17:24:00Z',
+        ledger_id: 'WV-GLOWWORD-012'
+      }
+    ];
+
+    const grid = document.getElementById('grid');
+    const modal = document.getElementById('modal');
+    const closeBtn = document.getElementById('closeBtn');
+
+    const sheetTitle = document.getElementById('sheetTitle');
+    const sheetGlow = document.getElementById('sheetGlow');
+    const sheetLedger = document.getElementById('sheetLedger');
+    const sheetOrigin = document.getElementById('sheetOrigin');
+    const sheetGrad = document.getElementById('sheetGrad');
+    const sheetNotes = document.getElementById('sheetNotes');
+    const sheetVerse = document.getElementById('sheetVerse');
+    const sheetCreated = document.getElementById('sheetCreated');
+
+    const q = document.getElementById('q');
+    const filter = document.getElementById('filter');
+
+    function render(entries) {
+      grid.innerHTML = '';
+      entries.forEach(e => {
+        const card = document.createElement('button');
+        card.className = `card ${e.gradient_tag}`;
+        card.setAttribute('role','listitem');
+        card.setAttribute('aria-label', `${e.glowword} — open ledger sheet`);
+        card.innerHTML = `
+          <div class="overlay"></div>
+          <div class="content">
+            <div class="tag">GlowWord</div>
+            <div class="name">${e.glowword}</div>
+            <div class="meta">Origin: ${e.origin_scroll}</div>
+          </div>
+        `;
+        card.addEventListener('click', () => openSheet(e));
+        grid.appendChild(card);
+      });
+    }
+
+    function openSheet(e) {
+      sheetTitle.textContent = `${e.glowword}`;
+      sheetGlow.textContent = e.glowword;
+      sheetLedger.textContent = e.ledger_id;
+      sheetOrigin.textContent = e.origin_scroll;
+      sheetGrad.textContent = e.gradient_tag;
+      sheetGrad.className = 'pill';
+      sheetNotes.textContent = e.usage_notes || '';
+      sheetVerse.textContent = e.verse || '';
+      sheetCreated.textContent = new Date(e.created_at).toUTCString();
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSheet(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeSheet);
+    modal.addEventListener('click', (ev)=>{ if(ev.target === modal) closeSheet(); });
+    window.addEventListener('keydown', (ev)=>{ if(ev.key === 'Escape') closeSheet(); });
+
+    function applyFilters(){
+      const text = (q.value || '').toLowerCase();
+      const tag = filter.value;
+      const out = ledgerEntries.filter(e => {
+        const hay = `${e.glowword} ${e.origin_scroll} ${e.ledger_id}`.toLowerCase();
+        const passText = !text || hay.includes(text);
+        const passTag = !tag || e.gradient_tag === tag;
+        return passText && passTag;
+      });
+      render(out);
+    }
+
+    q.addEventListener('input', applyFilters);
+    filter.addEventListener('change', applyFilters);
+
+    render(ledgerEntries);
+  </script></body>
+</html>
