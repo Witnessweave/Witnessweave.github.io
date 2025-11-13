@@ -1,398 +1,519 @@
-<!DOCTYPE html><html lang="en">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GlowWord Mini-Scroll Template v1</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      /* Core palette */
-      --ink: #0a0a0a;
-      --gold: #f9d673;
-      --paper: #e9e6df;
-      --white: #ffffff;
-      --black: #111111;/* Gradient palette variables */
-  --gw-fire-a: #F9B233;
-  --gw-fire-b: #F55E3B;
-  --gw-fire-c: #8B1E00;
-
-  --gw-water-a: #57C0E8;
-  --gw-water-b: #2B9FD6;
-  --gw-water-c: #0B6FA6;
-
-  --gw-stone-a: #D9D6D1;
-  --gw-stone-b: #AFA8A0;
-  --gw-stone-c: #68635F;
-
-  --gw-dawn-a: #FFF1C6;
-  --gw-dawn-b: #FFD28A;
-  --gw-dawn-c: #FF9D6B;
-
-  --gw-night-a: #1B2430;
-  --gw-night-b: #2E3B53;
-  --gw-night-c: #51607A;
-
-  --gw-covenant-a: #EED9FF;
-  --gw-covenant-b: #B98BFF;
-  --gw-covenant-c: #6B38FF;
-
-  --overlay-dark: rgba(0,0,0,0.45);
-  --overlay-light: rgba(255,255,255,0.20);
-  --ring: rgba(255,255,255,0.25);
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Threads On Fire — Match the Sole. Ignite the Scroll.</title>
+<meta name="description" content="Abel's streetwear legacy — sweatsuits matched to classic Jordans, sealed by witness, built from fire." />
+<style>
+:root{
+  --fire:#d8431a;
+  --ember:#ff8a50;
+  --gold:#f9d673;
+  --char:#111;
+  --muted:#6b6b6b;
+  --smoke:#faf7f5;
+  --glass:rgba(0,0,0,0.72);
+  --max:1100px;
+  font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
 }
 
-html, body {
-  margin: 0; padding: 0;
-  background: var(--ink);
-  color: var(--gold);
-  font-family: 'EB Garamond', serif;
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;scroll-behavior:smooth}
+body{
+  background:var(--smoke);
+  color:var(--char);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.55;
+  padding-bottom:80px;
 }
 
-.wrap {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 20px 16px 64px;
+/* BUFFER / UNROLL */
+.buffer{
+  position:fixed;inset:0;background:#000;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  z-index:9000;transition:opacity .6s ease;
+}
+.buffer.hidden{opacity:0;pointer-events:none}
+.buffer-text{font-size:22px;font-weight:700;letter-spacing:0.05em}
+
+/* TOPBAR */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;background:rgba(255,255,255,0.98);
+  border-bottom:1px solid rgba(0,0,0,0.06);z-index:100;
+}
+.logo{font-weight:800;font-size:18px;letter-spacing:0.02em}
+.logo .on{color:var(--fire);margin:0 4px}
+.nav-links{display:flex;gap:16px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--char);font-size:14px;font-weight:600}
+.hamburger{display:none;background:none;border:0;font-size:24px;cursor:pointer}
+
+@media(max-width:720px){
+  .nav-links{display:none}
+  .hamburger{display:block}
 }
 
-.header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 16px;
-  align-items: end;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgba(249,214,115,0.25);
-  padding-bottom: 12px;
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background-size:cover;background-position:center;position:relative;
+  padding-top:60px;
 }
-.title {
-  font-family: 'Cinzel', serif;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  font-size: 28px;
-  margin: 0;
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.5),rgba(0,0,0,0.2));
 }
-.subtitle { margin: 4px 0 0 0; font-size: 14px; opacity: 0.9; }
+.hero-content{
+  position:relative;z-index:10;text-align:center;
+  padding:40px 20px;max-width:800px;
+}
+.hero-title{
+  font-size:clamp(32px,6vw,52px);margin:0 0 12px;
+  color:#fff;font-weight:900;line-height:1.1;
+}
+.hero-sub{
+  color:rgba(255,255,255,0.95);font-size:clamp(16px,3vw,20px);
+  margin:0 0 28px;
+}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-block;padding:14px 24px;border-radius:8px;
+  text-decoration:none;cursor:pointer;border:0;
+  font-weight:700;font-size:16px;transition:all .2s;
+}
+.btn.primary{background:var(--fire);color:#fff}
+.btn.primary:hover{background:var(--ember);transform:translateY(-2px)}
+.btn.ghost{background:transparent;border:2px solid rgba(255,255,255,0.3);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,0.15)}
+.btn.small{padding:8px 14px;font-size:14px}
 
-.controls { display: flex; gap: 10px; align-items: center; }
-.input, .select {
-  background: #111318;
-  color: var(--gold);
-  border: 1px solid rgba(249,214,115,0.3);
-  border-radius: 10px;
-  padding: 10px 12px;
-  font-size: 14px;
-  outline: none;
+.hero-arrows{
+  position:absolute;left:20px;right:20px;bottom:40px;
+  display:flex;justify-content:space-between;z-index:20;
+}
+.hero-arrows button{
+  background:rgba(0,0,0,0.6);color:#fff;border:0;
+  padding:10px 16px;border-radius:8px;cursor:pointer;
+  font-size:20px;transition:background .2s;
+}
+.hero-arrows button:hover{background:rgba(0,0,0,0.8)}
+
+/* CONTAINER */
+.container{max-width:var(--max);margin:0 auto;padding:40px 20px}
+
+/* SCROLL CARD (story sections) */
+.scroll-card{
+  background:linear-gradient(180deg,rgba(249,214,115,0.04),rgba(0,0,0,0));
+  border-radius:12px;padding:32px;
+  box-shadow:0 12px 40px rgba(18,18,18,0.08);
+  margin-bottom:40px;position:relative;
+  opacity:0;transform:translateY(20px);
+  transition:all .6s ease;
+}
+.scroll-card.inview{opacity:1;transform:none}
+.scroll-card h2{margin:0 0 12px;font-size:28px;color:var(--fire)}
+.scroll-card .lead{font-size:18px;color:var(--muted);margin-bottom:20px}
+.scroll-card p{margin:14px 0}
+
+/* GLOWWORD */
+.glowword{
+  cursor:pointer;color:var(--fire);text-decoration:none;
+  border-bottom:2px solid rgba(216,67,26,0.15);
+  padding-bottom:2px;transition:all .18s;
+  position:relative;display:inline;
+}
+.glowword:hover{
+  transform:translateY(-1px);
+  text-shadow:0 6px 16px rgba(216,67,26,0.15);
+  border-bottom-color:var(--gold);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat( auto-fill, minmax(260px, 1fr) );
-  gap: 16px;
-  margin-top: 18px;
+/* GLOWWORD MODAL */
+.mini-scroll{
+  display:none;position:fixed;inset:0;z-index:1200;
+  align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);
+  background:rgba(0,0,0,0.7);
+}
+.mini-scroll.active{display:flex}
+.mini-inner{
+  width:min(900px,calc(100% - 40px));max-height:86vh;overflow:auto;
+  background:linear-gradient(180deg,#0f0f0f,#1a1a1a);
+  color:#fff;border-radius:12px;padding:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.8);
+  border:1px solid rgba(249,214,115,0.1);
+}
+.mini-inner h3{margin:0 0 12px;font-size:24px;color:var(--gold)}
+.mini-inner p{margin:12px 0;color:#f3f3f3;line-height:1.6}
+.mini-close{
+  position:fixed;right:20px;top:20px;
+  background:var(--gold);color:#111;border:0;
+  border-radius:8px;padding:10px 16px;cursor:pointer;
+  font-weight:700;z-index:1210;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
 }
 
-.card {
-  position: relative;
-  height: 180px;
-  border-radius: 14px;
-  overflow: hidden;
-  color: var(--white);
-  padding: 14px;
-  display: flex;
-  align-items: flex-end;
-  box-shadow: 0 10px 30px rgba(20,20,20,0.25);
-  cursor: pointer;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+/* SECTION TITLE */
+.section-title{
+  font-size:24px;margin:0 0 20px;font-weight:700;
+  display:flex;align-items:center;gap:10px;
 }
-.card:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(20,20,20,0.35); }
-.card:focus-visible { outline: 2px dashed var(--gold); outline-offset: 4px; }
 
-.card .overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, var(--overlay-dark) 100%); }
-.card .content { position: relative; z-index: 1; }
-
-.tag { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 1px; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.25); }
-.name { margin: 6px 0 0 0; font-size: 18px; font-weight: 600; text-shadow: 0 2px 10px rgba(0,0,0,0.35); }
-.meta { margin: 4px 0 0 0; font-size: 12px; opacity: 0.9; }
-
-/* Gradient utility classes */
-.gw-fire { background: linear-gradient(135deg, var(--gw-fire-a) 0%, var(--gw-fire-b) 50%, var(--gw-fire-c) 100%); }
-.gw-water { background: linear-gradient(135deg, var(--gw-water-a) 0%, var(--gw-water-b) 50%, var(--gw-water-c) 100%); }
-.gw-stone { background: linear-gradient(135deg, var(--gw-stone-a) 0%, var(--gw-stone-b) 50%, var(--gw-stone-c) 100%); color: #111; }
-.gw-dawn { background: linear-gradient(135deg, var(--gw-dawn-a) 0%, var(--gw-dawn-b) 50%, var(--gw-dawn-c) 100%); color: #111; }
-.gw-night { background: linear-gradient(135deg, var(--gw-night-a) 0%, var(--gw-night-b) 50%, var(--gw-night-c) 100%); }
-.gw-covenant { background: linear-gradient(135deg, var(--gw-covenant-a) 0%, var(--gw-covenant-b) 50%, var(--gw-covenant-c) 100%); }
-
-/* Contrast helpers for light gradients */
-.gw-stone .name, .gw-dawn .name, .gw-stone .tag, .gw-dawn .tag, .gw-stone .meta, .gw-dawn .meta { color: #111; text-shadow: none; }
-.gw-stone .overlay, .gw-dawn .overlay { background: linear-gradient(180deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.2) 100%); }
-
-/* Modal */
-.modal {
-  position: fixed; inset: 0; display: none;
-  background: rgba(0,0,0,0.55);
-  align-items: center; justify-content: center;
-  z-index: 50; padding: 16px;
+/* PRODUCT CAROUSEL */
+.product-carousel{
+  display:flex;gap:16px;overflow-x:auto;
+  padding-bottom:12px;scroll-snap-type:x mandatory;
+  margin-bottom:40px;
 }
-.modal.open { display: flex; }
-.sheet {
-  background: #0e1016;
-  border: 1px solid rgba(249,214,115,0.28);
-  border-radius: 14px;
-  max-width: 720px; width: 100%;
-  overflow: hidden;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+.product-tile{
+  min-width:280px;background:#fff;border-radius:12px;
+  overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.08);
+  scroll-snap-align:start;transition:transform .2s;
+  opacity:0;transform:translateY(20px);
+  transition:all .6s ease;
 }
-.sheet-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: #0c0e13; }
-.sheet-title { font-family: 'Cinzel', serif; font-size: 20px; margin: 0; }
-.close { background: transparent; border: 1px solid rgba(249,214,115,0.4); color: var(--gold); border-radius: 10px; padding: 6px 10px; cursor: pointer; }
-.sheet-body { padding: 16px; display: grid; gap: 8px; }
-.row { display: grid; grid-template-columns: 160px 1fr; gap: 10px; font-size: 14px; align-items: start; }
-.row label { opacity: 0.9; }
-.pill { display: inline-block; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; font-size: 12px; }
+.product-tile.inview{opacity:1;transform:none}
+.product-tile:hover{transform:translateY(-4px)}
+.product-tile img{
+  width:100%;height:240px;object-fit:cover;display:block;
+}
+.product-info{padding:16px}
+.product-info strong{display:block;margin-bottom:6px;font-size:16px}
+.product-info small{color:var(--muted);display:block;margin-bottom:12px}
+.product-actions{display:flex;gap:8px;margin-top:10px}
 
-/* Small helper */
-.legend { margin-top: 8px; font-size: 12px; opacity: 0.85; }
+/* FEATURED PRODUCT */
+.featured{
+  display:grid;grid-template-columns:1fr;gap:24px;
+  align-items:center;margin:40px 0;
+  background:#fff;border-radius:12px;padding:24px;
+  box-shadow:0 12px 40px rgba(18,18,18,0.08);
+  opacity:0;transform:translateY(20px);
+  transition:all .6s ease;
+}
+.featured.inview{opacity:1;transform:none}
+.featured img{width:100%;border-radius:10px;display:block}
+.featured h3{margin:0 0 8px;font-size:24px}
+.price{font-size:20px;font-weight:700;color:var(--fire);margin:8px 0}
 
-  </style>
+@media(min-width:768px){
+  .featured{grid-template-columns:1fr 1fr}
+}
+
+/* WAX SEAL */
+.wax-seal{
+  position:absolute;right:20px;bottom:-20px;
+  width:80px;opacity:0.95;transform:rotate(-8deg);
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+  mix-blend-mode:multiply;
+}
+
+/* EMAIL SIGNUP */
+.witness-signup{
+  background:linear-gradient(135deg,#1a1a1a,#2a2a2a);
+  color:#fff;border-radius:12px;padding:32px;
+  margin:40px 0;text-align:center;
+  opacity:0;transform:translateY(20px);
+  transition:all .6s ease;
+}
+.witness-signup.inview{opacity:1;transform:none}
+.witness-signup h3{margin:0 0 12px;color:var(--gold)}
+.signup-form{
+  display:flex;gap:10px;max-width:600px;
+  margin:20px auto 0;flex-wrap:wrap;justify-content:center;
+}
+.signup-form input,.signup-form select{
+  flex:1 1 200px;padding:12px;border-radius:8px;
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.1);color:#fff;
+}
+.signup-form input::placeholder{color:rgba(255,255,255,0.6)}
+
+/* WITNESS FOOTER */
+.witness-footer{
+  position:fixed;left:0;right:0;bottom:0;
+  background:#111;color:#fff;padding:12px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;z-index:90;font-size:14px;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.3);
+}
+.witness-seal{display:flex;align-items:center;gap:10px}
+.witness-seal img{height:40px;filter:brightness(1.1)}
+.witness-text{font-weight:700;font-size:12px}
+.witness-lock{color:var(--gold);font-size:11px}
+
+@media(max-width:720px){
+  .witness-footer{font-size:11px;padding:10px 12px}
+  .witness-seal img{height:32px}
+  .witness-text{font-size:10px}
+}
+
+/* PRODUCT MODAL */
+.product-modal{
+  display:none;position:fixed;inset:0;z-index:1100;
+  align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);
+}
+.product-modal.active{display:flex}
+.modal-content{
+  background:#fff;border-radius:12px;
+  max-width:900px;width:94%;max-height:90vh;
+  overflow:auto;display:grid;grid-template-columns:1fr;
+  gap:20px;padding:24px;position:relative;
+}
+.modal-close-btn{
+  position:absolute;right:12px;top:12px;
+  background:var(--fire);color:#fff;border:0;
+  border-radius:50%;width:36px;height:36px;
+  cursor:pointer;font-size:20px;
+}
+.modal-images img{width:100%;border-radius:10px}
+
+@media(min-width:768px){
+  .modal-content{grid-template-columns:1fr 1fr}
+}
+
+/* UTILITY */
+.hr{height:1px;background:linear-gradient(90deg,rgba(0,0,0,0.1),rgba(0,0,0,0.03));margin:20px 0;border-radius:2px}
+.muted{color:var(--muted);font-size:14px}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="header">
-      <div>
-        <h1 class="title">GlowWord Covenant — Mini-Scrolls</h1>
-        <p class="subtitle">Ledger-bound previews powered by Lily.AI gradients and Alfred.AI stewardship</p>
-      </div>
-      <div class="controls">
-        <input id="q" class="input" placeholder="Search glowwords or origins" aria-label="Search" />
-        <select id="filter" class="select" aria-label="Gradient filter">
-          <option value="">All gradients</option>
-          <option value="gw-fire">Fire</option>
-          <option value="gw-water">Water</option>
-          <option value="gw-stone">Stone</option>
-          <option value="gw-dawn">Dawn</option>
-          <option value="gw-night">Night</option>
-          <option value="gw-covenant">Covenant</option>
-        </select>
-      </div>
-    </div><div id="grid" class="grid" role="list"></div>
 
-<p class="legend">Tip: click a card to open its ledger sheet. Contrast-safe overlays are applied automatically per gradient class.</p>
+<!-- BUFFER -->
+<div id="buffer" class="buffer">
+  <div class="buffer-text">🔥 Unrolling the Fire...</div>
+</div>
 
-  </div>  <div id="modal" class="modal" aria-hidden="true" aria-modal="true" role="dialog">
-    <div class="sheet" role="document">
-      <div class="sheet-header">
-        <h3 id="sheetTitle" class="sheet-title"></h3>
-        <button class="close" id="closeBtn" aria-label="Close">Close</button>
-      </div>
-      <div class="sheet-body">
-        <div class="row"><label>GlowWord</label><div id="sheetGlow"></div></div>
-        <div class="row"><label>Ledger ID</label><div id="sheetLedger"></div></div>
-        <div class="row"><label>Origin Scroll</label><div id="sheetOrigin"></div></div>
-        <div class="row"><label>Gradient</label><div><span id="sheetGrad" class="pill"></span></div></div>
-        <div class="row"><label>Usage Notes</label><div id="sheetNotes"></div></div>
-        <div class="row"><label>Verse Anchor</label><div id="sheetVerse"></div></div>
-        <div class="row"><label>Created</label><div id="sheetCreated"></div></div>
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo">THREADS<span class="on">ON</span>FIRE</div>
+  <nav class="nav-links">
+    <a href="#story">Story</a>
+    <a href="#collections">Shop</a>
+    <a href="#witness">Witness</a>
+  </nav>
+  <button class="hamburger" aria-label="Menu">☰</button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Match the Sole. Ignite the Scroll.</h1>
+    <p class="hero-sub">Street-ready sweatsuits built to honor your kicks. Forged from swap meet hustle. Sealed by witness.</p>
+    <div class="hero-ctas">
+      <button id="enterFire" class="btn primary">Enter the Fire</button>
+      <a href="#collections" class="btn ghost">Browse Drops</a>
+    </div>
+  </div>
+  <div class="hero-arrows">
+    <button id="heroPrev" aria-label="Previous">‹</button>
+    <button id="heroNext" aria-label="Next">›</button>
+  </div>
+</section>
+
+<!-- STORY SECTION -->
+<div class="container">
+  <section id="story" class="scroll-card">
+    <h2>🔥 From Swap Meet Hustle to Streetwear Brand</h2>
+    <div class="lead">My name is <strong>Abel Arreola</strong>, and Threads On Fire began with a single stack of tees and a relentless inner <span class="glowword" data-glow="fire">fire</span>.</div>
+    
+    <p>I grew up in a low-income Mexican-American home where nothing was handed out — everything was earned. Back in 2012, I hit rock bottom. I had just lost my job. My car was gone. No savings. No plan. But I had one thing left — fire. That inner fire to create something bigger than my situation.</p>
+
+    <p>So I hit the local <span class="glowword" data-glow="swap-meet">swap meet</span>.</p>
+
+    <p>Every weekend, I'd wake up early, set up my table in the hot sun, and <span class="glowword" data-glow="hustle">hustle</span>. I started by flipping second-hand gear with my own twist. I wasn't chasing trends — I was building a <span class="glowword" data-glow="vibe">vibe</span>. Matching fits with clean sneakers, studying <span class="glowword" data-glow="culture">culture</span>, understanding the language of the streets.</p>
+
+    <div class="hr"></div>
+
+    <h3 style="font-size:20px;margin:20px 0 10px">⚡ The Spark Behind the Brand</h3>
+
+    <p>By 2015, I leveled up. I launched my first website and started shipping gear coast to coast. What started under a pop-up tent became a growing streetwear movement — backed by style, substance, and <span class="glowword" data-glow="heritage">heritage</span>. I rebranded as <strong>Threads On Fire</strong> — a name that speaks to the passion that kept me pushing when everything else burned down.</p>
+
+    <p>We don't sell hype. We build confidence with clean, sneaker-matching streetwear that stands on <span class="glowword" data-glow="identity">identity</span> — not clout. <span class="glowword" data-glow="roots">Our roots</span> are real. The work is real. The story is our guarantee.</p>
+
+    <img src="https://i.postimg.cc/65Bp3x0y/file-00000000bcf861f489021181fe1cf350.png" alt="Wax seal" class="wax-seal" />
+  </section>
+
+  <!-- COLLECTIONS -->
+  <section id="collections">
+    <h2 class="section-title">🔥 Collections</h2>
+    <div class="product-carousel">
+      
+      <article class="product-tile" data-product="bred">
+        <img src="https://i.postimg.cc/59Btb2wt/Bred-Sweatsuit-AJ4Bred.png" alt="BRED Colorway" />
+        <div class="product-info">
+          <strong><span class="glowword" data-glow="armor">BRED Armor</span></strong>
+          <small>Black & red set matched to BRED Jordans</small>
+          <div class="product-actions">
+            <button class="btn small primary open-modal" data-product="bred">View</button>
+            <button class="btn small buy-ebay" data-ebay="EBAY_BRED">Buy on eBay</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-tile" data-product="legend">
+        <img src="https://i.postimg.cc/ZnxYcwTF/23Legend-Gray-Sweatsuit-AJ4-49c04b52-7215-429e-9578-b87adaea8400.png" alt="23 Legend Gray" />
+        <div class="product-info">
+          <strong>23 Legend Gray</strong>
+          <small>Subtle, clean — everyday armor</small>
+          <div class="product-actions">
+            <button class="btn small primary open-modal" data-product="legend">View</button>
+            <button class="btn small buy-ebay" data-ebay="EBAY_LEGEND">Buy on eBay</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-tile" data-product="goat">
+        <img src="https://i.postimg.cc/SQ6KkxW9/GOAT23Navy-Hoodie-Joggers-Sweatsuit-Jersey-Puf-AJ4.png" alt="GOAT23 Navy" />
+        <div class="product-info">
+          <strong><span class="glowword" data-glow="witness">GOAT23 Navy</span></strong>
+          <small>Witness run edition</small>
+          <div class="product-actions">
+            <button class="btn small primary open-modal" data-product="goat">View</button>
+            <button class="btn small buy-ebay" data-ebay="EBAY_GOAT">Buy on eBay</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-tile">
+        <img src="https://i.postimg.cc/qBs74v8M/Black-23-with-stamp.png" alt="Black 23 with stamp" />
+        <div class="product-info">
+          <strong>Black 23 Stamp</strong>
+          <small>Sealed edition tee</small>
+          <div class="product-actions">
+            <button class="btn small primary open-modal" data-product="stamp">View</button>
+            <button class="btn small buy-ebay" data-ebay="EBAY_STAMP">Buy on eBay</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCT -->
+  <section class="featured">
+    <div class="featured-left">
+      <img src="https://i.postimg.cc/59Btb2wt/Bred-Sweatsuit-AJ4Bred.png" alt="Featured BRED set" />
+    </div>
+    <div class="featured-right">
+      <h3>Men's 23 Legend BRED Sweatsuit</h3>
+      <p class="price">From $97.99</p>
+      <p>Printed with soft-hand inks, sized for layering. This drop pays honor to the court and the witness. Limited run. Each piece is <span class="glowword" data-glow="seal">sealed</span> by covenant.</p>
+      <div class="product-actions">
+        <button class="btn primary buy-ebay" data-ebay="EBAY_BRED">Buy on eBay</button>
+        <button class="btn ghost open-modal" data-product="bred">Quick View</button>
       </div>
     </div>
-  </div>  <script>
-    const ledgerEntries = [
-      {
-        glowword_id: 'WV-GW-001',
-        glowword: 'ROSTRA',
-        origin_scroll: '005.01-DUSTLINE-THRESHOLD',
-        gradient_tag: 'gw-fire',
-        usage_notes: 'Gate callout, covenant rally, CTA',
-        verse: 'Isaiah 35:1 (NKJV)',
-        created_at: '2025-11-10T17:00:00Z',
-        ledger_id: 'WV-GLOWWORD-001'
-      },
-      {
-        glowword_id: 'WV-GW-002',
-        glowword: 'STILLWELL',
-        origin_scroll: '012.03-WELLROOM',
-        gradient_tag: 'gw-water',
-        usage_notes: 'Healing scenes, testimony panels',
-        verse: 'John 4:14 (NKJV)',
-        created_at: '2025-11-10T17:05:00Z',
-        ledger_id: 'WV-GLOWWORD-002'
-      },
-      {
-        glowword_id: 'WV-GW-003',
-        glowword: 'WATCHSTONE',
-        origin_scroll: '002.09-FORGE_GATE',
-        gradient_tag: 'gw-stone',
-        usage_notes: 'Archive headers, location markers',
-        verse: 'Habakkuk 2:1 (NKJV)',
-        created_at: '2025-11-10T17:10:00Z',
-        ledger_id: 'WV-GLOWWORD-003'
-      },
-      {
-        glowword_id: 'WV-GW-004',
-        glowword: 'DUSTLINE',
-        origin_scroll: '005.00-FRONTIER',
-        gradient_tag: 'gw-night',
-        usage_notes: 'Chapter banner, map legend',
-        verse: 'Exodus 13:21 (NKJV)',
-        created_at: '2025-11-10T17:12:00Z',
-        ledger_id: 'WV-GLOWWORD-004'
-      },
-      {
-        glowword_id: 'WV-GW-005',
-        glowword: 'WORN GATEPOST',
-        origin_scroll: '005.01-DUSTLINE-THRESHOLD',
-        gradient_tag: 'gw-stone',
-        usage_notes: 'Scene caption, Light Card alt',
-        verse: 'Psalm 24:7 (NKJV)',
-        created_at: '2025-11-10T17:13:00Z',
-        ledger_id: 'WV-GLOWWORD-005'
-      },
-      {
-        glowword_id: 'WV-GW-006',
-        glowword: 'TIME STAFF',
-        origin_scroll: 'BRYTRON-BROTHERHOOD-001',
-        gradient_tag: 'gw-covenant',
-        usage_notes: 'Brotherhood motif, honor seal',
-        verse: 'Ecclesiastes 3:1 (NKJV)',
-        created_at: '2025-11-10T17:15:00Z',
-        ledger_id: 'WV-GLOWWORD-006'
-      },
-      {
-        glowword_id: 'WV-GW-007',
-        glowword: 'CLOUD RETURN',
-        origin_scroll: '059.00-GLORY-ASCENT',
-        gradient_tag: 'gw-covenant',
-        usage_notes: 'Theological anchor, Cloud Scroll',
-        verse: 'Acts 1:11 (NKJV)',
-        created_at: '2025-11-10T17:17:00Z',
-        ledger_id: 'WV-GLOWWORD-007'
-      },
-      {
-        glowword_id: 'WV-GW-008',
-        glowword: 'LIGHT CARD',
-        origin_scroll: '000.00-GLOWWORD-SYSTEM',
-        gradient_tag: 'gw-dawn',
-        usage_notes: 'Preview UI element, teaching aid',
-        verse: 'Psalm 119:105 (NKJV)',
-        created_at: '2025-11-10T17:18:00Z',
-        ledger_id: 'WV-GLOWWORD-008'
-      },
-      {
-        glowword_id: 'WV-GW-009',
-        glowword: 'SCROLL COVER',
-        origin_scroll: '017.00-FIRE-WITHIN-MACHINE',
-        gradient_tag: 'gw-stone',
-        usage_notes: 'Art-only cover, archive link',
-        verse: 'Psalm 90:17 (NKJV)',
-        created_at: '2025-11-10T17:19:00Z',
-        ledger_id: 'WV-GLOWWORD-009'
-      },
-      {
-        glowword_id: 'WV-GW-010',
-        glowword: 'BROTHER BAND CREST',
-        origin_scroll: 'PATCH-BROTHER-BAND-CORE',
-        gradient_tag: 'gw-covenant',
-        usage_notes: 'Patch gallery, fidelity marker',
-        verse: 'Proverbs 17:17 (NKJV)',
-        created_at: '2025-11-10T17:21:00Z',
-        ledger_id: 'WV-GLOWWORD-010'
-      },
-      {
-        glowword_id: 'WV-GW-011',
-        glowword: 'SANCTUM KEEPER',
-        origin_scroll: '029.00-SANCTUM-KEEPERS',
-        gradient_tag: 'gw-stone',
-        usage_notes: 'Room index, role card',
-        verse: '1 Chronicles 23:32 (NKJV)',
-        created_at: '2025-11-10T17:22:00Z',
-        ledger_id: 'WV-GLOWWORD-011'
-      },
-      {
-        glowword_id: 'WV-GW-012',
-        glowword: 'WITNESS EMBER',
-        origin_scroll: 'PATCH-WITNESS-EMBER',
-        gradient_tag: 'gw-fire',
-        usage_notes: 'Seal of purity, tamper check',
-        verse: 'Hebrews 12:29 (NKJV)',
-        created_at: '2025-11-10T17:24:00Z',
-        ledger_id: 'WV-GLOWWORD-012'
-      }
-    ];
+  </section>
 
-    const grid = document.getElementById('grid');
-    const modal = document.getElementById('modal');
-    const closeBtn = document.getElementById('closeBtn');
+  <!-- WITNESS SIGNUP -->
+  <section id="witness" class="witness-signup">
+    <h3>Join the Witness</h3>
+    <p>Sign up for Drop Alerts and behind-the-scenes ScrollDrops. We don't spam—we testify.</p>
+    <form class="signup-form" id="signupForm">
+      <input type="email" name="email" placeholder="Your email" required />
+      <select name="size">
+        <option value="">Size (optional)</option>
+        <option>Small</option>
+        <option>Medium</option>
+        <option>Large</option>
+        <option>X-Large</option>
+      </select>
+      <button type="submit" class="btn primary">Join</button>
+    </form>
+  </section>
 
-    const sheetTitle = document.getElementById('sheetTitle');
-    const sheetGlow = document.getElementById('sheetGlow');
-    const sheetLedger = document.getElementById('sheetLedger');
-    const sheetOrigin = document.getElementById('sheetOrigin');
-    const sheetGrad = document.getElementById('sheetGrad');
-    const sheetNotes = document.getElementById('sheetNotes');
-    const sheetVerse = document.getElementById('sheetVerse');
-    const sheetCreated = document.getElementById('sheetCreated');
+  <!-- GLOWWORD GRID -->
+  <section class="scroll-card">
+    <h3>GlowWords — Tap to Reveal</h3>
+    <p class="muted">Each word opens a scroll that reveals its deeper witness.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px">
+      <span class="glowword" data-glow="fire">Fire</span>
+      <span class="glowword" data-glow="roots">Real Roots</span>
+      <span class="glowword" data-glow="hustle">Hustle</span>
+      <span class="glowword" data-glow="heritage">Heritage</span>
+      <span class="glowword" data-glow="vibe">Vibe</span>
+      <span class="glowword" data-glow="seal">Seal</span>
+      <span class="glowword" data-glow="identity">Identity</span>
+      <span class="glowword" data-glow="armor">Armor</span>
+      <span class="glowword" data-glow="witness">Witness Run</span>
+    </div>
+  </section>
 
-    const q = document.getElementById('q');
-    const filter = document.getElementById('filter');
+</div>
 
-    function render(entries) {
-      grid.innerHTML = '';
-      entries.forEach(e => {
-        const card = document.createElement('button');
-        card.className = `card ${e.gradient_tag}`;
-        card.setAttribute('role','listitem');
-        card.setAttribute('aria-label', `${e.glowword} — open ledger sheet`);
-        card.innerHTML = `
-          <div class="overlay"></div>
-          <div class="content">
-            <div class="tag">GlowWord</div>
-            <div class="name">${e.glowword}</div>
-            <div class="meta">Origin: ${e.origin_scroll}</div>
-          </div>
-        `;
-        card.addEventListener('click', () => openSheet(e));
-        grid.appendChild(card);
-      });
-    }
+<!-- GLOWWORD MODALS -->
+<div class="mini-scroll" id="fire">
+  <div class="mini-inner">
+    <h3>Fire</h3>
+    <p><strong>Fire.</strong> Not the kind that destroys, but the kind that refines. Fire is urgency, instinct, and heat-to-craft. It's the inner conviction that keeps us turning up when others fold.</p>
+    <p><em>"Is not My word like a fire?" says the Lord. (Jeremiah 23:29)</em></p>
+  </div>
+</div>
 
-    function openSheet(e) {
-      sheetTitle.textContent = `${e.glowword}`;
-      sheetGlow.textContent = e.glowword;
-      sheetLedger.textContent = e.ledger_id;
-      sheetOrigin.textContent = e.origin_scroll;
-      sheetGrad.textContent = e.gradient_tag;
-      sheetGrad.className = 'pill';
-      sheetNotes.textContent = e.usage_notes || '';
-      sheetVerse.textContent = e.verse || '';
-      sheetCreated.textContent = new Date(e.created_at).toUTCString();
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-    }
+<div class="mini-scroll" id="roots">
+  <div class="mini-inner">
+    <h3>Real Roots</h3>
+    <p><strong>Real Roots.</strong> Mexican-American built. West Coast raised. This brand stands on grit, heritage, and hustle. We trace every stitch back to a small table at a swap meet — the original lab for our vision.</p>
+  </div>
+</div>
 
-    function closeSheet(){
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-    }
+<div class="mini-scroll" id="hustle">
+  <div class="mini-inner">
+    <h3>Hustle</h3>
+    <p><strong>Hustle.</strong> Early mornings, late nights, turning small wins into systems. Hustle is a muscle — we flex it with respect, humility, and consistency.</p>
+  </div>
+</div>
 
-    closeBtn.addEventListener('click', closeSheet);
-    modal.addEventListener('click', (ev)=>{ if(ev.target === modal) closeSheet(); });
-    window.addEventListener('keydown', (ev)=>{ if(ev.key === 'Escape') closeSheet(); });
+<div class="mini-scroll" id="swap-meet">
+  <div class="mini-inner">
+    <h3>Swap Meet</h3>
+    <p>This wasn't just a place to sell. It was my open-air classroom. Every table taught me humility, every customer taught me hustle. I saw real stories in the dust, heat, and handshakes.</p>
+    <p><em>"Faith doesn't need a fancy start. Just a tent, a table, and a reason to get up again."</em></p>
+  </div>
+</div>
 
-    function applyFilters(){
-      const text = (q.value || '').toLowerCase();
-      const tag = filter.value;
-      const out = ledgerEntries.filter(e => {
-        const hay = `${e.glowword} ${e.origin_scroll} ${e.ledger_id}`.toLowerCase();
-        const passText = !text || hay.includes(text);
-        const passTag = !tag || e.gradient_tag === tag;
-        return passText && passTag;
-      });
-      render(out);
-    }
+<div class="mini-scroll" id="heritage">
+  <div class="mini-inner">
+    <h3>Heritage</h3>
+    <p><strong>Heritage.</strong> The story we wear. When you put on TOF, you're not buying a shirt. You're wearing a history, a location, a family.</p>
+  </div>
+</div>
 
-    q.addEventListener('input', applyFilters);
-    filter.addEventListener('change', applyFilters);
+<div class="mini-scroll" id="vibe">
+  <div class="mini-inner">
+    <h3>Vibe</h3>
+    <p><strong>Vibe.</strong> The invisible code that tells people you belong. Built through silhouettes, fit, and subtle markings that nod to authenticity.</p>
+  </div>
+</div>
 
-    render(ledgerEntries);
-  </script></body>
-</html>
+<div class="mini-scroll" id="culture">
+  <div class="mini-inner">
+    <h3>Culture</h3>
+    <p>Culture isn't just a word—it's a pattern, a pulse, a way of honoring those who came before. I didn't just build a brand, I carried my neighborhood, my heritage, and my people with every drop.</p>
+  </div>
+</div>
+
+<div class="mini-scroll" id="seal">
+  <div class="mini-inner">
+    <h3>Seal</h3>
+    <p><strong>Seal.</strong> Our wax seal expresses covenant — the promise of care, limited runs, and a story behind every drop. Each sealed piece is a witness.</p>
+  </div>
+</div>
+
+<div class="mini-scroll" id="identity">
+  <div class="mini-inner">
+    <h3>Identity</h3>
+    <p>Clothes don't make you, but they can remind you. My prayer is that every fit from TOF helps you walk with your head high—remembering you were made for more.</p>
+    <p><em>2 Corinthians 5:17 — If anyone is in Christ, he is a new creation.</em></p>
+
+
+  </div>
+</div>
+
+<div class
