@@ -509,11 +509,289 @@ body{
 <div class="mini-scroll" id="identity">
   <div class="mini-inner">
     <h3>Identity</h3>
-    <p>Clothes don't make you, but they can remind you. My prayer is that every fit from TOF helps you walk with your head high—remembering you were made for more.</p>
+    <p>Clothes don't make you, but they can remind you. My prayer is that every fit from TOF helps you walk with your head high—remembering you were made for more.</pi>
     <p><em>2 Corinthians 5:17 — If anyone is in Christ, he is a new creation.</em></p>
 
 
+  
   </div>
 </div>
 
-<div class
+<div class="mini-scroll" id="armor">
+  <div class="mini-inner">
+    <h3>Armor</h3>
+    <p><strong>BRED Armor.</strong> The blood and the black. This colorway represents the battle fought and won. When you wear BRED, you're not just matching your kicks—you're testifying that you survived the fire.</p>
+    <p>Designed to pair with Air Jordan 4 BRED, Cement, and legacy editions.</p>
+  </div>
+</div>
+
+<div class="mini-scroll" id="witness">
+  <div class="mini-inner">
+    <h3>Witness Run</h3>
+    <p><strong>GOAT23 — Witness Run.</strong> Navy blue for loyalty. 23 for legacy. This piece is for those who run with purpose, not hype. Wear it as a reminder: you're building something that outlasts you.</p>
+  </div>
+</div>
+
+<button class="mini-close" id="closeModal">Close</button>
+
+<!-- PRODUCT MODAL -->
+<div class="product-modal" id="productModal">
+  <div class="modal-content">
+    <button class="modal-close-btn" id="closeProductModal">✕</button>
+    <div class="modal-images">
+      <img id="modalImg" src="" alt="Product" />
+    </div>
+    <div>
+      <h3 id="modalTitle">Product Title</h3>
+      <p class="price" id="modalPrice">$97.99</p>
+      <p id="modalDesc">Product description</p>
+      <button class="btn primary" id="modalBuyBtn">Buy on eBay</button>
+    </div>
+  </div>
+</div>
+
+<!-- WITNESS FOOTER -->
+<footer class="witness-footer">
+  <div class="witness-seal">
+    <img src="https://i.postimg.cc/65Bp3x0y/file-00000000bcf861f489021181fe1cf350.png" alt="Threads On Fire wax seal" />
+    <div>
+      <div class="witness-text">Witness Lock — Threads On Fire</div>
+      <div class="witness-lock">FULL-RELOCK™ — JESUS IS LORD™ — PROCEED™✔</div>
+    </div>
+  </div>
+  <div class="muted">© Threads On Fire</div>
+</footer>
+
+<script>
+// ========== THREADS ON FIRE — UNIFIED SITE SCRIPT ==========
+
+(function(){
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+  // ===== BUFFER / UNROLL ANIMATION =====
+  const buffer = $('#buffer');
+  setTimeout(() => {
+    buffer.classList.add('hidden');
+  }, 1200);
+
+  $('#enterFire').addEventListener('click', () => {
+    buffer.classList.remove('hidden');
+    setTimeout(() => {
+      buffer.classList.add('hidden');
+      $('#story').scrollIntoView({behavior:'smooth'});
+    }, 900);
+  });
+
+  // ===== HERO CAROUSEL =====
+  const hero = $('#hero');
+  const heroImages = [
+    'https://i.postimg.cc/ZnxYcwTF/23Legend-Gray-Sweatsuit-AJ4-49c04b52-7215-429e-9578-b87adaea8400.png',
+    'https://i.postimg.cc/59Btb2wt/Bred-Sweatsuit-AJ4Bred.png',
+    'https://i.postimg.cc/SQ6KkxW9/GOAT23Navy-Hoodie-Joggers-Sweatsuit-Jersey-Puf-AJ4.png'
+  ];
+  let heroIndex = 0;
+
+  function setHeroImage(i){
+    hero.style.backgroundImage = `url('${heroImages[i]}')`;
+  }
+  setHeroImage(0);
+
+  $('#heroNext').addEventListener('click', () => {
+    heroIndex = (heroIndex + 1) % heroImages.length;
+    setHeroImage(heroIndex);
+  });
+
+  $('#heroPrev').addEventListener('click', () => {
+    heroIndex = (heroIndex - 1 + heroImages.length) % heroImages.length;
+    setHeroImage(heroIndex);
+  });
+
+  // Auto-rotate hero every 5 seconds
+  setInterval(() => {
+    heroIndex = (heroIndex + 1) % heroImages.length;
+    setHeroImage(heroIndex);
+  }, 5000);
+
+  // ===== GLOWWORD MODAL SYSTEM =====
+  const miniScrolls = $$('.mini-scroll');
+  const closeBtn = $('#closeModal');
+
+  function openGlow(id){
+    const modal = $('#' + id);
+    if(!modal) return;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGlow(){
+    miniScrolls.forEach(m => m.classList.remove('active'));
+    document.body.style.overflow = '';
+  }
+
+  $$('.glowword').forEach(gw => {
+    gw.addEventListener('click', () => {
+      const id = gw.dataset.glow;
+      openGlow(id);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeGlow);
+
+  miniScrolls.forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) closeGlow();
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeGlow();
+  });
+
+  // ===== PRODUCT MODAL =====
+  const productModal = $('#productModal');
+  const modalImg = $('#modalImg');
+  const modalTitle = $('#modalTitle');
+  const modalPrice = $('#modalPrice');
+  const modalDesc = $('#modalDesc');
+  const modalBuyBtn = $('#modalBuyBtn');
+  const closeProductModal = $('#closeProductModal');
+
+  const productData = {
+    bred: {
+      img: 'https://i.postimg.cc/59Btb2wt/Bred-Sweatsuit-AJ4Bred.png',
+      title: 'BRED Armor — 23 Legend Sweatsuit',
+      price: '$97.99',
+      desc: 'Black & red colorway designed to match Air Jordan 4 BRED. Premium cotton blend, soft-hand print, limited run. Sealed by witness.',
+      ebay: 'EBAY_BRED'
+    },
+    legend: {
+      img: 'https://i.postimg.cc/ZnxYcwTF/23Legend-Gray-Sweatsuit-AJ4-49c04b52-7215-429e-9578-b87adaea8400.png',
+      title: '23 Legend Gray Sweatsuit',
+      price: '$89.99',
+      desc: 'Clean, subtle gray set. Perfect for everyday wear. Matches gray Jordan colorways and neutral kicks.',
+      ebay: 'EBAY_LEGEND'
+    },
+    goat: {
+      img: 'https://i.postimg.cc/SQ6KkxW9/GOAT23Navy-Hoodie-Joggers-Sweatsuit-Jersey-Puf-AJ4.png',
+      title: 'GOAT23 Navy — Witness Run',
+      price: '$104.99',
+      desc: 'Navy blue witness edition. Built for those who run with purpose. Limited covenant drop.',
+      ebay: 'EBAY_GOAT'
+    },
+    stamp: {
+      img: 'https://i.postimg.cc/qBs74v8M/Black-23-with-stamp.png',
+      title: 'Black 23 with Stamp',
+      price: '$34.99',
+      desc: 'Signature tee with wax seal stamp. Heritage print on premium cotton.',
+      ebay: 'EBAY_STAMP'
+    }
+  };
+
+  function openProductModal(productKey){
+    const product = productData[productKey];
+    if(!product) return;
+    
+    modalImg.src = product.img;
+    modalTitle.textContent = product.title;
+    modalPrice.textContent = product.price;
+    modalDesc.textContent = product.desc;
+    modalBuyBtn.dataset.ebay = product.ebay;
+    
+    productModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductModalFn(){
+    productModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  $$('.open-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const productKey = btn.dataset.product;
+      openProductModal(productKey);
+    });
+  });
+
+  closeProductModal.addEventListener('click', closeProductModalFn);
+  productModal.addEventListener('click', (e) => {
+    if(e.target === productModal) closeProductModalFn();
+  });
+
+  // ===== EBAY INTEGRATION =====
+  const ebayBridge = {
+    seller: 'firethreads23',
+    buy: function(ebayId){
+      if(!ebayId || ebayId.startsWith('EBAY_')){
+        // Fallback to seller page
+        window.open(`https://www.ebay.com/usr/${this.seller}`, '_blank', 'noopener');
+        return;
+      }
+      // Direct listing
+      const url = ebayId.match(/^https?:\/\//) ? ebayId : `https://www.ebay.com/itm/${ebayId}`;
+      window.open(url, '_blank', 'noopener');
+    }
+  };
+
+  $$('.buy-ebay').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ebayId = btn.dataset.ebay;
+      ebayBridge.buy(ebayId);
+    });
+  });
+
+  modalBuyBtn.addEventListener('click', () => {
+    const ebayId = modalBuyBtn.dataset.ebay;
+    ebayBridge.buy(ebayId);
+  });
+
+  // ===== EMAIL SIGNUP =====
+  const signupForm = $('#signupForm');
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(signupForm);
+    const email = formData.get('email');
+    alert(`🔥 Welcome to the Witness, ${email}! Drop alerts activated.`);
+    signupForm.reset();
+  });
+
+  // ===== INTERSECTION OBSERVER (Reveal on Scroll) =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('inview');
+      }
+    });
+  }, {threshold: 0.15});
+
+  $$('.scroll-card, .product-tile, .featured, .witness-signup').forEach(el => {
+    observer.observe(el);
+  });
+
+  // ===== HAMBURGER MENU (Mobile) =====
+  const hamburger = $('.hamburger');
+  const navLinks = $('.nav-links');
+  
+  hamburger.addEventListener('click', () => {
+    if(navLinks.style.display === 'flex'){
+      navLinks.style.display = 'none';
+    } else {
+      navLinks.style.display = 'flex';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '60px';
+      navLinks.style.right = '20px';
+      navLinks.style.background = '#fff';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.padding = '12px';
+      navLinks.style.borderRadius = '8px';
+      navLinks.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
+```
