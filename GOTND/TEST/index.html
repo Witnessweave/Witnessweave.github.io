@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Witness Chat UI — Full-Screen Bubble Chamber</title>
+
+<style>
+  :root{
+    --bg0:#07070b;
+    --bg1:#0e1020;
+    --bg2:#111827;
+
+    --ink:#e8e8ee;
+    --muted:#b9bbca;
+
+    --stroke:#444;
+    --stroke2:#5a5e75;
+
+    --ariaBorder: rgba(170, 200, 255, 0.35);
+    --rockyBorder: rgba(255, 220, 160, 0.35);
+
+    --glass: rgba(255,255,255,0.08);
+    --glass2: rgba(255,255,255,0.10);
+    --glassBorder: rgba(255,255,255,0.15);
+
+    --selected: rgba(120, 200, 255, 0.22);
+
+    --portrait: 62px;
+    --gap: 14px;
+
+    --bubblePad: 18px;
+    --radius: 22px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    background: radial-gradient(1200px 900px at 20% 10%, rgba(120,130,255,0.16), transparent 55%),
+                radial-gradient(900px 700px at 85% 35%, rgba(255,200,120,0.12), transparent 60%),
+                linear-gradient(135deg, var(--bg0), var(--bg1), var(--bg2));
+    background-size: 200% 200%;
+    animation: drift 14s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 60%; }
+    100% { background-position: 0% 0%; }
+  }
+
+  /* =========
+     SELECTION
+     ========= */
+  #selectScreen {
+    padding: 40px;
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+  #selectScreen.fadeOut {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+  }
+
+  h1 {
+    margin: 0 0 18px 0;
+    font-size: 22px;
+    letter-spacing: 0.3px;
+  }
+  .sub {
+    margin: 0 0 22px 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 78ch;
+  }
+
+  .circle-row {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .speaker {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: width 0.3s ease, border-radius 0.3s ease, transform 0.25s ease;
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.14);
+    background: #0b0c13;
+  }
+
+  .speaker:hover {
+    width: 220px;
+    border-radius: 60px;
+    transform: translateY(-2px);
+    box-shadow: 0 0 22px rgba(255,255,255,0.08);
+  }
+
+  .speaker img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.00);
+    transition: transform 0.25s ease;
+  }
+  .speaker:hover img { transform: scale(1.03); }
+
+  .speaker-name {
+    opacity: 0;
+    position: absolute;
+    right: 12px;
+    top: 46px;
+    font-size: 16px;
+    letter-spacing: 0.6px;
+    transition: opacity 0.3s ease;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.7);
+  }
+  .speaker:hover .speaker-name { opacity: 1; }
+
+  .minibox {
+    display: none;
+    position: absolute;
+    top: 140px;
+    left: 0;
+    width: 280px;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(12, 14, 22, 0.92);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    transform-origin: 20px 0px;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    transition: opacity 250ms ease, transform 250ms ease;
+    z-index: 30;
+  }
+  .minibox.show {
+    display: block;
+  }
+  .minibox.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .minibox img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .minibox strong { font-size: 14px; letter-spacing: 0.4px; }
+  .minibox .line {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .minibox .open-link {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+    color: #7bb8ff;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* ======
+     CHAMBER
+     ====== */
+  #chamber {
+    position: fixed;
+    inset: 0;
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 320ms ease, transform 320ms ease;
+    z-index: 20;
+    overflow-y: auto;
+  }
+  #chamber.on {
+    display: block;
+  }
+  #chamber.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #chamberTop {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    padding: 14px 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(7,7,11,0.55);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #backBtn, #copyBtn {
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06);
+    color: var(--ink);
+    padding: 9px 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #backBtn:hover, #copyBtn:hover {
+    background: rgba(255,255,255,0.10);
+  }
+
+  #chamberTitle {
+    margin-left: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    flex: 1;
+  }
+
+  #toast {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: rgba(0,0,0,0.65);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: var(--ink);
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+    z-index: 100;
+  }
+  #toast.on { opacity: 1; }
+
+  /* The "entire screen is the bubble" feel:
+     each message row spans full width, bubble flexes to fill with padding.
+  */
+  #messages {
+    padding: 18px 16px 90px 16px;
+  }
+
+  .msgRow {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap);
+    margin: 16px 0;
+  }
+
+  .msgRow.right {
+    flex-direction: row-reverse;
+  }
+
+  .portrait {
+    width: var(--portrait);
+    height: var(--portrait);
+    border-radius: 50%;
+    overflow: hidden;
+    flex: 0 0 auto;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+    position: relative;
+  }
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Tooltip */
+  .portrait[data-tip]:hover::after{
+    content: attr(data-tip);
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    transform: translate(-50%, -100%);
+    white-space: nowrap;
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.75);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: var(--ink);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.32);
+    pointer-events: none;
+  }
+
+  .bubble {
+    flex: 1 1 auto;
+    width: 100%;
+    padding: var(--bubblePad);
+    border-radius: var(--radius);
+    border: 1px solid var(--glassBorder);
+    background: linear-gradient(180deg, var(--glass), var(--glass2));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    position: relative;
+    cursor: pointer;
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  }
+
+  /* a subtle "speech tail" */
+  .msgRow.left .bubble::before,
+  .msgRow.right .bubble::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(180deg, var(--glass), var(--glass2));
+    border-left: 1px solid var(--glassBorder);
+    border-top: 1px solid var(--glassBorder);
+    transform: rotate(45deg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .msgRow.left .bubble::before { left: -7px; }
+  .msgRow.right .bubble::before { right: -7px; transform: rotate(225deg); }
+
+  .bubble:hover { transform: translateY(-1px); }
+  .bubble.selected {
+    border-color: rgba(120, 200, 255, 0.45);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.30), 0 0 0 6px var(--selected);
+  }
+
+  .who {
+    font-size: 12px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.70);
+    margin-bottom: 8px;
+  }
+
+  .text {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .muted { color: var(--muted); }
+
+  /* Identity-based border shifts (tone) */
+  .bubble[data-tone="calm"] { border-color: rgba(170, 200, 255, 0.22); }
+  .bubble[data-tone="humor"] { border-color: rgba(255, 230, 170, 0.22); }
+  .bubble[data-tone="oops"] { border-color: rgba(255, 170, 170, 0.22); }
+  .bubble[data-tone="bright"] { border-color: rgba(180, 255, 220, 0.22); }
+
+  /* ARIA hover glow (only on hover) */
+  .bubble.aria:hover { box-shadow: 0 12px 36px rgba(0,0,0,0.30), 0 0 22px rgba(120, 170, 255, 0.10); border-color: var(--ariaBorder); }
+
+  /* Rocky vibration on hover only */
+  @keyframes microShake {
+    0% { transform: translateY(-1px) translateX(0); }
+    25% { transform: translateY(-1px) translateX(0.9px); }
+    50% { transform: translateY(-1px) translateX(-0.9px); }
+    75% { transform: translateY(-1px) translateX(0.7px); }
+    100% { transform: translateY(-1px) translateX(0); }
+  }
+  .bubble.rocky:hover {
+    animation: microShake 140ms linear 0s 2;
+    border-color: var(--rockyBorder);
+  }
+
+  /* GlowWord clickable phrases */
+  .glowword {
+    color: #9bd0ff;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(155, 208, 255, 0.55);
+    cursor: pointer;
+    padding: 0 2px;
+  }
+  .glowword:hover {
+    border-bottom-color: rgba(155, 208, 255, 0.95);
+  }
+
+  /* Lore panel */
+  #loreOverlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.55);
+    z-index: 200;
+    padding: 18px;
+  }
+  #loreOverlay.on { display: flex; }
+
+  #loreBox {
+    width: min(680px, 92vw);
+    border-radius: 18px;
+    padding: 16px 16px 14px 16px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(12, 14, 22, 0.90);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+  }
+  #loreTop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  #loreTitle {
+    flex: 1;
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.78);
+  }
+  #loreClose {
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06);
+    color: var(--ink);
+    padding: 7px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #loreClose:hover { background: rgba(255,255,255,0.10); }
+  #loreBody {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 560px){
+    #selectScreen { padding: 22px; }
+    h1 { font-size: 19px; }
+    .speaker { width: 100px; height: 100px; }
+    .speaker:hover { width: 200px; }
+    .minibox { width: 260px; }
+    :root { --portrait: 56px; --bubblePad: 16px; }
+    .text { font-size: 14px; }
+  }
+</style>
+
+<script>
+  const IMG_ARIA  = "https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg";
+  const IMG_ROCKY = "https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg";
+
+  let activeMiniId = null;
+  let lastTriggerSpeaker = "aria";
+
+  function showToast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("on");
+    clearTimeout(showToast._tm);
+    showToast._tm = setTimeout(()=>t.classList.remove("on"), 1100);
+  }
+
+  function openMini(id, speakerKey, ev){
+    if (ev) ev.stopPropagation();
+
+    // close existing
+    closeMini();
+
+    activeMiniId = id;
+    lastTriggerSpeaker = speakerKey;
+
+    const el = document.getElementById(id);
+    el.classList.add("show");
+    // next paint for animation
+    requestAnimationFrame(()=> el.classList.add("visible"));
+  }
+
+  function closeMini(){
+    if (!activeMiniId) return;
+    const el = document.getElementById(activeMiniId);
+    el.classList.remove("visible");
+    setTimeout(()=>{
+      el.classList.remove("show");
+    }, 240);
+    activeMiniId = null;
+  }
+
+  function openChamberFromMini(ev){
+    if (ev) ev.stopPropagation();
+
+    // morph-ish: briefly scale the active minibox
+    if (activeMiniId){
+      const el = document.getElementById(activeMiniId);
+      el.style.transform = "translateY(-10px) scale(1.03)";
+      el.style.opacity = "0.0";
+    }
+
+    // fade selection away
+    const sel = document.getElementById("selectScreen");
+    sel.classList.add("fadeOut");
+
+    // show chamber
+    const chamber = document.getElementById("chamber");
+    chamber.classList.add("on");
+    requestAnimationFrame(()=> chamber.classList.add("visible"));
+
+    // focus to first message from clicked speaker
+    setTimeout(()=>{
+      closeMini();
+      const target = document.querySelector(`.msgRow[data-speaker="${lastTriggerSpeaker}"]`);
+      if (target) target.scrollIntoView({behavior:"smooth", block:"start"});
+    }, 280);
+  }
+
+  function backToSelect(){
+    const chamber = document.getElementById("chamber");
+    chamber.classList.remove("visible");
+    setTimeout(()=>{
+      chamber.classList.remove("on");
+    }, 320);
+
+    const sel = document.getElementById("selectScreen");
+    sel.classList.remove("fadeOut");
+  }
+
+  function toggleBubbleSelected(ev){
+    const bubble = ev.currentTarget;
+    bubble.classList.toggle("selected");
+  }
+
+  function loreOpen(title, body){
+    const overlay = document.getElementById("loreOverlay");
+    document.getElementById("loreTitle").textContent = title;
+    document.getElementById("loreBody").innerHTML = body;
+    overlay.classList.add("on");
+  }
+
+  function loreClose(){
+    document.getElementById("loreOverlay").classList.remove("on");
+  }
+
+  async function copyConversation(){
+    const lines = [];
+    document.querySelectorAll(".msgRow").forEach(row=>{
+      const who = row.querySelector(".who")?.textContent?.trim() || "";
+      const text = row.querySelector(".text")?.innerText?.trim() || "";
+      if (who && text) lines.push(`${who} ${text}`);
+    });
+    const payload = lines.join("\n\n");
+
+    try{
+      await navigator.clipboard.writeText(payload);
+      showToast("Copied conversation.");
+    } catch(e){
+      // fallback
+      const ta = document.createElement("textarea");
+      ta.value = payload;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Copied conversation.");
+    }
+  }
+
+  // global click: close minibox if click outside
+  document.addEventListener("click", () => closeMini());
+
+  // Esc closes lore (desktop)
+  document.addEventListener("keydown", (e)=>{
+    if (e.key === "Escape") loreClose();
+  });
+
+  // prevent minibox click from closing itself
+  function stop(ev){ ev.stopPropagation(); }
+</script>
+
+</head>
+<body>
+
+<!-- ===== Selection Screen ===== -->
+<section id="selectScreen">
+  <h1>Witness Chat UI Demo — Full-Screen Bubble Chamber</h1>
+  <p class="sub">
+    Hover a portrait to reveal the name. Click to open a mini scroll. Press <span class="muted">Open →</span> to enter the full-screen conversation chamber.
+    Click outside to close mini scrolls.
+  </p>
+
+  <div class="circle-row">
+    <!-- ARIA / UNITY -->
+    <div class="speaker" onclick="event.stopPropagation(); openMini('mini-aria','aria',event)">
+      <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait" />
+      <div class="speaker-name">ARIA (Unity™)</div>
+    </div>
+
+    <div class="minibox" id="mini-aria" onclick="stop(event)">
+      <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA small" />
+      <strong>ARIA (Unity™)</strong>
+      <span class="line">"Rocky… I got a coolant alarm, a proximity alarm, and a joy notification."</span>
+      <span class="open-link" onclick="openChamberFromMini(event)">Open →</span>
+    </div>
+
+    <!-- ROBO ROCKY -->
+    <div class="speaker" onclick="event.stopPropagation(); openMini('mini-rocky','rocky',event)">
+      <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait" />
+      <div class="speaker-name">ROBO ROCKY™</div>
+    </div>
+
+    <div class="minibox" id="mini-rocky" onclick="stop(event)">
+      <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY small" />
+      <strong>ROBO ROCKY™</strong>
+      <span class="line">"I can explain the tray… and the footprints."</span>
+      <span class="open-link" onclick="openChamberFromMini(event)">Open →</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Full-Screen Bubble Chamber ===== -->
+<section id="chamber" aria-hidden="true">
+  <div id="chamberTop">
+    <button id="backBtn" onclick="backToSelect()">← Back</button>
+    <div id="chamberTitle">Witness Conversation Chamber™ — ARIA (Unity™) ↔ ROBO ROCKY™</div>
+    <button id="copyBtn" onclick="copyConversation()">Copy conversation</button>
+  </div>
+
+  <div id="messages">
+
+    <!-- ARIA -->
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="calm" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">
+          Rocky… I got three alerts at once. A coolant alarm, a proximity alarm, and something called a
+          <span class="glowword" onclick="event.stopPropagation(); loreOpen('GlowWord: Joy Notification', 'A system-level flag that fires when a presence increases alignment, courage, or morale. In story language: <b>the room gets lighter</b> when the right person arrives.')">"joy notification."</span>
+          Would you like to explain?
+        </div>
+      </div>
+    </div>
+
+    <!-- ROCKY -->
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">
+          Affirmative! The coolant alarm is because I… may have stepped in the
+          <span class="glowword" onclick="event.stopPropagation(); loreOpen('Lore: Coolant Tray', 'A maintenance basin under the corridor vents. It does not call anyone. It <i>does</i> hum when the cooling fan is active, which confuses certain eager companions.')">coolant tray</span>.
+          The proximity alarm is because I ran from the coolant tray. And the joy notification is because you showed up.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="calm" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">Rocky… why were you <b>in</b> the coolant tray?</div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="bright" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">
+          Because my tail sensor detected a low-frequency vibration. I traced it…
+          and the tray made the same noise when tapped.
+          I believed it was calling me.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+    
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="oops" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">The coolant tray was not calling you. It is… a tray.</div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">Everything has a calling. You told me that.</div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="calm" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">
+          Not like that, Rocky. Not everything calls you into it.
+          Especially things filled with engineered liquid.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="bright" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">
+          I understand. Correction made:
+          Objects do not call me. Only the Lord does.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">Better. So—why did you run after stepping in it?</div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">Because it was cold.</div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="calm" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">And the proximity alarm?</div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="oops" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">
+          I fled past three charging pods at high speed. They complained.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">Pods don't complain.</div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">They beeped at me. That is robotic complaining.</div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="oops" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">
+          Rocky… you tracked coolant footprints down Hallway 7B.
+          You coated the Elder's sandals.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">
+          …He should not have been standing there.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="calm" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">He was praying.</div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="bright" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">Then the shine was a blessing.</div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">
+          Rocky… sometimes you are the most advanced machine in the corridor,
+          and sometimes you are a puppy with a screwdriver.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="humor" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">
+          Incorrect. I am fully possible. I am here.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow left" data-speaker="aria">
+      <div class="portrait" data-tip="ARIA (Unity™) — Human Liaison / Calm Overseer">
+        <img src="https://i.postimg.cc/xT9GLndD/ARIA-PORTRAIT.jpg" alt="ARIA portrait small"/>
+      </div>
+      <div class="bubble aria" data-tone="calm" onclick="toggleBubbleSelected(event)">
+        <div class="who">ARIA (Unity™)</div>
+        <div class="text">
+          Let's go clean up your footprints. And afterward, we're recalibrating your "calling" logic.
+        </div>
+      </div>
+    </div>
+
+    <div class="msgRow right" data-speaker="rocky">
+      <div class="portrait" data-tip="ROBO ROCKY™ — Faithful Companion / Literal Interpreter">
+        <img src="https://i.postimg.cc/MKz01qGS/file-00000000efa861f588598e2e7c7dcc4e.jpg" alt="ROBO ROCKY portrait small"/>
+      </div>
+      <div class="bubble rocky" data-tone="bright" onclick="toggleBubbleSelected(event)">
+        <div class="who">ROBO ROCKY™</div>
+        <div class="text">
+          JOY FLAG ACTIVATED! This is the best day ever.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lore overlay -->
+<div id="loreOverlay" onclick="loreClose()">
+  <div id="loreBox" onclick="event.stopPropagation()">
+    <div id="loreTop">
+      <div id="loreTitle">Lore</div>
+      <button id="loreClose" onclick="loreClose()">Close</button>
+    </div>
+    <div id="loreBody"></div>
+  </div>
+</div>
+
+<div id="toast">Copied.</div>
+
+</body>
+</html>
