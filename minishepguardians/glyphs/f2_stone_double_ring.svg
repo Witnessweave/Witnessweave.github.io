@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- F2 Generation Seal - Stone with Double Ring -->
+  <title>F2 Generation Seal — Line of Pearl™</title>
+  
+  <!-- Outer ring -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#daa520" stroke-width="2"/>
+  
+  <!-- Inner ring -->
+  <circle cx="32" cy="32" r="24" fill="none" stroke="#daa520" stroke-width="1.5"/>
+  
+  <!-- Stone (center) -->
+  <circle cx="32" cy="32" r="16" fill="#e8dcc4" stroke="#daa520" stroke-width="1"/>
+  
+  <!-- F2 text -->
+  <text x="32" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#2b2b2b">F2</text>
+</svg>

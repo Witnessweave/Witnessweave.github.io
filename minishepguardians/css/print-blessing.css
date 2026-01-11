@@ -1,0 +1,101 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   LINE OF PEARL™ — BLESSING SCROLL PRINT STYLESHEET
+   JESUS IS LORD™
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+  /* Hide non-essential elements */
+  .no-print,
+  nav,
+  .site-header,
+  .site-footer,
+  .main-nav,
+  .back-to-top,
+  .gallery-nav,
+  .accessibility-toggles,
+  button:not(.print-only),
+  form,
+  #path-grid,
+  .skip-link {
+    display: none !important;
+  }
+
+  /* Reset body */
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Blessing scroll specific */
+  .blessing-preview {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .blessing-scroll-output {
+    width: 7.5in;
+    margin: 0 auto;
+    padding: 0.5in;
+    background: #fff;
+    border: 2px solid #000;
+    page-break-inside: avoid;
+  }
+
+  .blessing-scroll-output header {
+    border-bottom: 2px solid #daa520;
+    padding-bottom: 0.5in;
+    margin-bottom: 0.25in;
+  }
+
+  .blessing-scroll-output h3 {
+    font-size: 24pt;
+    margin-bottom: 0.1in;
+  }
+
+  .blessing-scroll-output .lineage {
+    font-size: 11pt;
+  }
+
+  .blessing-scroll-output section {
+    padding: 0.25in 0;
+  }
+
+  .blessing-scroll-output blockquote {
+    border-left: 3px solid #daa520;
+    padding-left: 0.25in;
+    margin: 0.25in 0;
+    font-style: italic;
+  }
+
+  .blessing-scroll-output footer {
+    border-top: 1px solid #ccc;
+    padding-top: 0.25in;
+    margin-top: 0.25in;
+  }
+
+  .blessing-scroll-output .seal {
+    width: 64px;
+    height: 64px;
+    float: right;
+  }
+
+  /* Ensure links don't show URLs */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a::after {
+    content: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: letter;
+    margin: 0.5in;
+  }
+}

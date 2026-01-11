@@ -1,0 +1,8 @@
+{
+  "defaults": {
+    "expand_level": 3,
+    "compact_siblings": true,
+    "reduce_motion": false,
+    "high_contrast": false
+  }
+}

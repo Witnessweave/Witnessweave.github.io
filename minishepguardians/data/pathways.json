@@ -1,0 +1,116 @@
+{
+  "paths": [
+    {
+      "id": "meet-rocky",
+      "title": "Meet Rocky",
+      "desc": "His origin testimony and call.",
+      "target": "#rocky",
+      "cta": "Read",
+      "phase": "v1"
+    },
+    {
+      "id": "rocky-timeline",
+      "title": "Rocky Timeline",
+      "desc": "Years of faithful presence.",
+      "target": "#timeline",
+      "cta": "View",
+      "phase": "v2"
+    },
+    {
+      "id": "rocky-voice",
+      "title": "Rocky in His Own Words",
+      "desc": "Gentle training & witness.",
+      "target": "#rocky-voice",
+      "cta": "Listen",
+      "phase": "v2"
+    },
+    {
+      "id": "line-of-pearl",
+      "title": "Line of Pearl™",
+      "desc": "The living registry.",
+      "target": "line-of-pearl/index.html",
+      "cta": "Enter",
+      "phase": "v1"
+    },
+    {
+      "id": "line-of-artemis",
+      "title": "Line of Artemis™",
+      "desc": "The fire line continues — lineage of the still flame.",
+      "target": "line-of-artemis/index.html",
+      "cta": "Enter",
+      "phase": "v1.2"
+    },
+    {
+      "id": "lineage-map",
+      "title": "Lineage Map",
+      "desc": "F0→F2.2 tree with profiles.",
+      "target": "#lineage",
+      "cta": "Explore",
+      "phase": "v1"
+    },
+    {
+      "id": "why-we-breed-this-way",
+      "title": "Why This Way",
+      "desc": "Guardianship not sale.",
+      "target": "#covenant",
+      "cta": "Learn",
+      "phase": "v1"
+    },
+    {
+      "id": "guardian-covenant",
+      "title": "Guardian Covenant",
+      "desc": "The agreement of care.",
+      "target": "#covenant",
+      "cta": "Read",
+      "phase": "v1"
+    },
+    {
+      "id": "available-pups",
+      "title": "Available Puppies",
+      "desc": "The Stillness Litter.",
+      "target": "#stillness-litter",
+      "cta": "See",
+      "phase": "v1"
+    },
+    {
+      "id": "apply",
+      "title": "Apply to Guard",
+      "desc": "Begin stewardship.",
+      "target": "#apply",
+      "cta": "Apply",
+      "phase": "v1"
+    },
+    {
+      "id": "pray-with-us",
+      "title": "Pray With Us",
+      "desc": "Bless the line and families.",
+      "target": "#pray",
+      "cta": "Pray",
+      "phase": "v1.3"
+    },
+    {
+      "id": "memorial",
+      "title": "Memorial",
+      "desc": "Honoring the ones who came before — every life remembered.",
+      "target": "#memorial",
+      "cta": "Honor",
+      "phase": "v1.2"
+    },
+    {
+      "id": "share-testimony",
+      "title": "Share Testimony",
+      "desc": "Add your witness.",
+      "target": "#testimony",
+      "cta": "Share",
+      "phase": "v1.5"
+    },
+    {
+      "id": "ask-a-question",
+      "title": "Ask a Question",
+      "desc": "We'll answer with care.",
+      "target": "#contact",
+      "cta": "Ask",
+      "phase": "v1"
+    }
+  ]
+}
