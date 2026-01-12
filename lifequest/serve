@@ -1,0 +1,11 @@
+#!/bin/bash
+# LIFEQUEST DASHBOARD SERVER
+# Launch the LifeQuest web dashboard
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo ""
+echo "  LIFEQUEST — Launching Dashboard..."
+echo ""
+
+python3 "$SCRIPT_DIR/server.py"

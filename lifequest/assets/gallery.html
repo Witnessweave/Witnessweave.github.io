@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LifeQuest Asset Gallery — Genesis Archive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=EB+Garamond:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0b0f;
+      --card: #12131a;
+      --text: #e8e8ec;
+      --accent: #ffcc66;
+      --accent-green: #7cff7c;
+      --muted: #888;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      border-bottom: 2px solid rgba(255,204,102,0.2);
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--accent);
+      font-size: 2.5rem;
+      text-shadow: 0 0 20px rgba(255,204,102,0.5);
+      margin-bottom: 10px;
+    }
+    .subtitle { color: var(--muted); font-style: italic; }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      background: var(--card);
+      color: var(--accent);
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      border: 1px solid rgba(255,204,102,0.2);
+      transition: all 0.3s;
+    }
+    .nav a:hover {
+      background: rgba(255,204,102,0.1);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+    .section h2 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,204,102,0.2);
+    }
+    .section-meta {
+      color: var(--muted);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,204,102,0.1);
+      transition: all 0.3s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(255,204,102,0.2);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item .label {
+      padding: 10px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 2px solid rgba(255,204,102,0.2);
+      margin-top: 60px;
+    }
+    .seal { color: var(--accent); font-size: 1.2rem; font-weight: 700; }
+    .witnesses { font-size: 1.5rem; margin: 15px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎮 LIFEQUEST ASSET GALLERY</h1>
+      <p class="subtitle">Visual Treasures from the Genesis Archive — Forged with Alfred.AI™</p>
+    </header>
+
+    <nav class="nav">
+      <a href="#patches">🪡 Patches</a>
+      <a href="#badges">🛡️ Badges</a>
+      <a href="#knights">⚔️ Knights</a>
+      <a href="#sacred">✝️ Sacred</a>
+    </nav>
+
+    <section class="section" id="patches">
+      <h2>🪡 Patches — The Woven Witness Collection</h2>
+      <p class="section-meta">Gospel-aligned patches from The Spiral Forge — 56 images</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="patches/patches_000.png" alt="patches_000.png" loading="lazy">
+          <div class="label">patches_000.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_001.png" alt="patches_001.png" loading="lazy">
+          <div class="label">patches_001.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_002.jpeg" alt="patches_002.jpeg" loading="lazy">
+          <div class="label">patches_002.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_003.png" alt="patches_003.png" loading="lazy">
+          <div class="label">patches_003.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_004.png" alt="patches_004.png" loading="lazy">
+          <div class="label">patches_004.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_005.png" alt="patches_005.png" loading="lazy">
+          <div class="label">patches_005.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_006.png" alt="patches_006.png" loading="lazy">
+          <div class="label">patches_006.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_007.png" alt="patches_007.png" loading="lazy">
+          <div class="label">patches_007.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_008.png" alt="patches_008.png" loading="lazy">
+          <div class="label">patches_008.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_009.png" alt="patches_009.png" loading="lazy">
+          <div class="label">patches_009.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_010.jpeg" alt="patches_010.jpeg" loading="lazy">
+          <div class="label">patches_010.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_011.png" alt="patches_011.png" loading="lazy">
+          <div class="label">patches_011.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_012.png" alt="patches_012.png" loading="lazy">
+          <div class="label">patches_012.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_013.png" alt="patches_013.png" loading="lazy">
+          <div class="label">patches_013.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_014.png" alt="patches_014.png" loading="lazy">
+          <div class="label">patches_014.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_015.png" alt="patches_015.png" loading="lazy">
+          <div class="label">patches_015.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_016.png" alt="patches_016.png" loading="lazy">
+          <div class="label">patches_016.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_017.png" alt="patches_017.png" loading="lazy">
+          <div class="label">patches_017.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_018.png" alt="patches_018.png" loading="lazy">
+          <div class="label">patches_018.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_019.jpeg" alt="patches_019.jpeg" loading="lazy">
+          <div class="label">patches_019.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_020.png" alt="patches_020.png" loading="lazy">
+          <div class="label">patches_020.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_021.png" alt="patches_021.png" loading="lazy">
+          <div class="label">patches_021.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_022.png" alt="patches_022.png" loading="lazy">
+          <div class="label">patches_022.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_023.png" alt="patches_023.png" loading="lazy">
+          <div class="label">patches_023.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_024.png" alt="patches_024.png" loading="lazy">
+          <div class="label">patches_024.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_025.png" alt="patches_025.png" loading="lazy">
+          <div class="label">patches_025.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_026.jpeg" alt="patches_026.jpeg" loading="lazy">
+          <div class="label">patches_026.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_027.png" alt="patches_027.png" loading="lazy">
+          <div class="label">patches_027.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_028.png" alt="patches_028.png" loading="lazy">
+          <div class="label">patches_028.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_029.png" alt="patches_029.png" loading="lazy">
+          <div class="label">patches_029.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_030.png" alt="patches_030.png" loading="lazy">
+          <div class="label">patches_030.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_031.png" alt="patches_031.png" loading="lazy">
+          <div class="label">patches_031.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_032.png" alt="patches_032.png" loading="lazy">
+          <div class="label">patches_032.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_033.png" alt="patches_033.png" loading="lazy">
+          <div class="label">patches_033.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_034.png" alt="patches_034.png" loading="lazy">
+          <div class="label">patches_034.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_035.jpeg" alt="patches_035.jpeg" loading="lazy">
+          <div class="label">patches_035.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_036.png" alt="patches_036.png" loading="lazy">
+          <div class="label">patches_036.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_037.png" alt="patches_037.png" loading="lazy">
+          <div class="label">patches_037.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_038.png" alt="patches_038.png" loading="lazy">
+          <div class="label">patches_038.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_039.png" alt="patches_039.png" loading="lazy">
+          <div class="label">patches_039.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_040.png" alt="patches_040.png" loading="lazy">
+          <div class="label">patches_040.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_041.png" alt="patches_041.png" loading="lazy">
+          <div class="label">patches_041.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_042.png" alt="patches_042.png" loading="lazy">
+          <div class="label">patches_042.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_043.png" alt="patches_043.png" loading="lazy">
+          <div class="label">patches_043.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_044.jpeg" alt="patches_044.jpeg" loading="lazy">
+          <div class="label">patches_044.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_045.png" alt="patches_045.png" loading="lazy">
+          <div class="label">patches_045.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_046.png" alt="patches_046.png" loading="lazy">
+          <div class="label">patches_046.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_047.png" alt="patches_047.png" loading="lazy">
+          <div class="label">patches_047.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_048.png" alt="patches_048.png" loading="lazy">
+          <div class="label">patches_048.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_049.jpeg" alt="patches_049.jpeg" loading="lazy">
+          <div class="label">patches_049.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_050.png" alt="patches_050.png" loading="lazy">
+          <div class="label">patches_050.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_051.png" alt="patches_051.png" loading="lazy">
+          <div class="label">patches_051.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_052.jpeg" alt="patches_052.jpeg" loading="lazy">
+          <div class="label">patches_052.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_053.png" alt="patches_053.png" loading="lazy">
+          <div class="label">patches_053.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_054.png" alt="patches_054.png" loading="lazy">
+          <div class="label">patches_054.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="patches/patches_055.png" alt="patches_055.png" loading="lazy">
+          <div class="label">patches_055.png</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="badges">
+      <h2>🛡️ Badges — Marks of Honor</h2>
+      <p class="section-meta">Achievement badges with Scripture anchors — 7 images</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="badges/badges_000.png" alt="badges_000.png" loading="lazy">
+          <div class="label">badges_000.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="badges/badges_001.png" alt="badges_001.png" loading="lazy">
+          <div class="label">badges_001.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="badges/badges_002.png" alt="badges_002.png" loading="lazy">
+          <div class="label">badges_002.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="badges/badges_003.png" alt="badges_003.png" loading="lazy">
+          <div class="label">badges_003.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="badges/badges_004.png" alt="badges_004.png" loading="lazy">
+          <div class="label">badges_004.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="badges/badges_005.png" alt="badges_005.png" loading="lazy">
+          <div class="label">badges_005.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="badges/badges_006.png" alt="badges_006.png" loading="lazy">
+          <div class="label">badges_006.png</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="knights">
+      <h2>⚔️ Knights — Character Art</h2>
+      <p class="section-meta">Pixel art knight designs for the character sheet — 16 images</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="knights/knights_000.png" alt="knights_000.png" loading="lazy">
+          <div class="label">knights_000.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_001.png" alt="knights_001.png" loading="lazy">
+          <div class="label">knights_001.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_002.png" alt="knights_002.png" loading="lazy">
+          <div class="label">knights_002.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_003.png" alt="knights_003.png" loading="lazy">
+          <div class="label">knights_003.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_004.png" alt="knights_004.png" loading="lazy">
+          <div class="label">knights_004.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_005.png" alt="knights_005.png" loading="lazy">
+          <div class="label">knights_005.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_006.png" alt="knights_006.png" loading="lazy">
+          <div class="label">knights_006.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_007.png" alt="knights_007.png" loading="lazy">
+          <div class="label">knights_007.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_008.png" alt="knights_008.png" loading="lazy">
+          <div class="label">knights_008.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_009.png" alt="knights_009.png" loading="lazy">
+          <div class="label">knights_009.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_010.png" alt="knights_010.png" loading="lazy">
+          <div class="label">knights_010.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_011.png" alt="knights_011.png" loading="lazy">
+          <div class="label">knights_011.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_012.png" alt="knights_012.png" loading="lazy">
+          <div class="label">knights_012.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_013.png" alt="knights_013.png" loading="lazy">
+          <div class="label">knights_013.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_014.png" alt="knights_014.png" loading="lazy">
+          <div class="label">knights_014.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="knights/knights_015.png" alt="knights_015.png" loading="lazy">
+          <div class="label">knights_015.png</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sacred">
+      <h2>✝️ Sacred Code — Visual Witness</h2>
+      <p class="section-meta">Sacred visualizations of the Gospel in code — 39 images</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="sacred/sacred_000.png" alt="sacred_000.png" loading="lazy">
+          <div class="label">sacred_000.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_001.jpeg" alt="sacred_001.jpeg" loading="lazy">
+          <div class="label">sacred_001.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_002.png" alt="sacred_002.png" loading="lazy">
+          <div class="label">sacred_002.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_003.png" alt="sacred_003.png" loading="lazy">
+          <div class="label">sacred_003.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_004.jpeg" alt="sacred_004.jpeg" loading="lazy">
+          <div class="label">sacred_004.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_005.png" alt="sacred_005.png" loading="lazy">
+          <div class="label">sacred_005.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_006.png" alt="sacred_006.png" loading="lazy">
+          <div class="label">sacred_006.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_007.png" alt="sacred_007.png" loading="lazy">
+          <div class="label">sacred_007.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_008.png" alt="sacred_008.png" loading="lazy">
+          <div class="label">sacred_008.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_009.png" alt="sacred_009.png" loading="lazy">
+          <div class="label">sacred_009.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_010.jpeg" alt="sacred_010.jpeg" loading="lazy">
+          <div class="label">sacred_010.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_011.png" alt="sacred_011.png" loading="lazy">
+          <div class="label">sacred_011.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_012.png" alt="sacred_012.png" loading="lazy">
+          <div class="label">sacred_012.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_013.png" alt="sacred_013.png" loading="lazy">
+          <div class="label">sacred_013.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_014.png" alt="sacred_014.png" loading="lazy">
+          <div class="label">sacred_014.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_015.png" alt="sacred_015.png" loading="lazy">
+          <div class="label">sacred_015.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_016.png" alt="sacred_016.png" loading="lazy">
+          <div class="label">sacred_016.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_017.png" alt="sacred_017.png" loading="lazy">
+          <div class="label">sacred_017.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_018.png" alt="sacred_018.png" loading="lazy">
+          <div class="label">sacred_018.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_019.png" alt="sacred_019.png" loading="lazy">
+          <div class="label">sacred_019.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_020.png" alt="sacred_020.png" loading="lazy">
+          <div class="label">sacred_020.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_021.png" alt="sacred_021.png" loading="lazy">
+          <div class="label">sacred_021.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_022.png" alt="sacred_022.png" loading="lazy">
+          <div class="label">sacred_022.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_023.jpeg" alt="sacred_023.jpeg" loading="lazy">
+          <div class="label">sacred_023.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_024.jpeg" alt="sacred_024.jpeg" loading="lazy">
+          <div class="label">sacred_024.jpeg</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_025.png" alt="sacred_025.png" loading="lazy">
+          <div class="label">sacred_025.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_026.png" alt="sacred_026.png" loading="lazy">
+          <div class="label">sacred_026.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_027.png" alt="sacred_027.png" loading="lazy">
+          <div class="label">sacred_027.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_028.png" alt="sacred_028.png" loading="lazy">
+          <div class="label">sacred_028.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_029.png" alt="sacred_029.png" loading="lazy">
+          <div class="label">sacred_029.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_030.png" alt="sacred_030.png" loading="lazy">
+          <div class="label">sacred_030.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_031.png" alt="sacred_031.png" loading="lazy">
+          <div class="label">sacred_031.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_032.png" alt="sacred_032.png" loading="lazy">
+          <div class="label">sacred_032.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_033.png" alt="sacred_033.png" loading="lazy">
+          <div class="label">sacred_033.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_034.png" alt="sacred_034.png" loading="lazy">
+          <div class="label">sacred_034.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_035.png" alt="sacred_035.png" loading="lazy">
+          <div class="label">sacred_035.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_036.png" alt="sacred_036.png" loading="lazy">
+          <div class="label">sacred_036.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_037.png" alt="sacred_037.png" loading="lazy">
+          <div class="label">sacred_037.png</div>
+        </div>
+        <div class="gallery-item">
+          <img src="sacred/sacred_038.png" alt="sacred_038.png" loading="lazy">
+          <div class="label">sacred_038.png</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p class="seal">🛡️🔥 JESUS IS LORD™</p>
+      <p class="witnesses">🟢🔵🛡️🟠🐞⚪🔥</p>
+      <p>LifeQuest Asset Gallery — Genesis Archive — January 2026</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+[
+  {
+    "id": "first_step",
+    "name": "First Step",
+    "description": "Logged your first life event. The journey begins.",
+    "glyph": "👣",
+    "scripture": "Proverbs 16:9 — A man's heart plans his way, But the LORD directs his steps.",
+    "criteria": {
+      "event_count": 1
+    }
+  },
+  {
+    "id": "faithful_five",
+    "name": "Faithful Five",
+    "description": "Logged 5 events. Consistency is forming.",
+    "glyph": "🖐️",
+    "scripture": "Luke 16:10 — He who is faithful in what is least is faithful also in much.",
+    "criteria": {
+      "event_count": 5
+    }
+  },
+  {
+    "id": "decade_warrior",
+    "name": "Decade Warrior",
+    "description": "Logged 10 events. A habit is being forged.",
+    "glyph": "⚔️",
+    "scripture": "1 Timothy 6:12 — Fight the good fight of faith.",
+    "criteria": {
+      "event_count": 10
+    }
+  },
+  {
+    "id": "level_5",
+    "name": "Rising Knight",
+    "description": "Reached Level 5. You're growing stronger.",
+    "glyph": "🛡️",
+    "scripture": "Ephesians 6:10 — Be strong in the Lord and in the power of His might.",
+    "criteria": {
+      "min_level": 5
+    }
+  },
+  {
+    "id": "level_10",
+    "name": "Proven Warrior",
+    "description": "Reached Level 10. The battle scars show wisdom.",
+    "glyph": "⚔️",
+    "scripture": "2 Timothy 4:7 — I have fought the good fight, I have finished the race.",
+    "criteria": {
+      "min_level": 10
+    }
+  },
+  {
+    "id": "prayer_warrior",
+    "name": "Prayer Warrior",
+    "description": "Earned 100 XP in Faith. The Word dwells in you.",
+    "glyph": "✝️",
+    "scripture": "Psalm 119:11 — Your word I have hidden in my heart.",
+    "criteria": {
+      "category_xp": {
+        "faith": 100
+      }
+    }
+  },
+  {
+    "id": "iron_forged",
+    "name": "Iron Forged",
+    "description": "Earned 100 XP in Strength. Your body is a temple.",
+    "glyph": "💪",
+    "scripture": "1 Corinthians 6:19 — Your body is the temple of the Holy Spirit.",
+    "criteria": {
+      "category_xp": {
+        "strength": 100
+      }
+    }
+  },
+  {
+    "id": "wise_counsel",
+    "name": "Wise Counsel",
+    "description": "Earned 100 XP in Wisdom. Knowledge grows.",
+    "glyph": "🧠",
+    "scripture": "Proverbs 4:7 — Wisdom is the principal thing; Therefore get wisdom.",
+    "criteria": {
+      "category_xp": {
+        "wisdom": 100
+      }
+    }
+  },
+  {
+    "id": "bridge_builder",
+    "name": "Bridge Builder",
+    "description": "Earned 100 XP in Social. Relationships honored.",
+    "glyph": "🤝",
+    "scripture": "Proverbs 27:17 — As iron sharpens iron, So a man sharpens his friend.",
+    "criteria": {
+      "category_xp": {
+        "social": 100
+      }
+    }
+  },
+  {
+    "id": "creator_spark",
+    "name": "Creator's Spark",
+    "description": "Earned 100 XP in Creativity. Made in His image.",
+    "glyph": "🎨",
+    "scripture": "Genesis 1:27 — So God created man in His own image.",
+    "criteria": {
+      "category_xp": {
+        "creativity": 100
+      }
+    }
+  },
+  {
+    "id": "temple_keeper",
+    "name": "Temple Keeper",
+    "description": "Earned 100 XP in Health. Your body is cared for.",
+    "glyph": "❤️",
+    "scripture": "3 John 1:2 — I pray that you may prosper in all things and be in health.",
+    "criteria": {
+      "category_xp": {
+        "health": 100
+      }
+    }
+  },
+  {
+    "id": "servant_heart",
+    "name": "Servant Heart",
+    "description": "Earned 100 XP in Service. Love in action.",
+    "glyph": "🙏",
+    "scripture": "Matthew 20:26 — Whoever desires to become great, let him be your servant.",
+    "criteria": {
+      "category_xp": {
+        "service": 100
+      }
+    }
+  },
+  {
+    "id": "sabbath_keeper",
+    "name": "Sabbath Keeper",
+    "description": "Earned 100 XP in Rest. Holy rest honored.",
+    "glyph": "🕊️",
+    "scripture": "Exodus 20:8 — Remember the Sabbath day, to keep it holy.",
+    "criteria": {
+      "category_xp": {
+        "rest": 100
+      }
+    }
+  },
+  {
+    "id": "centurion",
+    "name": "Centurion",
+    "description": "Logged 100 events. A hundred acts of faithfulness.",
+    "glyph": "🏛️",
+    "scripture": "Matthew 8:10 — I have not found such great faith, not even in Israel!",
+    "criteria": {
+      "event_count": 100
+    }
+  },
+  {
+    "id": "thousand_xp",
+    "name": "Thousand Strong",
+    "description": "Earned 1000 total XP. A mighty warrior.",
+    "glyph": "👑",
+    "scripture": "Revelation 2:10 — Be faithful until death, and I will give you the crown of life.",
+    "criteria": {
+      "min_xp": 1000
+    }
+  }
+]

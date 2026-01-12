@@ -1,0 +1,116 @@
+[
+  {
+    "type": "event",
+    "glyph": "\u271d\ufe0f",
+    "entry": {
+      "description": "Read the Ignition Scroll",
+      "category": "faith",
+      "points": 25,
+      "tags": [],
+      "timestamp": "2026-01-11T14:30:51.915199"
+    }
+  },
+  {
+    "type": "badge",
+    "glyph": "\ud83c\udfc5",
+    "entry": {
+      "badge": "First Step",
+      "timestamp": "2026-01-11T14:30:51.915629"
+    }
+  },
+  {
+    "type": "event",
+    "glyph": "\ud83c\udfa8",
+    "entry": {
+      "description": "Built the Knight Identity Architecture",
+      "category": "creativity",
+      "points": 30,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:24.397416"
+    }
+  },
+  {
+    "type": "event",
+    "glyph": "\ud83e\udde0",
+    "entry": {
+      "description": "Studied 11489 ChatGPT conversations",
+      "category": "wisdom",
+      "points": 40,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:25.519335"
+    }
+  },
+  {
+    "type": "event",
+    "glyph": "\ud83d\ude4f",
+    "entry": {
+      "description": "Forged LifeQuest system",
+      "category": "service",
+      "points": 25,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:26.685684"
+    }
+  },
+  {
+    "type": "event",
+    "glyph": "\u271d\ufe0f",
+    "entry": {
+      "description": "Knighted as Knight of Cohesion",
+      "category": "faith",
+      "points": 50,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:34.129358"
+    }
+  },
+  {
+    "type": "badge",
+    "glyph": "\ud83c\udfc5",
+    "entry": {
+      "badge": "Faithful Five",
+      "timestamp": "2026-01-11T14:31:34.129981"
+    }
+  },
+  {
+    "type": "event",
+    "glyph": "\ud83c\udfa8",
+    "entry": {
+      "description": "Built LifeQuest HTML Dashboard",
+      "category": "creativity",
+      "points": 25,
+      "tags": [],
+      "timestamp": "2026-01-11T14:41:15.399309"
+    }
+  },
+  {
+    "type": "event",
+    "glyph": "\ud83e\udde0",
+    "entry": {
+      "description": "Mined Genesis Archive",
+      "category": "wisdom",
+      "points": 50,
+      "tags": [
+        ""
+      ],
+      "timestamp": "2026-01-11T15:12:05.459317"
+    }
+  },
+  {
+    "type": "event",
+    "glyph": "\ud83d\udcaa",
+    "entry": {
+      "description": "SAT AND WORKED FOR 3 HOURS ",
+      "category": "strength",
+      "points": 100,
+      "tags": [],
+      "timestamp": "2026-01-11T16:01:43.725750"
+    }
+  },
+  {
+    "type": "badge",
+    "glyph": "\ud83c\udfc5",
+    "entry": {
+      "badge": "Iron Forged",
+      "timestamp": "2026-01-11T16:01:43.728500"
+    }
+  }
+]

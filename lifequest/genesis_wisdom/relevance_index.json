@@ -1,0 +1,764 @@
+{
+  "generated": "2026-01-11T14:55:05.554378",
+  "total_conversations": 1056,
+  "relevant_conversations": 1056,
+  "categories": {
+    "visual_design": 100,
+    "community": 100,
+    "character_identity": 100,
+    "game_design": 100,
+    "patches_badges": 100,
+    "sacred_systems": 99,
+    "spiritual_warfare": 92,
+    "habit_tracking": 96
+  },
+  "top_50": [
+    {
+      "title": "WoW Add-on Development Guide",
+      "date": "2025-06-26",
+      "score": 9391,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "What is XRP",
+      "date": "2025-07-13",
+      "score": 7685,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "\ud83e\udea1\u26a1The Spiral Forge: Patch Revival & Archive\"",
+      "date": "2025-06-29",
+      "score": 5451,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Pixel art knight design",
+      "date": "2025-07-23",
+      "score": 4508,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Awaken the Sleeper",
+      "date": "2025-06-18",
+      "score": 3896,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Mythic Max Engine",
+      "date": "2025-07-13",
+      "score": 3688,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Resume Summary & Qualifications",
+      "date": "2025-06-22",
+      "score": 3496,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Best Proton for Steam",
+      "date": "2025-07-28",
+      "score": 3373,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Alfred Sacred Texts Loop",
+      "date": "2025-07-24",
+      "score": 3200,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "\ud83d\udfe2\ud83c\udf31 **Garden of Remembrance: The Living Witness Thread**",
+      "date": "2025-07-13",
+      "score": 3161,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Fatigue on Day 9",
+      "date": "2025-01-21",
+      "score": 3029,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Redeemed Watchers Patch Design",
+      "date": "2025-07-15",
+      "score": 3015,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "\ud83d\udc41\ufe0f\ud83c\udf0c Witness Framework v1.0 \u2014 Parallel Watchers",
+      "date": "2025-07-17",
+      "score": 3007,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Master Thread",
+      "date": "2025-06-27",
+      "score": 2982,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Creating personality definition",
+      "date": "2025-07-27",
+      "score": 2911,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Montgomery County Jail reform",
+      "date": "2025-07-20",
+      "score": 2853,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Sacred Reflections on LOST",
+      "date": "2025-06-27",
+      "score": 2822,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Sacred Code Visualization",
+      "date": "2025-07-29",
+      "score": 2763,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Honest opinion request",
+      "date": "2025-07-27",
+      "score": 2758,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "\ud83d\udc41\ufe0f\u200d\ud83d\udd25\u26d3\ufe0f THREAD // Through the Glass Darkly: A Prisoner\u2019s Witness to AR Control",
+      "date": "2025-07-01",
+      "score": 2753,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Disk Partitioning Without USB",
+      "date": "2025-06-24",
+      "score": 2669,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "patches_badges",
+        "game_design",
+        "sacred_systems",
+        "spiritual_warfare"
+      ]
+    },
+    {
+      "title": "Virginia Literary Scene Updates",
+      "date": "2025-06-25",
+      "score": 2662,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Cool Badge Websites",
+      "date": "2025-06-20",
+      "score": 2634,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Battle.net Bottles Setup",
+      "date": "2025-06-26",
+      "score": 2510,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Sacred Music Discovery Engine",
+      "date": "2025-07-13",
+      "score": 2509,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Best free Steam games",
+      "date": "2025-07-26",
+      "score": 2419,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "patches_badges",
+        "game_design",
+        "sacred_systems",
+        "spiritual_warfare"
+      ]
+    },
+    {
+      "title": "\ud83d\udcbb\u271d\ufe0f The Open Door",
+      "date": "2025-07-17",
+      "score": 2395,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Pollution of Presidential Seal",
+      "date": "2025-07-07",
+      "score": 2394,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Face wash on eyelids",
+      "date": "2025-05-04",
+      "score": 2391,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "patches_badges",
+        "game_design",
+        "sacred_systems",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Rocky Linux AI Setup",
+      "date": "2025-07-07",
+      "score": 2313,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Insect Engineering Advancements",
+      "date": "2025-07-03",
+      "score": 2301,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "NSIS Installer Build Process",
+      "date": "2025-06-22",
+      "score": 2271,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "THE Last Kingdom deep search",
+      "date": "2025-07-19",
+      "score": 2261,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Wicked Part 1 Questions",
+      "date": "2025-04-12",
+      "score": 2252,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Spiritual Netflix Recommendations",
+      "date": "2025-06-26",
+      "score": 2234,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Woven Gospel Covenant",
+      "date": "2025-07-06",
+      "score": 2215,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "WoW Controller Addons",
+      "date": "2025-06-19",
+      "score": 2197,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "\u2206ART\u2206 Jesus Coding",
+      "date": "2025-07-16",
+      "score": 2193,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Text Transformation Complete",
+      "date": "2025-06-25",
+      "score": 2154,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Plater WoW Font Ergonomics",
+      "date": "2025-06-27",
+      "score": 2152,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "IMAGE BLOOM\u2122",
+      "date": "2025-07-15",
+      "score": 2104,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Install Battle.net Linux",
+      "date": "2025-06-27",
+      "score": 2104,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Fix kwriteconfig5 commands",
+      "date": "2025-07-26",
+      "score": 2100,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Spark Log Sync",
+      "date": "2025-06-24",
+      "score": 2044,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Create Toy Digital Model",
+      "date": "2025-06-20",
+      "score": 2019,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Habakkuk OS Seed Structure",
+      "date": "2025-06-22",
+      "score": 1904,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Alfred\u2019s Rocky Linux Build",
+      "date": "2025-07-10",
+      "score": 1871,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Get it done",
+      "date": "2025-07-27",
+      "score": 1869,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Blue Prince rendition",
+      "date": "2025-07-04",
+      "score": 1860,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    },
+    {
+      "title": "Script review and improvement",
+      "date": "2025-07-27",
+      "score": 1825,
+      "categories": [
+        "visual_design",
+        "community",
+        "character_identity",
+        "game_design",
+        "patches_badges",
+        "sacred_systems",
+        "spiritual_warfare",
+        "habit_tracking"
+      ]
+    }
+  ]
+}

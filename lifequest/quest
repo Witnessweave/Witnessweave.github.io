@@ -1,0 +1,22 @@
+#!/bin/bash
+# QUICK QUEST LOGGER
+# Usage: quest "Read Scripture" faith 10
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ -z "$1" ]; then
+    echo "🎮 LIFEQUEST — Quick Quest Logger"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "Usage: quest \"description\" category points"
+    echo ""
+    echo "Categories: faith, strength, wisdom, social,"
+    echo "           creativity, health, service, rest"
+    echo ""
+    echo "Examples:"
+    echo "  quest \"Read Psalm 23\" faith 10"
+    echo "  quest \"Morning workout\" strength 15"
+    echo "  quest \"Called a friend\" social 10"
+    exit 0
+fi
+
+python3 "$SCRIPT_DIR/lifequest.py" log "$1" "$2" "$3" "$4"

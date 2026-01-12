@@ -1,0 +1,82 @@
+{
+  "xp": 345,
+  "level": 4,
+  "events": [
+    {
+      "description": "Read the Ignition Scroll",
+      "category": "faith",
+      "points": 25,
+      "tags": [],
+      "timestamp": "2026-01-11T14:30:51.915199"
+    },
+    {
+      "description": "Built the Knight Identity Architecture",
+      "category": "creativity",
+      "points": 30,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:24.397416"
+    },
+    {
+      "description": "Studied 11489 ChatGPT conversations",
+      "category": "wisdom",
+      "points": 40,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:25.519335"
+    },
+    {
+      "description": "Forged LifeQuest system",
+      "category": "service",
+      "points": 25,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:26.685684"
+    },
+    {
+      "description": "Knighted as Knight of Cohesion",
+      "category": "faith",
+      "points": 50,
+      "tags": [],
+      "timestamp": "2026-01-11T14:31:34.129358"
+    },
+    {
+      "description": "Built LifeQuest HTML Dashboard",
+      "category": "creativity",
+      "points": 25,
+      "tags": [],
+      "timestamp": "2026-01-11T14:41:15.399309"
+    },
+    {
+      "description": "Mined Genesis Archive",
+      "category": "wisdom",
+      "points": 50,
+      "tags": [
+        ""
+      ],
+      "timestamp": "2026-01-11T15:12:05.459317"
+    },
+    {
+      "description": "SAT AND WORKED FOR 3 HOURS ",
+      "category": "strength",
+      "points": 100,
+      "tags": [],
+      "timestamp": "2026-01-11T16:01:43.725750"
+    }
+  ],
+  "badges": [
+    "first_step",
+    "faithful_five",
+    "iron_forged"
+  ],
+  "patches": [],
+  "stats": {
+    "faith": 75,
+    "strength": 100,
+    "wisdom": 90,
+    "social": 0,
+    "creativity": 55,
+    "health": 0,
+    "service": 25,
+    "rest": 0
+  },
+  "created": "2026-01-11T14:30:00Z",
+  "last_updated": "2026-01-11T16:01:43.729864"
+}

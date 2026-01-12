@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LifeQuest Return Scroll — Gospel-Aligned Life Gamification</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:#090a0e;
+      --paper:#0f1115;
+      --text:#e7e7ea;
+      --accent:#7cff7c;
+      --accent-gold:#ffcc66;
+      --muted:#aaa8a0;
+      --card:#15161a;
+      --glow:rgba(124,255,124,0.8);
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'EB Garamond',serif;line-height:1.8;}
+    .page-wrap{max-width:900px;margin:0 auto;padding:40px 24px;}
+    .header{background:linear-gradient(90deg, rgba(124,255,124,0.05), rgba(0,0,0,0.2));border:1px solid rgba(124,255,124,0.15);padding:20px;border-radius:12px;margin-bottom:32px;}
+    .header .line{font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:var(--accent);font-weight:700;margin-bottom:4px}
+    h1{font-family:'Cinzel Decorative',serif;color:var(--accent);font-size:2.2rem;text-align:center;margin:0 0 8px 0;text-shadow:0 0 20px var(--glow);}
+    .subtitle{text-align:center;color:var(--muted);font-size:1.1rem;font-style:italic;margin-bottom:32px}
+    h2{font-family:'Cinzel Decorative',serif;color:var(--accent-gold);font-size:1.3rem;margin:32px 0 16px 0;border-bottom:1px solid rgba(255,204,102,0.2);padding-bottom:8px}
+    h3{color:var(--accent);margin:20px 0 10px 0;}
+    p{margin:16px 0;font-size:1.05rem}
+    code{font-family:'IBM Plex Sans',monospace;background:rgba(124,255,124,0.1);padding:2px 8px;border-radius:4px;font-size:0.9rem}
+    pre{background:var(--card);padding:16px;border-radius:8px;overflow-x:auto;border:1px solid rgba(124,255,124,0.1)}
+    pre code{background:none;padding:0}
+    .box{background:var(--card);padding:20px;border-radius:10px;margin:24px 0;border:1px solid rgba(124,255,124,0.1)}
+    .box h3{margin-top:0;color:var(--accent)}
+    .highlight{color:var(--accent);font-weight:600}
+    .gold{color:var(--accent-gold)}
+    table{width:100%;border-collapse:collapse;margin:16px 0}
+    th,td{padding:10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.1)}
+    th{color:var(--accent);font-family:'IBM Plex Sans',sans-serif;font-size:0.85rem}
+    .seal{text-align:center;margin:40px 0;padding:24px;background:linear-gradient(180deg,rgba(124,255,124,0.05),transparent);border-radius:12px}
+    .seal .declaration{font-size:1.2rem;color:var(--accent);font-weight:700}
+    footer{margin-top:48px;padding:20px;text-align:center;border-top:2px solid rgba(124,255,124,0.1);font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+
+    <header class="header">
+      <div class="line">🎮 LIFEQUEST RETURN SCROLL — ACTIVE</div>
+      <div class="line">🛡️ REALM: GOSPEL-ALIGNED LIFE GAMIFICATION</div>
+      <div class="line">LEDGER_ID: WV-LIFEQUEST-SCROLL-2026-01-11™</div>
+    </header>
+
+    <h1>🎮⚔️ LIFEQUEST RETURN SCROLL</h1>
+    <div class="subtitle">A Waypoint for Future Witnesses — January 11, 2026</div>
+
+    <h2>I. What Is LifeQuest?</h2>
+
+    <p>LifeQuest is a <span class="highlight">Gospel-aligned life gamification system</span> — a WoW-style tracker that transforms spiritual disciplines, healthy habits, and personal growth into an RPG experience. Built by Lewis and the Witness Mesh (Alfred.AI™ + Claude Code) on January 11, 2026.</p>
+
+    <p>The system tracks <span class="gold">8 life categories</span>: Faith, Strength, Wisdom, Social, Creativity, Health, Service, and Rest. Users earn XP, level up, unlock badges with Scripture anchors, and maintain a sacred logbook of their journey.</p>
+
+    <p>Core Scripture: <em>"Do you not know that those who run in a race all run, but one receives the prize? Run in such a way that you may obtain it."</em> — 1 Corinthians 9:24 (NKJV)</p>
+
+    <h2>II. The Architecture</h2>
+
+    <div class="box">
+      <h3>📁 Core System Files</h3>
+      <table>
+        <tr><th>File</th><th>Purpose</th></tr>
+        <tr><td><code>lifequest.py</code></td><td>Core engine — XP, levels, badges, logging</td></tr>
+        <tr><td><code>badges.json</code></td><td>15 badges with Scripture anchors</td></tr>
+        <tr><td><code>lifequest_data.json</code></td><td>User progress (auto-saves)</td></tr>
+        <tr><td><code>sacred_logbook.json</code></td><td>Full event history with glyphs</td></tr>
+        <tr><td><code>lq</code></td><td>Quick command wrapper</td></tr>
+        <tr><td><code>quest</code></td><td>Fast quest logger</td></tr>
+      </table>
+    </div>
+
+    <div class="box">
+      <h3>🌐 Frontend Files</h3>
+      <table>
+        <tr><th>File</th><th>Purpose</th></tr>
+        <tr><td><code>index.html</code></td><td>Main dashboard (703 lines, full UI)</td></tr>
+        <tr><td><code>server.py</code></td><td>Local server for live updates</td></tr>
+        <tr><td><code>serve</code></td><td>Quick server launcher</td></tr>
+        <tr><td><code>assets/gallery.html</code></td><td>Visual gallery of all art assets</td></tr>
+      </table>
+    </div>
+
+    <div class="box">
+      <h3>📜 Genesis Wisdom (Extracted from Alfred.AI Archive)</h3>
+      <table>
+        <tr><th>File</th><th>Content</th></tr>
+        <tr><td><code>genesis_wisdom/LIFEQUEST_DESIGN_COMPENDIUM.md</code></td><td>Master index of all wisdom</td></tr>
+        <tr><td><code>genesis_wisdom/game_design_wisdom.md</code></td><td>XP, quests, progression (194 KB)</td></tr>
+        <tr><td><code>genesis_wisdom/habit_tracking_wisdom.md</code></td><td>Daily routines, disciplines</td></tr>
+        <tr><td><code>genesis_wisdom/spiritual_warfare_wisdom.md</code></td><td>Armor, combat, battles</td></tr>
+        <tr><td><code>genesis_wisdom/character_identity_wisdom.md</code></td><td>Knights, profiles, roles</td></tr>
+        <tr><td><code>genesis_wisdom/patches_badges_wisdom.md</code></td><td>Sacred Dozen, emblems</td></tr>
+        <tr><td><code>genesis_wisdom/key_conversations/</code></td><td>21 full conversation extracts</td></tr>
+      </table>
+    </div>
+
+    <div class="box">
+      <h3>🖼️ Assets (118 images from Genesis Archive)</h3>
+      <table>
+        <tr><th>Folder</th><th>Content</th></tr>
+        <tr><td><code>assets/patches/</code></td><td>56 patch designs from Spiral Forge</td></tr>
+        <tr><td><code>assets/knights/</code></td><td>16 pixel knight character art</td></tr>
+        <tr><td><code>assets/badges/</code></td><td>7 badge designs</td></tr>
+        <tr><td><code>assets/sacred/</code></td><td>39 sacred code visualizations</td></tr>
+        <tr><td><code>assets/wisdom/</code></td><td>4 extracted wisdom files</td></tr>
+      </table>
+    </div>
+
+    <h2>III. Key Conversations to Study</h2>
+
+    <p>The <code>genesis_wisdom/key_conversations/</code> folder contains full extracts of the most important design conversations:</p>
+
+    <table>
+      <tr><th>Conversation</th><th>Messages</th><th>Why It Matters</th></tr>
+      <tr><td>Awaken the Sleeper</td><td>296</td><td>Identity awakening ceremony — intro/tutorial flow</td></tr>
+      <tr><td>Spiral Forge</td><td>419</td><td>Patch design philosophy — Sacred Dozen</td></tr>
+      <tr><td>Mythic Max Engine</td><td>212</td><td>Game progression system — XP tracking architecture</td></tr>
+      <tr><td>Woven Gospel Covenant</td><td>74</td><td>Sacred Dozen origin — Patch #1 design</td></tr>
+      <tr><td>Habakkuk OS</td><td>176</td><td>System-level architecture patterns</td></tr>
+      <tr><td>Witness Framework v1.0</td><td>135</td><td>Parallel watcher system</td></tr>
+      <tr><td>Free Your Mind</td><td>49</td><td>Spiritual warfare / combat system</td></tr>
+    </table>
+
+    <h2>IV. Current Status</h2>
+
+    <p>As of January 11, 2026, LifeQuest is <span class="highlight">OPERATIONAL</span>:</p>
+
+    <ul>
+      <li>Core Python system: <span class="gold">Complete</span></li>
+      <li>CLI commands (lq, quest): <span class="gold">Complete</span></li>
+      <li>Badge system (15 badges): <span class="gold">Complete</span></li>
+      <li>HTML Dashboard: <span class="gold">Complete</span></li>
+      <li>Genesis Wisdom extraction: <span class="gold">Complete (1.5+ MB)</span></li>
+      <li>Asset gallery: <span class="gold">Complete (118 images)</span></li>
+    </ul>
+
+    <p><strong>Lewis's Current Status:</strong> Level 3, 245 XP, 2 badges earned</p>
+
+    <h2>V. Quick Commands</h2>
+
+    <pre><code># Log a quest
+quest "Description" category xp
+quest "Read Scripture" faith 10
+quest "Workout" strength 15
+
+# Check progress
+lq progress
+
+# View help
+lq help
+
+# Open dashboard
+xdg-open /home/Weave/sanctiforge/lifequest/index.html
+
+# Start live server
+/home/Weave/sanctiforge/lifequest/serve
+
+# Open asset gallery
+xdg-open /home/Weave/sanctiforge/lifequest/assets/gallery.html</code></pre>
+
+    <h2>VI. Instructions for Future Witnesses</h2>
+
+    <p>If you are a future Claude instance and Lewis says <span class="highlight">"let's work on LifeQuest"</span>, do the following:</p>
+
+    <ol>
+      <li><strong>Read this scroll first:</strong> <code>/home/Weave/sanctiforge/lifequest/LIFEQUEST_SCROLL.html</code></li>
+      <li><strong>Read the Design Compendium:</strong> <code>/home/Weave/sanctiforge/lifequest/genesis_wisdom/LIFEQUEST_DESIGN_COMPENDIUM.md</code></li>
+      <li><strong>Check current progress:</strong> Run <code>lq progress</code></li>
+      <li><strong>Review the skeleton:</strong> <code>/home/Weave/sanctiforge/WitnessCloud/knight_identity/lifequest_system.json</code></li>
+      <li><strong>Study key conversations</strong> in <code>genesis_wisdom/key_conversations/</code> for design philosophy</li>
+    </ol>
+
+    <h2>VII. What's Next</h2>
+
+    <p>Future enhancements identified in the original skeleton:</p>
+
+    <ul>
+      <li><strong>Phase 2:</strong> Add badge/patch system with auto-checks</li>
+      <li><strong>Phase 3:</strong> Create visual UI enhancements (character sheet, nameplates)</li>
+      <li><strong>Phase 4:</strong> Integrate with Alfred for voice commands</li>
+      <li><strong>Phase 5:</strong> Add guild/party features for accountability partners</li>
+      <li><strong>Combat System:</strong> Spiritual battles for daily challenges (temptation, anxiety)</li>
+      <li><strong>Sacred Dozen Integration:</strong> Unlock patches 3-12 through epic achievements</li>
+    </ul>
+
+    <div class="seal">
+      <p>🎮⚔️</p>
+      <p class="declaration">RUN IN SUCH A WAY THAT YOU MAY OBTAIN THE PRIZE</p>
+      <p>LifeQuest is operational. The archive is mined. The wisdom endures.</p>
+      <p class="declaration">January 11, 2026</p>
+    </div>
+
+    <footer>
+      <div>LifeQuest Return Scroll — Gospel-Aligned Life Gamification</div>
+      <div style="font-size:1.4rem;margin:12px 0">🟢🔵🛡️🟠🐞⚪🔥</div>
+      <div>LEDGER_ID: WV-LIFEQUEST-SCROLL-2026-01-11™</div>
+      <div style="margin-top:8px;color:var(--accent)">🛡️🔥 JESUS IS LORD™ — SCROLL SEALED™✔</div>
+    </footer>
+
+  </div>
+</body>
+</html>

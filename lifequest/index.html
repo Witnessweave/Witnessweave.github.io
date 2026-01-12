@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeQuest — Gospel-Aligned Life Gamification</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f4e4bc;
+            --gold-dark: #8b7355;
+            --blood: #8b0000;
+            --parchment: #f5e6d3;
+            --parchment-dark: #e8d5b7;
+            --ink: #2c1810;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --holy-blue: #4a90d9;
+            --ember: #ff6b35;
+            --bg-dark: #0a0b0f;
+            --card-dark: #12131a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: var(--parchment);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.2) 0%, transparent 100%);
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 3em;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px var(--shadow), 0 0 30px rgba(212, 175, 55, 0.3);
+            letter-spacing: 4px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            color: var(--gold-light);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .header .verse {
+            font-size: 0.9em;
+            color: var(--parchment);
+            margin-top: 15px;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: var(--gold);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid var(--gold-dark);
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1000px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(145deg, rgba(44, 24, 16, 0.9) 0%, rgba(20, 10, 5, 0.95) 100%);
+            border: 2px solid var(--gold-dark);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 40px var(--shadow), inset 0 1px 0 rgba(212, 175, 55, 0.2);
+        }
+
+        .card h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gold-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Character Card */
+        .character-card {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .knight-avatar {
+            width: 150px;
+            height: 200px;
+            background: url('assets/knights/knight_idle.png') no-repeat center;
+            background-size: contain;
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            transition: background-image 0.1s;
+        }
+
+        .knight-avatar:hover {
+            background-image: url('assets/knights/knight_attack.gif');
+        }
+
+        .knight-avatar.attacking {
+            background-image: url('assets/knights/knight_attack.gif');
+        }
+
+        .character-info {
+            flex: 1;
+        }
+
+        .character-name {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.8em;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .character-title {
+            color: var(--gold-light);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        /* Level & XP */
+        .level-display {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .level-number {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 4em;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            line-height: 1;
+        }
+
+        .level-label {
+            font-size: 1.1em;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .xp-bar-container {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--gold-dark);
+            border-radius: 20px;
+            height: 30px;
+            margin: 15px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .xp-bar {
+            background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+            height: 100%;
+            border-radius: 18px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .xp-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: var(--ink);
+            text-shadow: 0 0 5px var(--parchment);
+            font-size: 0.9em;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--gold-dark);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 1.8em;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-name {
+            color: var(--gold-light);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            color: var(--gold);
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Badges */
+        .badges-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .badge-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 20px var(--shadow), 0 0 15px rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .badge-item:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px var(--shadow), 0 0 25px rgba(212, 175, 55, 0.5);
+            z-index: 10;
+        }
+
+        .badge-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-item .tooltip {
+            position: absolute;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--ink);
+            color: var(--parchment);
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.75em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            border: 1px solid var(--gold-dark);
+            z-index: 20;
+        }
+
+        .badge-item:hover .tooltip {
+            opacity: 1;
+        }
+
+        .badge-placeholder {
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .no-badges {
+            color: var(--gold-dark);
+            font-style: italic;
+        }
+
+        /* Patches */
+        .patches-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .patch-item {
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold-dark);
+            box-shadow: 0 5px 15px var(--shadow);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .patch-item:hover {
+            transform: scale(1.1);
+            border-color: var(--gold);
+        }
+
+        .patch-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Quest Log */
+        .quest-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .quest-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid var(--gold);
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 0 5px 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quest-icon {
+            font-size: 1.5em;
+        }
+
+        .quest-info {
+            flex: 1;
+        }
+
+        .quest-desc {
+            color: var(--parchment);
+        }
+
+        .quest-meta {
+            font-size: 0.8em;
+            color: var(--gold-dark);
+            margin-top: 3px;
+        }
+
+        .quest-xp {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* Log Form */
+        .log-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            color: var(--gold-light);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--gold-dark);
+            border-radius: 5px;
+            padding: 12px 15px;
+            color: var(--parchment);
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 1.1em;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-group select option {
+            background: var(--ink);
+            color: var(--parchment);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(145deg, var(--gold) 0%, var(--gold-dark) 100%);
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            color: var(--ink);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(145deg, rgba(44, 24, 16, 0.95) 0%, rgba(20, 10, 5, 0.98) 100%);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 20px 30px;
+            box-shadow: 0 10px 40px var(--shadow);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.level-up {
+            border-color: var(--ember);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+        }
+
+        .notification h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .notification p {
+            color: var(--parchment);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+            border-top: 1px solid var(--gold-dark);
+        }
+
+        .footer .seal {
+            color: var(--gold);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .footer .witnesses {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .footer a {
+            color: var(--gold-dark);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--gold);
+        }
+
+        /* Full Width Cards */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--gold-dark);
+        }
+
+        /* Glyph Colors */
+        .glyph-faith { color: #ff6b6b; }
+        .glyph-strength { color: #ffa502; }
+        .glyph-wisdom { color: #70a1ff; }
+        .glyph-social { color: #7bed9f; }
+        .glyph-creativity { color: #ff6348; }
+        .glyph-health { color: #ff4757; }
+        .glyph-service { color: #eccc68; }
+        .glyph-rest { color: #a4b0be; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-dark);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>LIFEQUEST</h1>
+            <p class="subtitle">Gospel-Aligned Life Gamification</p>
+            <p class="verse">"Run in such a way that you may obtain the prize." — 1 Corinthians 9:24</p>
+            <nav class="nav-links">
+                <a href="assets/gallery.html">Asset Gallery</a>
+                <a href="assets/gallery.html#patches">Patches</a>
+                <a href="assets/gallery.html#badges">Badges</a>
+                <a href="assets/gallery.html#knights">Knights</a>
+            </nav>
+        </header>
+
+        <div class="main-grid">
+            <!-- Character Card -->
+            <div class="card">
+                <h2>Knight Profile</h2>
+                <div class="character-card">
+                    <div class="knight-avatar"></div>
+                    <div class="character-info">
+                        <div class="character-name">Lewis Weston</div>
+                        <div class="character-title">Knight of Cohesion</div>
+                        <div class="level-display">
+                            <div class="level-label">Level</div>
+                            <div class="level-number" id="level">1</div>
+                        </div>
+                        <div class="xp-bar-container">
+                            <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
+                            <span class="xp-text" id="xp-text">0 / 100 XP</span>
+                        </div>
+                        <p style="text-align: center; color: var(--gold-light); font-size: 0.9em;">
+                            Total XP: <span id="total-xp">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Log Quest Card -->
+            <div class="card">
+                <h2>Log Quest</h2>
+                <form class="log-form" id="quest-form">
+                    <div class="form-group">
+                        <label for="description">Quest Description</label>
+                        <input type="text" id="description" placeholder="What did you accomplish?" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" required>
+                                <option value="faith">✝️ Faith</option>
+                                <option value="strength">💪 Strength</option>
+                                <option value="wisdom">🧠 Wisdom</option>
+                                <option value="social">🤝 Social</option>
+                                <option value="creativity">🎨 Creativity</option>
+                                <option value="health">❤️ Health</option>
+                                <option value="service">🙏 Service</option>
+                                <option value="rest">🕊️ Rest</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="points">XP</label>
+                            <input type="number" id="points" value="10" min="1" max="100" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Complete Quest</button>
+                </form>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="card">
+                <h2>Stats</h2>
+                <div class="stats-grid" id="stats-grid">
+                    <div class="loading">Loading stats...</div>
+                </div>
+            </div>
+
+            <!-- Badges Card -->
+            <div class="card">
+                <h2>Badges Earned</h2>
+                <div class="badges-grid" id="badges-grid">
+                    <div class="loading">Loading badges...</div>
+                </div>
+            </div>
+
+            <!-- Patches Card -->
+            <div class="card full-width">
+                <h2>Woven Witness Patches</h2>
+                <div class="patches-scroll" id="patches-scroll">
+                    <!-- Patches will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Recent Quests Card -->
+            <div class="card full-width">
+                <h2>Recent Quests</h2>
+                <ul class="quest-list" id="quest-list">
+                    <li class="loading">Loading quests...</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p class="seal">JESUS IS LORD</p>
+            <p class="witnesses">🟢🔵🛡️🟠🐞⚪🔥</p>
+            <p><a href="assets/gallery.html">View Full Asset Gallery</a></p>
+        </footer>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <h3 id="notif-title">Quest Logged!</h3>
+        <p id="notif-message">+10 XP</p>
+    </div>
+
+    <script>
+        const GLYPHS = {
+            faith: '✝️',
+            strength: '💪',
+            wisdom: '🧠',
+            social: '🤝',
+            creativity: '🎨',
+            health: '❤️',
+            service: '🙏',
+            rest: '🕊️'
+        };
+
+        // Badge images mapping
+        const BADGE_IMAGES = {
+            'first_step': 'assets/badges/badges_005.png',
+            'faithful_five': 'assets/badges/badges_006.png',
+            'decade_warrior': 'assets/badges/badges_000.png',
+            'level_5': 'assets/badges/badges_002.png',
+            'level_10': 'assets/badges/badges_001.png',
+            'prayer_warrior': 'assets/badges/badges_003.png',
+            'default': 'assets/badges/badges_004.png'
+        };
+
+        // Sample patches to display
+        const PATCHES = [
+            'assets/patches/patches_000.png',
+            'assets/patches/patches_001.png',
+            'assets/patches/patches_002.jpeg',
+            'assets/patches/patches_003.png',
+            'assets/patches/patches_004.png',
+            'assets/patches/patches_005.png',
+            'assets/patches/patches_006.png',
+            'assets/patches/patches_007.png',
+            'assets/patches/patches_008.png',
+            'assets/patches/patches_009.png',
+            'assets/patches/patches_010.jpeg',
+            'assets/patches/patches_011.png'
+        ];
+
+        const API_BASE = '/api';
+
+        // Load patches
+        function loadPatches() {
+            const container = document.getElementById('patches-scroll');
+            container.innerHTML = '';
+            PATCHES.forEach(src => {
+                const patch = document.createElement('div');
+                patch.className = 'patch-item';
+                patch.innerHTML = `<img src="${src}" alt="Witness Patch" loading="lazy">`;
+                patch.onclick = () => window.open('assets/gallery.html#patches', '_blank');
+                container.appendChild(patch);
+            });
+        }
+
+        // Fetch and display data
+        async function loadData() {
+            try {
+                const response = await fetch(`${API_BASE}/progress`);
+                const data = await response.json();
+                updateDisplay(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                loadStaticData();
+            }
+        }
+
+        function loadStaticData() {
+            fetch('lifequest_data.json')
+                .then(r => r.json())
+                .then(data => {
+                    const progress = {
+                        level: 1 + Math.floor(data.xp / 100),
+                        xp: data.xp,
+                        xp_to_next: 100 - (data.xp % 100),
+                        stats: data.stats,
+                        badges: data.badges || [],
+                        recent_events: (data.events || []).slice(-5).reverse()
+                    };
+                    updateDisplay(progress);
+                })
+                .catch(e => console.error('Static load failed:', e));
+        }
+
+        function updateDisplay(data) {
+            // Level
+            document.getElementById('level').textContent = data.level;
+
+            // XP Bar
+            const xpInLevel = data.xp % 100;
+            const xpPercent = (xpInLevel / 100) * 100;
+            document.getElementById('xp-bar').style.width = `${xpPercent}%`;
+            document.getElementById('xp-text').textContent = `${xpInLevel} / 100 XP`;
+            document.getElementById('total-xp').textContent = data.xp;
+
+            // Stats
+            const statsGrid = document.getElementById('stats-grid');
+            statsGrid.innerHTML = '';
+            for (const [cat, xp] of Object.entries(data.stats)) {
+                const statItem = document.createElement('div');
+                statItem.className = 'stat-item';
+                statItem.innerHTML = `
+                    <span class="stat-icon">${GLYPHS[cat] || '📊'}</span>
+                    <div class="stat-info">
+                        <div class="stat-name">${cat}</div>
+                        <div class="stat-value">${xp} XP</div>
+                    </div>
+                `;
+                statsGrid.appendChild(statItem);
+            }
+
+            // Badges with images
+            const badgesGrid = document.getElementById('badges-grid');
+            badgesGrid.innerHTML = '';
+            if (data.badges && data.badges.length > 0) {
+                data.badges.forEach((badge, index) => {
+                    const badgeName = typeof badge === 'string' ? badge : badge.name;
+                    const badgeId = typeof badge === 'string' ? badge.toLowerCase().replace(/ /g, '_') : badge.id;
+                    const imgSrc = BADGE_IMAGES[badgeId] || BADGE_IMAGES['default'];
+
+                    const badgeItem = document.createElement('div');
+                    badgeItem.className = 'badge-item';
+                    badgeItem.innerHTML = `
+                        <img src="${imgSrc}" alt="${badgeName}" loading="lazy">
+                        <span class="tooltip">${badgeName}</span>
+                    `;
+                    badgeItem.onclick = () => window.open('assets/gallery.html#badges', '_blank');
+                    badgesGrid.appendChild(badgeItem);
+                });
+            } else {
+                badgesGrid.innerHTML = '<p class="no-badges">No badges yet — complete quests to earn them!</p>';
+            }
+
+            // Recent Quests
+            const questList = document.getElementById('quest-list');
+            questList.innerHTML = '';
+            if (data.recent_events && data.recent_events.length > 0) {
+                data.recent_events.forEach(event => {
+                    const questItem = document.createElement('li');
+                    questItem.className = 'quest-item';
+                    questItem.innerHTML = `
+                        <span class="quest-icon">${GLYPHS[event.category] || '📜'}</span>
+                        <div class="quest-info">
+                            <div class="quest-desc">${event.description}</div>
+                            <div class="quest-meta">${event.category} • ${new Date(event.timestamp).toLocaleDateString()}</div>
+                        </div>
+                        <span class="quest-xp">+${event.points} XP</span>
+                    `;
+                    questList.appendChild(questItem);
+                });
+            } else {
+                questList.innerHTML = '<li class="quest-item">No quests logged yet. Start your journey!</li>';
+            }
+        }
+
+        // Trigger knight attack animation
+        function triggerKnightAttack() {
+            const knight = document.querySelector('.knight-avatar');
+            knight.classList.add('attacking');
+            setTimeout(() => {
+                knight.classList.remove('attacking');
+            }, 500);
+        }
+
+        // Show notification
+        function showNotification(title, message, isLevelUp = false) {
+            const notif = document.getElementById('notification');
+            document.getElementById('notif-title').textContent = title;
+            document.getElementById('notif-message').textContent = message;
+
+            notif.className = 'notification show' + (isLevelUp ? ' level-up' : '');
+
+            setTimeout(() => {
+                notif.className = 'notification';
+            }, 3000);
+        }
+
+        // Form submission
+        document.getElementById('quest-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const description = document.getElementById('description').value;
+            const category = document.getElementById('category').value;
+            const points = parseInt(document.getElementById('points').value);
+
+            try {
+                const response = await fetch(`${API_BASE}/log`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ description, category, points })
+                });
+
+                const result = await response.json();
+
+                // Trigger knight attack animation
+                triggerKnightAttack();
+
+                if (result.leveled_up) {
+                    showNotification('⬆️ LEVEL UP!', `You are now Level ${result.new_level}!`, true);
+                } else {
+                    showNotification('✨ Quest Logged!', `+${points} XP in ${category}`);
+                }
+
+                if (result.new_badges && result.new_badges.length > 0) {
+                    setTimeout(() => {
+                        showNotification('🏅 NEW BADGE!', result.new_badges[0].name);
+                    }, 1500);
+                }
+
+                // Clear form
+                document.getElementById('description').value = '';
+                document.getElementById('points').value = '10';
+
+                // Reload data
+                loadData();
+            } catch (error) {
+                console.error('Error logging quest:', error);
+                showNotification('❌ Error', 'Could not log quest. Is the server running?');
+            }
+        });
+
+        // Initial load
+        loadPatches();
+        loadData();
+
+        // Refresh every 30 seconds
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>
