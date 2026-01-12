@@ -78,9 +78,11 @@
             justify-content: center;
             gap: 20px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
-        .nav-links a {
+        .nav-links a,
+        .nav-links button {
             color: var(--gold);
             text-decoration: none;
             padding: 8px 16px;
@@ -88,11 +90,34 @@
             border-radius: 5px;
             font-family: 'Cinzel', serif;
             transition: all 0.3s;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1em;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links button:hover {
             background: rgba(212, 175, 55, 0.2);
             transform: translateY(-2px);
+        }
+
+        .nav-links .logout-btn {
+            border-color: var(--blood);
+            color: #ff6b6b;
+        }
+
+        .nav-links .logout-btn:hover {
+            background: rgba(139, 0, 0, 0.2);
+        }
+
+        .pilgrim-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold-light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            border: 1px solid var(--gold-dark);
         }
 
         /* Main Grid */
@@ -479,6 +504,12 @@
             transform: translateY(0);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Notification */
         .notification {
             position: fixed;
@@ -555,6 +586,50 @@
             color: var(--gold-dark);
         }
 
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-screen h2 {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold);
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .loading-screen p {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--gold-dark);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
         /* Glyph Colors */
         .glyph-faith { color: #ff6b6b; }
         .glyph-strength { color: #ffa502; }
@@ -587,7 +662,14 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="spinner"></div>
+        <h2>LifeQuest</h2>
+        <p>Preparing your journey...</p>
+    </div>
+
+    <div class="container hidden" id="main-content">
         <header class="header">
             <h1>LIFEQUEST</h1>
             <p class="subtitle">Gospel-Aligned Life Gamification</p>
@@ -596,7 +678,8 @@
                 <a href="assets/gallery.html">Asset Gallery</a>
                 <a href="assets/gallery.html#patches">Patches</a>
                 <a href="assets/gallery.html#badges">Badges</a>
-                <a href="assets/gallery.html#knights">Knights</a>
+                <span id="pilgrim-indicator" class="pilgrim-badge hidden">Pilgrim Mode</span>
+                <button class="logout-btn" id="logout-btn" onclick="handleLogout()">Logout</button>
             </nav>
         </header>
 
@@ -607,8 +690,8 @@
                 <div class="character-card">
                     <div class="knight-avatar"></div>
                     <div class="character-info">
-                        <div class="character-name">Lewis Weston</div>
-                        <div class="character-title">Knight of Cohesion</div>
+                        <div class="character-name" id="character-name">Knight</div>
+                        <div class="character-title" id="character-title">Pilgrim of the Quest</div>
                         <div class="level-display">
                             <div class="level-label">Level</div>
                             <div class="level-number" id="level">1</div>
@@ -651,7 +734,7 @@
                             <input type="number" id="points" value="10" min="1" max="100" required>
                         </div>
                     </div>
-                    <button type="submit" class="submit-btn">Complete Quest</button>
+                    <button type="submit" class="submit-btn" id="submit-btn">Complete Quest</button>
                 </form>
             </div>
 
@@ -701,7 +784,15 @@
         <p id="notif-message">+10 XP</p>
     </div>
 
-    <script>
+    <script type="module">
+        // ============================================
+        // LIFEQUEST DASHBOARD - FIREBASE INTEGRATED
+        // ============================================
+
+        import { initFirebase, isFirebaseReady, isPilgrimMode } from './js/firebase-config.js';
+        import { initAuthListener, getCurrentUser, isAuthenticated, logout } from './js/auth.js';
+        import { getProgressSummary, logQuest, BADGES } from './js/firestore.js';
+
         const GLYPHS = {
             faith: '✝️',
             strength: '💪',
@@ -718,9 +809,11 @@
             'first_step': 'assets/badges/badges_005.png',
             'faithful_five': 'assets/badges/badges_006.png',
             'decade_warrior': 'assets/badges/badges_000.png',
-            'level_5': 'assets/badges/badges_002.png',
-            'level_10': 'assets/badges/badges_001.png',
+            'level_five': 'assets/badges/badges_002.png',
+            'level_ten': 'assets/badges/badges_001.png',
             'prayer_warrior': 'assets/badges/badges_003.png',
+            'iron_forged': 'assets/badges/badges_004.png',
+            'seeker_of_wisdom': 'assets/badges/badges_000.png',
             'default': 'assets/badges/badges_004.png'
         };
 
@@ -740,7 +833,15 @@
             'assets/patches/patches_011.png'
         ];
 
-        const API_BASE = '/api';
+        // Title based on level
+        function getTitle(level) {
+            if (level >= 20) return 'Legendary Knight';
+            if (level >= 15) return 'Knight Commander';
+            if (level >= 10) return 'Knight Errant';
+            if (level >= 5) return 'Knight Apprentice';
+            if (level >= 3) return 'Squire of the Quest';
+            return 'Pilgrim of the Quest';
+        }
 
         // Load patches
         function loadPatches() {
@@ -755,36 +856,12 @@
             });
         }
 
-        // Fetch and display data
-        async function loadData() {
-            try {
-                const response = await fetch(`${API_BASE}/progress`);
-                const data = await response.json();
-                updateDisplay(data);
-            } catch (error) {
-                console.error('Error loading data:', error);
-                loadStaticData();
-            }
-        }
-
-        function loadStaticData() {
-            fetch('lifequest_data.json')
-                .then(r => r.json())
-                .then(data => {
-                    const progress = {
-                        level: 1 + Math.floor(data.xp / 100),
-                        xp: data.xp,
-                        xp_to_next: 100 - (data.xp % 100),
-                        stats: data.stats,
-                        badges: data.badges || [],
-                        recent_events: (data.events || []).slice(-5).reverse()
-                    };
-                    updateDisplay(progress);
-                })
-                .catch(e => console.error('Static load failed:', e));
-        }
-
+        // Update display with user data
         function updateDisplay(data) {
+            // Character name and title
+            document.getElementById('character-name').textContent = data.displayName || 'Knight';
+            document.getElementById('character-title').textContent = getTitle(data.level);
+
             // Level
             document.getElementById('level').textContent = data.level;
 
@@ -815,9 +892,11 @@
             const badgesGrid = document.getElementById('badges-grid');
             badgesGrid.innerHTML = '';
             if (data.badges && data.badges.length > 0) {
-                data.badges.forEach((badge, index) => {
-                    const badgeName = typeof badge === 'string' ? badge : badge.name;
-                    const badgeId = typeof badge === 'string' ? badge.toLowerCase().replace(/ /g, '_') : badge.id;
+                data.badges.forEach((badge) => {
+                    const badgeId = typeof badge === 'string' ? badge : badge.id;
+                    const badgeName = typeof badge === 'string' ?
+                        (BADGES[badge]?.name || badge.replace(/_/g, ' ')) :
+                        badge.name;
                     const imgSrc = BADGE_IMAGES[badgeId] || BADGE_IMAGES['default'];
 
                     const badgeItem = document.createElement('div');
@@ -836,8 +915,8 @@
             // Recent Quests
             const questList = document.getElementById('quest-list');
             questList.innerHTML = '';
-            if (data.recent_events && data.recent_events.length > 0) {
-                data.recent_events.forEach(event => {
+            if (data.recentEvents && data.recentEvents.length > 0) {
+                data.recentEvents.forEach(event => {
                     const questItem = document.createElement('li');
                     questItem.className = 'quest-item';
                     questItem.innerHTML = `
@@ -877,35 +956,44 @@
             }, 3000);
         }
 
-        // Form submission
-        document.getElementById('quest-form').addEventListener('submit', async (e) => {
+        // Load and display data
+        async function loadData() {
+            try {
+                const data = await getProgressSummary();
+                updateDisplay(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showNotification('Error', 'Could not load data');
+            }
+        }
+
+        // Handle form submission
+        async function handleQuestSubmit(e) {
             e.preventDefault();
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Logging...';
 
             const description = document.getElementById('description').value;
             const category = document.getElementById('category').value;
             const points = parseInt(document.getElementById('points').value);
 
             try {
-                const response = await fetch(`${API_BASE}/log`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ description, category, points })
-                });
-
-                const result = await response.json();
+                const result = await logQuest(description, category, points);
 
                 // Trigger knight attack animation
                 triggerKnightAttack();
 
-                if (result.leveled_up) {
-                    showNotification('⬆️ LEVEL UP!', `You are now Level ${result.new_level}!`, true);
+                if (result.levelUp) {
+                    showNotification('⬆️ LEVEL UP!', `You are now Level ${result.newLevel}!`, true);
                 } else {
                     showNotification('✨ Quest Logged!', `+${points} XP in ${category}`);
                 }
 
-                if (result.new_badges && result.new_badges.length > 0) {
+                if (result.newBadges && result.newBadges.length > 0) {
                     setTimeout(() => {
-                        showNotification('🏅 NEW BADGE!', result.new_badges[0].name);
+                        showNotification('🏅 NEW BADGE!', result.newBadges[0].name);
                     }, 1500);
                 }
 
@@ -914,19 +1002,64 @@
                 document.getElementById('points').value = '10';
 
                 // Reload data
-                loadData();
+                await loadData();
             } catch (error) {
                 console.error('Error logging quest:', error);
-                showNotification('❌ Error', 'Could not log quest. Is the server running?');
+                showNotification('❌ Error', 'Could not log quest. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Complete Quest';
             }
-        });
+        }
 
-        // Initial load
-        loadPatches();
-        loadData();
+        // Handle logout
+        window.handleLogout = async function() {
+            try {
+                await logout();
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        };
 
-        // Refresh every 30 seconds
-        setInterval(loadData, 30000);
+        // Initialize the app
+        async function init() {
+            // Try to initialize Firebase (will fail gracefully if not configured)
+            initFirebase();
+
+            // Set up auth listener
+            initAuthListener(async (user) => {
+                const loadingScreen = document.getElementById('loading-screen');
+                const mainContent = document.getElementById('main-content');
+
+                if (user) {
+                    // User is authenticated (Firebase or Pilgrim)
+                    console.log('User authenticated:', user.displayName);
+
+                    // Show pilgrim indicator if in pilgrim mode
+                    if (user.isPilgrim) {
+                        document.getElementById('pilgrim-indicator').classList.remove('hidden');
+                    }
+
+                    // Load data and show main content
+                    await loadData();
+                    loadPatches();
+
+                    loadingScreen.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+
+                    // Set up form handler
+                    document.getElementById('quest-form').addEventListener('submit', handleQuestSubmit);
+
+                } else {
+                    // Not authenticated - redirect to login
+                    console.log('Not authenticated, redirecting to login...');
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+
+        // Start the app
+        init();
     </script>
 </body>
 </html>

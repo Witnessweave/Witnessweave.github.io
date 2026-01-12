@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeQuest — Begin Your Journey</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f4e4bc;
+            --gold-dark: #8b7355;
+            --blood: #8b0000;
+            --parchment: #f5e6d3;
+            --parchment-dark: #e8d5b7;
+            --ink: #2c1810;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --holy-blue: #4a90d9;
+            --ember: #ff6b35;
+            --bg-dark: #0a0b0f;
+            --card-dark: #12131a;
+            --success: #4caf50;
+            --error: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: var(--parchment);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            background: linear-gradient(145deg, var(--card-dark) 0%, #1a1b26 100%);
+            border: 2px solid var(--gold-dark);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow:
+                0 0 40px rgba(212, 175, 55, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.5em;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px var(--shadow), 0 0 30px rgba(212, 175, 55, 0.3);
+            letter-spacing: 3px;
+        }
+
+        .logo .subtitle {
+            font-size: 1em;
+            color: var(--gold-light);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .verse {
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--parchment);
+            opacity: 0.7;
+            margin-bottom: 30px;
+            font-style: italic;
+            padding: 0 20px;
+        }
+
+        .tab-container {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--gold-dark);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 1em;
+            color: var(--gold-dark);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .tab:hover {
+            color: var(--gold);
+        }
+
+        .tab.active {
+            color: var(--gold);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9em;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1em;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--gold-dark);
+            border-radius: 8px;
+            color: var(--parchment);
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: var(--gold-dark);
+            opacity: 0.6;
+        }
+
+        .signup-field {
+            display: none;
+        }
+
+        .signup-field.show {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--ink);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: var(--gold-dark);
+            font-size: 0.85em;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gold-dark);
+        }
+
+        .divider span {
+            padding: 0 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .pilgrim-btn {
+            width: 100%;
+            padding: 14px;
+            font-family: 'Cinzel', serif;
+            font-size: 1em;
+            color: var(--gold);
+            background: transparent;
+            border: 1px solid var(--gold-dark);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pilgrim-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            display: none;
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(244, 67, 54, 0.15);
+            border: 1px solid var(--error);
+            color: #ff6b6b;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid var(--success);
+            color: #81c784;
+        }
+
+        .gospel-witness {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .gospel-witness p {
+            font-size: 0.85em;
+            color: var(--parchment);
+            opacity: 0.6;
+            line-height: 1.6;
+        }
+
+        .gospel-witness .cross {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--gold-dark);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 0.85em;
+            color: var(--gold-dark);
+            text-decoration: none;
+            margin-top: 8px;
+            transition: color 0.3s;
+        }
+
+        .forgot-link:hover {
+            color: var(--gold);
+        }
+
+        @media (max-width: 500px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            .logo h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>LifeQuest</h1>
+            <div class="subtitle">Gospel-Aligned Life Gamification</div>
+        </div>
+
+        <div class="verse">
+            "Run in such a way that you may obtain the prize."
+            <br>— 1 Corinthians 9:24
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="tab-container">
+            <button class="tab active" data-tab="login" onclick="switchTab('login')">
+                Continue Quest
+            </button>
+            <button class="tab" data-tab="signup" onclick="switchTab('signup')">
+                Begin Journey
+            </button>
+        </div>
+
+        <form id="authForm" onsubmit="handleSubmit(event)">
+            <div class="form-group signup-field" id="nameField">
+                <label for="displayName">Knight Name</label>
+                <input type="text" id="displayName" placeholder="What shall we call you?">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Your secret key" required minlength="6">
+                <a href="#" class="forgot-link" id="forgotLink" onclick="handleForgotPassword(event)">Forgot password?</a>
+            </div>
+
+            <div class="form-group signup-field" id="confirmField">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your secret key">
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Continue Your Quest
+            </button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Preparing your journey...</p>
+        </div>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <button class="pilgrim-btn" onclick="enterAsPilgrim()">
+            Enter as Anonymous Pilgrim
+        </button>
+
+        <div class="gospel-witness">
+            <div class="cross">✝</div>
+            <p>
+                Your journey is seen. You are not alone.<br>
+                Jesus is Lord.
+            </p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // ============================================
+        // FIREBASE CONFIGURATION
+        // Replace these values with your Firebase config
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            updateProfile,
+            sendPasswordResetEmail,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            setDoc,
+            getDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+        // Initialize Firebase
+        let app, auth, db;
+
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            console.log('Firebase initialized successfully');
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+            showMessage('Firebase not configured. Please set up your Firebase project.', 'error');
+        }
+
+        // Check if already logged in
+        if (auth) {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in, redirect to dashboard
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        // Current mode
+        let currentTab = 'login';
+
+        // Switch between login and signup tabs
+        window.switchTab = function(tab) {
+            currentTab = tab;
+
+            // Update tab styles
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.remove('active');
+                if (t.dataset.tab === tab) {
+                    t.classList.add('active');
+                }
+            });
+
+            // Show/hide signup fields
+            const signupFields = document.querySelectorAll('.signup-field');
+            signupFields.forEach(field => {
+                if (tab === 'signup') {
+                    field.classList.add('show');
+                } else {
+                    field.classList.remove('show');
+                }
+            });
+
+            // Update button text
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = tab === 'login' ? 'Continue Your Quest' : 'Begin Your Journey';
+
+            // Show/hide forgot password link
+            document.getElementById('forgotLink').style.display = tab === 'login' ? 'block' : 'none';
+
+            // Clear messages
+            hideMessage();
+        }
+
+        // Show message
+        window.showMessage = function(text, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = 'message ' + type;
+        }
+
+        // Hide message
+        window.hideMessage = function() {
+            const messageEl = document.getElementById('message');
+            messageEl.className = 'message';
+        }
+
+        // Show/hide loading
+        function setLoading(loading) {
+            document.getElementById('authForm').style.display = loading ? 'none' : 'block';
+            document.getElementById('loading').className = loading ? 'loading show' : 'loading';
+        }
+
+        // Handle form submission
+        window.handleSubmit = async function(event) {
+            event.preventDefault();
+            hideMessage();
+
+            if (!auth) {
+                showMessage('Firebase not configured. Please contact the administrator.', 'error');
+                return;
+            }
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (currentTab === 'signup') {
+                const displayName = document.getElementById('displayName').value.trim();
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    showMessage('Passwords do not match.', 'error');
+                    return;
+                }
+
+                if (!displayName) {
+                    showMessage('Please enter your knight name.', 'error');
+                    return;
+                }
+
+                setLoading(true);
+
+                try {
+                    // Create user account
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+
+                    // Update profile with display name
+                    await updateProfile(user, { displayName: displayName });
+
+                    // Create initial user data in Firestore
+                    await setDoc(doc(db, 'users', user.uid), {
+                        email: email,
+                        displayName: displayName,
+                        createdAt: serverTimestamp()
+                    });
+
+                    // Create initial quest data
+                    await setDoc(doc(db, 'quests', user.uid), {
+                        xp: 0,
+                        level: 1,
+                        stats: {
+                            faith: 0,
+                            strength: 0,
+                            wisdom: 0,
+                            social: 0,
+                            creativity: 0,
+                            health: 0,
+                            service: 0,
+                            rest: 0
+                        },
+                        badges: [],
+                        events: [],
+                        patches: [],
+                        lastUpdated: serverTimestamp()
+                    });
+
+                    showMessage('Account created! Redirecting to your quest...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+
+                } catch (error) {
+                    setLoading(false);
+                    console.error('Signup error:', error);
+
+                    if (error.code === 'auth/email-already-in-use') {
+                        showMessage('This email is already registered. Try logging in instead.', 'error');
+                    } else if (error.code === 'auth/weak-password') {
+                        showMessage('Password should be at least 6 characters.', 'error');
+                    } else if (error.code === 'auth/invalid-email') {
+                        showMessage('Please enter a valid email address.', 'error');
+                    } else {
+                        showMessage('Error creating account. Please try again.', 'error');
+                    }
+                }
+
+            } else {
+                // Login
+                setLoading(true);
+
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                    showMessage('Welcome back, knight! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+
+                } catch (error) {
+                    setLoading(false);
+                    console.error('Login error:', error);
+
+                    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                        showMessage('Invalid email or password.', 'error');
+                    } else if (error.code === 'auth/too-many-requests') {
+                        showMessage('Too many attempts. Please try again later.', 'error');
+                    } else {
+                        showMessage('Error signing in. Please try again.', 'error');
+                    }
+                }
+            }
+        }
+
+        // Handle forgot password
+        window.handleForgotPassword = async function(event) {
+            event.preventDefault();
+
+            if (!auth) {
+                showMessage('Firebase not configured.', 'error');
+                return;
+            }
+
+            const email = document.getElementById('email').value.trim();
+
+            if (!email) {
+                showMessage('Please enter your email address first.', 'error');
+                return;
+            }
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showMessage('Password reset email sent! Check your inbox.', 'success');
+            } catch (error) {
+                console.error('Password reset error:', error);
+                if (error.code === 'auth/user-not-found') {
+                    showMessage('No account found with this email.', 'error');
+                } else {
+                    showMessage('Error sending reset email. Please try again.', 'error');
+                }
+            }
+        }
+
+        // Enter as anonymous pilgrim (localStorage mode)
+        window.enterAsPilgrim = function() {
+            // Set pilgrim mode flag
+            localStorage.setItem('lifequest_pilgrim_mode', 'true');
+
+            // Initialize local data if not exists
+            if (!localStorage.getItem('lifequest_local_data')) {
+                const initialData = {
+                    xp: 0,
+                    level: 1,
+                    stats: {
+                        faith: 0,
+                        strength: 0,
+                        wisdom: 0,
+                        social: 0,
+                        creativity: 0,
+                        health: 0,
+                        service: 0,
+                        rest: 0
+                    },
+                    badges: [],
+                    events: [],
+                    patches: [],
+                    displayName: 'Anonymous Pilgrim',
+                    lastUpdated: new Date().toISOString()
+                };
+                localStorage.setItem('lifequest_local_data', JSON.stringify(initialData));
+            }
+
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
