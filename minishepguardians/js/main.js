@@ -219,10 +219,173 @@
     });
   }
 
+  /* ===== Lightbox Gallery with Caching ===== */
+  const imageCache = new Map();
+
+  function preloadImage(src) {
+    if (imageCache.has(src)) {
+      return Promise.resolve(imageCache.get(src));
+    }
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        imageCache.set(src, img);
+        resolve(img);
+      };
+      img.onerror = reject;
+      img.src = src;
+    });
+  }
+
+  function initLightbox() {
+    // Create lightbox DOM if not exists
+    if (document.getElementById('lightbox-overlay')) return;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'lightbox-overlay';
+    overlay.className = 'lightbox-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Image viewer');
+    overlay.innerHTML = `
+      <div class="lightbox-content">
+        <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+        <div class="lightbox-image-container">
+          <div class="lightbox-loader">Loading...</div>
+          <img class="lightbox-image" src="" alt="" />
+        </div>
+        <div class="lightbox-info">
+          <h3 class="lightbox-title"></h3>
+          <p class="lightbox-description"></p>
+          <a class="lightbox-download btn btn-primary" href="" download>
+            <span>⬇</span> Download Full Image
+          </a>
+        </div>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const closeBtn = overlay.querySelector('.lightbox-close');
+    const imgEl = overlay.querySelector('.lightbox-image');
+    const loader = overlay.querySelector('.lightbox-loader');
+    const title = overlay.querySelector('.lightbox-title');
+    const desc = overlay.querySelector('.lightbox-description');
+    const downloadBtn = overlay.querySelector('.lightbox-download');
+    const prevBtn = overlay.querySelector('.lightbox-prev');
+    const nextBtn = overlay.querySelector('.lightbox-next');
+
+    let currentItems = [];
+    let currentIndex = 0;
+
+    function closeLightbox() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      imgEl.src = '';
+    }
+
+    function showImage(index) {
+      if (index < 0 || index >= currentItems.length) return;
+      currentIndex = index;
+
+      const item = currentItems[index];
+      const fullSrc = item.dataset.fullSrc || item.querySelector('img')?.src || '';
+      const thumbSrc = item.querySelector('img')?.src || '';
+      const itemTitle = item.dataset.title || item.querySelector('h3')?.textContent || 'Image';
+      const itemDesc = item.dataset.description || item.querySelector('.verse')?.textContent || '';
+
+      // Show loader
+      loader.style.display = 'block';
+      imgEl.style.opacity = '0';
+
+      // Update info
+      title.textContent = itemTitle;
+      desc.textContent = itemDesc;
+      downloadBtn.href = fullSrc || thumbSrc;
+      downloadBtn.download = itemTitle.replace(/[^a-z0-9]/gi, '_') + '.jpg';
+
+      // Load and show image (use full or thumb)
+      const srcToLoad = fullSrc || thumbSrc;
+      preloadImage(srcToLoad).then(() => {
+        imgEl.src = srcToLoad;
+        imgEl.alt = itemTitle;
+        loader.style.display = 'none';
+        imgEl.style.opacity = '1';
+      }).catch(() => {
+        loader.textContent = 'Failed to load image';
+      });
+
+      // Update nav visibility
+      prevBtn.style.display = currentItems.length > 1 ? 'flex' : 'none';
+      nextBtn.style.display = currentItems.length > 1 ? 'flex' : 'none';
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === currentItems.length - 1;
+
+      // Preload adjacent images
+      if (index > 0) {
+        const prevItem = currentItems[index - 1];
+        preloadImage(prevItem.dataset.fullSrc || prevItem.querySelector('img')?.src || '');
+      }
+      if (index < currentItems.length - 1) {
+        const nextItem = currentItems[index + 1];
+        preloadImage(nextItem.dataset.fullSrc || nextItem.querySelector('img')?.src || '');
+      }
+    }
+
+    function openLightbox(items, startIndex) {
+      currentItems = Array.from(items);
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      showImage(startIndex);
+    }
+
+    // Event listeners
+    closeBtn.addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeLightbox();
+    });
+    prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
+    nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (!overlay.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    });
+
+    // Expose openLightbox globally
+    window.openLightbox = openLightbox;
+
+    // Auto-attach to gallery slides
+    document.querySelectorAll('.gallery-slide').forEach((slide, index, slides) => {
+      slide.style.cursor = 'pointer';
+      slide.setAttribute('role', 'button');
+      slide.setAttribute('tabindex', '0');
+      slide.addEventListener('click', () => openLightbox(slides, index));
+      slide.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(slides, index);
+        }
+      });
+    });
+
+    // Auto-attach to any .lightbox-trigger elements
+    document.querySelectorAll('.lightbox-trigger').forEach((trigger, index, triggers) => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        openLightbox(triggers, index);
+      });
+    });
+  }
+
   /* ===== Initialize All ===== */
   function init() {
     renderPathGrid();
     initGallery();
+    initLightbox();
     initAccessibilityToggles();
     initBackToTop();
     initSmoothScroll();

@@ -13,8 +13,8 @@
   async function loadData() {
     try {
       const [registryRes, configRes] = await Promise.all([
-        fetch('data/line_of_pearl_registry.json'),
-        fetch('data/lineage_config.json')
+        fetch('data/line_of_pearl_registry.json?v=' + Date.now()),
+        fetch('data/lineage_config.json?v=' + Date.now())
       ]);
 
       registryData = await registryRes.json();
@@ -54,9 +54,15 @@
 
     const statusClass = dog.status === 'at_rest' ? 'at-rest' : '';
 
+    // Use photo if available, otherwise emoji
+    const photoSrc = dog.photos && dog.photos.length > 0 ? dog.photos[0] : null;
+    const photoHtml = photoSrc
+      ? `<img class="node-photo" src="${photoSrc}" alt="${dog.name}" loading="lazy">`
+      : `<span class="photo-emoji">${dog.status === 'at_rest' ? '🕯️' : '🐕'}</span>`;
+
     node.innerHTML = `
       <span class="generation-badge">${dog.generation}</span>
-      <span class="photo-emoji">${dog.status === 'at_rest' ? '🕯️' : '🐕'}</span>
+      ${photoHtml}
       <span class="name">${dog.name}</span>
       <span class="spirit-name">${dog.spirit_name}</span>
     `;
@@ -127,8 +133,8 @@
       container.appendChild(founderRow);
     }
 
-    // Order generations: F0, F1, F2.1, F2.2
-    const genOrder = ['F0', 'F1', 'F2.1', 'F2.2'];
+    // Order generations: F0, F1.0, F2.0, F2.2
+    const genOrder = ['F0', 'F1.0', 'F2.0', 'F2.2'];
 
     genOrder.forEach(gen => {
       if (generations[gen] && generations[gen].length > 0) {
@@ -151,86 +157,121 @@
     const styles = document.createElement('style');
     styles.id = 'lineage-tree-styles';
     styles.textContent = `
+      /* Tree Container - Vertical Centered Layout */
+      .lineage-tree {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+
+      /* Each Generation Row */
       .lineage-row {
         display: flex;
-        align-items: flex-start;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1.5rem;
-        border-bottom: 1px dashed var(--paper-3, #d9c9a8);
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        width: 100%;
       }
 
-      .lineage-row:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
+      /* Vertical connector line between generations */
+      .lineage-row:not(:last-child)::after {
+        content: '';
+        display: block;
+        width: 2px;
+        height: 24px;
+        background: var(--gold, #daa520);
+        margin: 0 auto;
       }
 
+      /* Generation Label - Centered Above Nodes */
       .generation-label {
-        min-width: 60px;
         font-family: var(--font-serif, Georgia, serif);
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: var(--gold, #daa520);
-        padding-top: 1rem;
+        text-align: center;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
+      /* Nodes Container - Centered */
       .generation-nodes {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
-        flex: 1;
+        justify-content: center;
+        gap: 1.5rem;
       }
 
+      /* Individual Node Card */
       .lineage-node {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 1rem;
+        padding: 1rem 1.25rem;
         background: var(--paper, #f7f1e3);
         border-radius: var(--radius, 14px);
         cursor: pointer;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        min-width: 120px;
+        min-width: 130px;
+        max-width: 160px;
         text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       }
 
       .lineage-node:hover,
       .lineage-node:focus {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
       }
 
       .lineage-node:focus-visible {
-        outline: 2px solid var(--gold, #daa520);
+        outline: 3px solid var(--gold, #daa520);
         outline-offset: 2px;
       }
 
       .lineage-node.at-rest {
-        opacity: 0.8;
+        opacity: 0.85;
         background: var(--paper-2, #e8dcc4);
       }
 
+      /* Generation Badge */
       .lineage-node .generation-badge {
         font-size: 0.65rem;
         background: var(--gold, #daa520);
         color: white;
-        padding: 0.1rem 0.4rem;
+        padding: 0.15rem 0.5rem;
         border-radius: 4px;
         margin-bottom: 0.5rem;
+        font-weight: 600;
       }
 
+      /* Photo/Emoji */
       .lineage-node .photo-emoji {
-        font-size: 2rem;
+        font-size: 2.5rem;
         margin-bottom: 0.5rem;
       }
 
+      .lineage-node .node-photo {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.5rem;
+        border: 3px solid var(--gold, #daa520);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Name */
       .lineage-node .name {
         font-family: var(--font-serif, Georgia, serif);
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 1.1rem;
+        color: var(--ink, #2b2b2b);
       }
 
+      /* Spirit Name */
       .lineage-node .spirit-name {
         font-size: 0.75rem;
         font-style: italic;
@@ -238,23 +279,37 @@
         margin-top: 0.25rem;
       }
 
-      .founder-row .lineage-node {
+      /* Special styling for F0 (Founder) */
+      .lineage-row[data-generation="F0"] .lineage-node {
         background: linear-gradient(135deg, var(--paper, #f7f1e3) 0%, var(--gold-soft, #e7c96c) 100%);
+        box-shadow: 0 6px 20px rgba(218, 165, 32, 0.25);
       }
 
+      .lineage-row[data-generation="F0"] .lineage-node .node-photo {
+        width: 100px;
+        height: 100px;
+        border-width: 4px;
+      }
+
+      /* Responsive */
       @media (max-width: 600px) {
-        .lineage-row {
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-
-        .generation-label {
-          padding-top: 0;
-        }
-
         .generation-nodes {
-          width: 100%;
-          justify-content: center;
+          gap: 1rem;
+        }
+
+        .lineage-node {
+          min-width: 110px;
+          padding: 0.75rem 1rem;
+        }
+
+        .lineage-node .node-photo {
+          width: 70px;
+          height: 70px;
+        }
+
+        .lineage-row[data-generation="F0"] .lineage-node .node-photo {
+          width: 80px;
+          height: 80px;
         }
       }
     `;
