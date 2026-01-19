@@ -75,14 +75,6 @@
             filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
         }
 
-        .splash-byline {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(0.7em, 1.8vw, 0.9em);
-            color: #8a7355;
-            letter-spacing: 0.2em;
-            margin-bottom: 40px;
-        }
-
         .start-text {
             font-family: 'Cinzel Decorative', serif;
             font-size: clamp(1.4em, 4vw, 2.2em);
@@ -151,13 +143,6 @@
             width: clamp(70px, 12vw, 100px);
             height: auto;
             filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
-        }
-
-        .header-byline {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(0.5em, 1.2vw, 0.65em);
-            color: #8a7355;
-            letter-spacing: 0.2em;
         }
 
         /* Footer Branding */
@@ -252,6 +237,19 @@
                 0 0 120px rgba(212, 175, 55, 0.15);
             border: 3px solid #6b4e2a;
             filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* Logo Overlay on GIF */
+        .gif-logo-overlay {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: clamp(45px, 10vw, 70px);
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6))
+                    drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
+            opacity: 0.95;
+            z-index: 10;
         }
 
         /* Scroll Container */
@@ -479,7 +477,6 @@
     <div class="audio-overlay" id="audioOverlay">
         <div class="splash-jesus">JESUS IS LORD™</div>
         <img src="https://i.postimg.cc/525XYFwP/Resized-Image-2026-01-18-14-39-52-1.png" alt="Witness Weave" class="splash-logo">
-        <div class="splash-byline">From Your Loving Brother</div>
         <div class="start-text">Click to Begin</div>
         <div class="start-sub">~ a testimony awaits ~</div>
     </div>
@@ -490,7 +487,6 @@
         <div class="header-brand">
             <div class="header-jesus">JESUS IS LORD™</div>
             <img src="https://i.postimg.cc/525XYFwP/Resized-Image-2026-01-18-14-39-52-1.png" alt="Witness Weave" class="header-logo">
-            <div class="header-byline">From Your Loving Brother</div>
         </div>
 
         <!-- Scroll Container -->
@@ -504,6 +500,7 @@
             <!-- GIF Centerpiece -->
             <div class="witness-centerpiece">
                 <img src="https://files.catbox.moe/nhkwwc.gif" alt="The Witness" class="witness-image">
+                <img src="https://i.postimg.cc/525XYFwP/Resized-Image-2026-01-18-14-39-52-1.png" alt="Witness Weave" class="gif-logo-overlay">
             </div>
 
             <!-- Scrolling Testimony -->
@@ -556,8 +553,7 @@
         <source src="https://cdn.pixabay.com/audio/2022/05/13/audio_2f6fc37250.mp3" type="audio/mpeg">
     </audio>
 
-    
-    <script>
+script>
         // Elements
         const audioOverlay = document.getElementById('audioOverlay');
         const mainContent = document.getElementById('mainContent');
