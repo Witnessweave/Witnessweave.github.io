@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Brother — A Birthday Testimony</title>
+    <meta name="description" content="A birthday testimony scroll by Lewis — Witness Weave™ in partnership with Cohesion Studios™">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #0a0a0a;
+            font-family: 'IM Fell English', 'Cinzel', serif;
+            position: relative;
+        }
+
+        /* Ambient Background Gradient */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center top, rgba(26, 20, 16, 0.9) 0%, rgba(10, 10, 10, 1) 70%);
+            z-index: 0;
+        }
+
+        /* ========== SPLASH OVERLAY ========== */
+        .audio-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .audio-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .splash-jesus {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.75em, 2vw, 1em);
+            color: #d4af37;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .splash-logo {
+            width: clamp(140px, 35vw, 220px);
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        .splash-byline {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.7em, 1.8vw, 0.9em);
+            color: #8a7355;
+            letter-spacing: 0.2em;
+            margin-bottom: 40px;
+        }
+
+        .start-text {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.4em, 4vw, 2.2em);
+            color: #d4af37;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+            animation: pulseGlow 2s ease-in-out infinite;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .start-sub {
+            font-family: 'IM Fell English', serif;
+            font-size: clamp(0.9em, 2vw, 1.1em);
+            color: #b8956f;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Header Branding */
+        .header-brand {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 25;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .header-jesus {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.55em, 1.4vw, 0.7em);
+            color: #d4af37;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .header-logo {
+            width: clamp(70px, 12vw, 100px);
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+        }
+
+        .header-byline {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.5em, 1.2vw, 0.65em);
+            color: #8a7355;
+            letter-spacing: 0.2em;
+        }
+
+        /* Footer Branding */
+        .footer-brand {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 25;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-partnership {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.5em, 1.3vw, 0.65em);
+            color: #6b5a45;
+            letter-spacing: 0.15em;
+        }
+
+        .footer-partnership .studio-name {
+            color: #8a7355;
+        }
+
+        .footer-jesus {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.55em, 1.4vw, 0.7em);
+            color: #d4af37;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Scroll Container */
+        .scroll-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 85px 20px 70px 20px;
+        }
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            padding: 10px 0 15px 0;
+            z-index: 10;
+        }
+
+        .title-section h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.5em, 4.5vw, 2.6em);
+            color: #d4af37;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.6),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 6px;
+        }
+
+        .title-section .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.85em, 2.2vw, 1.2em);
+            color: #b8956f;
+            font-style: italic;
+            letter-spacing: 0.15em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* GIF Centerpiece */
+        .witness-centerpiece {
+            position: relative;
+            z-index: 5;
+            margin-bottom: 8px;
+        }
+
+        .witness-image {
+            width: clamp(240px, 40vw, 420px);
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 
+                0 0 40px rgba(212, 175, 55, 0.5),
+                0 0 80px rgba(212, 175, 55, 0.3),
+                0 0 120px rgba(212, 175, 55, 0.15);
+            border: 3px solid #6b4e2a;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* Scroll Container */
+        .crawl-container {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Fade mask for top and bottom */
+        .crawl-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(10, 10, 10, 1) 0%,
+                rgba(10, 10, 10, 0) 15%,
+                rgba(10, 10, 10, 0) 70%,
+                rgba(10, 10, 10, 0.9) 90%,
+                rgba(10, 10, 10, 1) 100%
+            );
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* The scrolling text wrapper */
+        .crawl-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+            width: 90%;
+            max-width: 700px;
+        }
+
+        .crawl-wrapper.scrolling {
+            animation: textCrawl 80s linear forwards;
+        }
+
+        .testimony-content {
+            padding: 0 20px;
+        }
+
+        .testimony-content p {
+            font-family: 'IM Fell English', serif;
+            font-size: clamp(1em, 2vw, 1.3em);
+            line-height: 2;
+            color: #d4c5a9;
+            text-align: justify;
+            margin-bottom: 1.8em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+            text-indent: 2em;
+        }
+
+        .testimony-content p.first-paragraph {
+            text-indent: 0;
+        }
+
+        .testimony-content p.first-paragraph::first-letter {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 4.2em;
+            float: left;
+            line-height: 0.85;
+            margin: 0.05em 0.12em 0 0;
+            color: #d4af37;
+            text-shadow: 
+                0 0 15px rgba(212, 175, 55, 0.8),
+                2px 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        .testimony-content .blessing {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.1em, 2.3vw, 1.4em);
+            text-align: center;
+            color: #d4af37;
+            margin: 1.8em 0;
+            text-indent: 0;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.7),
+                2px 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        .testimony-content .selah {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.5em, 3.2vw, 2em);
+            text-align: center;
+            color: #d4af37;
+            margin: 2.5em 0 4em 0;
+            text-indent: 0;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-shadow: 
+                0 0 30px rgba(212, 175, 55, 0.9),
+                0 0 50px rgba(212, 175, 55, 0.5),
+                3px 3px 6px rgba(0, 0, 0, 0.9);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        /* Decorative Border Frame */
+        .border-frame {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 2px solid #6b4e2a;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 20;
+            box-shadow: 
+                inset 0 0 30px rgba(107, 78, 42, 0.3),
+                0 0 15px rgba(107, 78, 42, 0.2);
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+        }
+
+        .border-frame.visible {
+            opacity: 1;
+        }
+
+        /* Animations */
+        @keyframes textCrawl {
+            0% {
+                top: 50%;
+            }
+            100% {
+                top: -180%;
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 30px rgba(212, 175, 55, 0.9),
+                    0 0 50px rgba(212, 175, 55, 0.5),
+                    3px 3px 6px rgba(0, 0, 0, 0.9);
+            }
+            50% {
+                text-shadow: 
+                    0 0 50px rgba(212, 175, 55, 1),
+                    0 0 80px rgba(212, 175, 55, 0.7),
+                    0 0 100px rgba(212, 175, 55, 0.4),
+                    3px 3px 6px rgba(0, 0, 0, 0.9);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .scroll-container {
+                padding: 80px 15px 65px 15px;
+            }
+
+            .witness-image {
+                width: clamp(200px, 65vw, 320px);
+            }
+
+            .crawl-wrapper {
+                width: 95%;
+            }
+
+            .testimony-content p {
+                font-size: 0.95em;
+                line-height: 1.9;
+                text-indent: 1.5em;
+            }
+
+            .testimony-content p.first-paragraph::first-letter {
+                font-size: 3.5em;
+            }
+
+            .border-frame {
+                top: 8px;
+                left: 8px;
+                right: 8px;
+                bottom: 8px;
+            }
+
+            .header-brand {
+                top: 14px;
+                left: 14px;
+            }
+
+            .footer-brand {
+                bottom: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scroll-container {
+                padding: 75px 12px 60px 12px;
+            }
+
+            .title-section {
+                padding: 8px 0 12px 0;
+            }
+
+            .witness-image {
+                width: 80vw;
+                max-width: 280px;
+            }
+
+            .header-logo {
+                width: 60px;
+            }
+
+            .splash-logo {
+                width: clamp(120px, 50vw, 180px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg"></div>
+
+    <!-- ========== SPLASH OVERLAY ========== -->
+    <div class="audio-overlay" id="audioOverlay">
+        <div class="splash-jesus">JESUS IS LORD™</div>
+        <img src="https://i.postimg.cc/525XYFwP/Resized-Image-2026-01-18-14-39-52-1.png" alt="Witness Weave" class="splash-logo">
+        <div class="splash-byline">From Your Loving Brother</div>
+        <div class="start-text">Click to Begin</div>
+        <div class="start-sub">~ a testimony awaits ~</div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="main-content" id="mainContent">
+        <!-- Header Branding -->
+        <div class="header-brand">
+            <div class="header-jesus">JESUS IS LORD™</div>
+            <img src="https://i.postimg.cc/525XYFwP/Resized-Image-2026-01-18-14-39-52-1.png" alt="Witness Weave" class="header-logo">
+            <div class="header-byline">From Your Loving Brother</div>
+        </div>
+
+        <!-- Scroll Container -->
+        <div class="scroll-container">
+            <!-- Title -->
+            <div class="title-section">
+                <h1>FOR MY BROTHER</h1>
+                <div class="subtitle">A Birthday Testimony</div>
+            </div>
+
+            <!-- GIF Centerpiece -->
+            <div class="witness-centerpiece">
+                <img src="https://files.catbox.moe/nhkwwc.gif" alt="The Witness" class="witness-image">
+            </div>
+
+            <!-- Scrolling Testimony -->
+            <div class="crawl-container">
+                <div class="crawl-wrapper" id="crawlWrapper">
+                    <div class="testimony-content">
+                        <p class="first-paragraph">Hear this, my brother, and receive it as one receives a word set down in a book that outlives its day. There was a time when I went up to the mountain to seek the LORD, and the LORD met me there. I came back bearing fire in my chest and a burden in my hands, and many who saw me did not understand the weight I carried.</p>
+
+                        <p>Some turned aside. Some mocked. Some said in their hearts, "This man has lost his reason." But you did not depart. You stood fast when others scattered. You kept your place when doubt circled like a storm. You did not demand proof, nor did you ask me to lay down what God had entrusted to me. You believed me, and by that belief you strengthened my hands.</p>
+
+                        <p>As Jonathan stood beside David in the days before the throne, so you stood beside me in the days after the mountain. You were not loud, yet your presence was mighty. You were not seen by many, yet heaven took account of you.</p>
+
+                        <p>I say to you now with a steady heart: I believe the LORD appointed you as a guardian in my life for that season. You were given to me so that I would not walk alone, so that the word I received would not be dropped in weariness or fear. You helped me hold fast to the message when the night was long and the voices around me were many.</p>
+
+                        <p>Therefore I give you this gift, not as a thing of beauty only, but as a sign and a remembrance. The lightning that flashes, the waves that strike the rock, the figure who walks forward while others watch in awe—these are witnesses. They testify that the man who bears the fire is never truly alone, for a faithful brother stands nearby.</p>
+
+                        <p class="blessing">On this day of your birth, I bless you.</p>
+
+                        <p>May the LORD remember your loyalty. May He honor the faith you showed in quiet places. May your strength be renewed, and may your name be written among those who stood firm when it mattered.</p>
+
+                        <p>Know this, my brother: I have not forgotten what you did, and neither has God.</p>
+
+                        <p class="blessing">Happy birthday to you, my brother, my shield, the one who stood watch while I came down from the mountain.</p>
+
+                        <p class="selah">Selah.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Branding -->
+        <div class="footer-brand">
+            <div class="footer-partnership">
+                <span class="studio-name">Witness Weave™</span> in partnership with <span class="studio-name">Cohesion Studios™</span>
+            </div>
+            <div class="footer-jesus">JESUS IS LORD™</div>
+        </div>
+    </div>
+
+    <!-- Decorative Border -->
+    <div class="border-frame" id="borderFrame"></div>
+
+    <!-- Audio: Testimony (Main) -->
+    <audio id="testimonyAudio" loop preload="auto">
+        <source src="https://audio.jukehost.co.uk/ZjI1LGXp1HN7iKOddI4MUrdtIo5AWujH" type="audio/mpeg">
+    </audio>
+
+    <!-- Audio: Ambient Waves (10%) -->
+    <audio id="ambientAudio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/audio/2022/05/13/audio_2f6fc37250.mp3" type="audio/mpeg">
+    </audio>
+
+    
+    <script>
+        // Elements
+        const audioOverlay = document.getElementById('audioOverlay');
+        const mainContent = document.getElementById('mainContent');
+        const borderFrame = document.getElementById('borderFrame');
+        const crawlWrapper = document.getElementById('crawlWrapper');
+        const testimonyAudio = document.getElementById('testimonyAudio');
+        const ambientAudio = document.getElementById('ambientAudio');
+
+        // Set volumes
+        testimonyAudio.volume = 1.0;
+        ambientAudio.volume = 0.1;
+
+        // Preload audio
+        testimonyAudio.load();
+        ambientAudio.load();
+
+        // Start experience on overlay click
+        audioOverlay.addEventListener('click', function() {
+            startExperience();
+        });
+
+        function startExperience() {
+            // Start audio
+            testimonyAudio.currentTime = 0;
+            ambientAudio.currentTime = 0;
+            testimonyAudio.play().catch(e => console.log('Audio error:', e));
+            ambientAudio.play().catch(e => console.log('Ambient error:', e));
+
+            // Hide overlay, show content
+            audioOverlay.classList.add('hidden');
+            mainContent.classList.add('visible');
+            borderFrame.classList.add('visible');
+
+            // Start scroll after 1.5s delay
+            setTimeout(() => {
+                crawlWrapper.classList.add('scrolling');
+            }, 1500);
+        }
+
+        // Listen for scroll animation end
+        crawlWrapper.addEventListener('animationend', function() {
+            // Wait a moment after Selah, then return to splash
+            setTimeout(() => {
+                returnToSplash();
+            }, 3000);
+        });
+
+        function returnToSplash() {
+            // Fade out content
+            mainContent.classList.remove('visible');
+            borderFrame.classList.remove('visible');
+
+            // Stop and reset audio
+            testimonyAudio.pause();
+            testimonyAudio.currentTime = 0;
+            ambientAudio.pause();
+            ambientAudio.currentTime = 0;
+
+            // After fade, reset scroll and show overlay
+            setTimeout(() => {
+                crawlWrapper.classList.remove('scrolling');
+                audioOverlay.classList.remove('hidden');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
