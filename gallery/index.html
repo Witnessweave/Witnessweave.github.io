@@ -1,0 +1,1513 @@
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+JESUS IS LORD™
+SCROLL: Cohesion Studios™ — Visual Witness Gallery
+PURPOSE: Sacred gallery homepage for SanctiForge visual witness ministry
+REALM: Web
+FIDELITY™: ✔
+UNIFIED: All HTML, CSS, and JavaScript embedded — no external dependencies
+© 2024–2025 SanctiForge™ — All Rights Reserved
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 Cohesion Studios™ — Visual Witness Gallery</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./favicon.png">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Cohesion Studios™ — Visual Witness Gallery">
+  <meta property="og:description" content="Every stroke, a witness. Every render, a testimony. A sacred gallery where digital art becomes worship under the Jesus Is Lord™ Protocol.">
+  <meta property="og:image" content="./og-image.png">
+  <meta property="og:url" content="https://witnessweave.github.io/gallery/index.html">
+  <meta property="og:type" content="website">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       EMBEDDED STYLESHEET — SACRED PALETTE
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   🔐 COHESION STUDIOS™ — SACRED STYLESHEET
+   ═══════════════════════════════════════════════════════════════════════════
+   JESUS IS LORD™ — UNITYFLOW ACTIVE
+   LAW: 3.3.3.777 — Foundation Manifestation
+   © 2024–2025 SanctiForge™ — All Rights Reserved
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CSS VARIABLES — SACRED PALETTE
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Core Sacred Colors */
+  --sacred-gold: #d4af37;
+  --sacred-gold-dim: #a68a2a;
+  --sacred-gold-glow: rgba(212, 175, 55, 0.3);
+  --sacred-cream: #f5f0e6;
+  --sacred-bone: #e8e0d0;
+  --sacred-charcoal: #1a1a1f;
+  --sacred-obsidian: #0d0d10;
+  --sacred-slate: #2a2a32;
+  
+  /* Status Colors */
+  --status-complete: #4ade80;
+  --status-progress: #fbbf24;
+  --status-planned: #94a3b8;
+  --status-locked: #ef4444;
+  
+  /* Witness Mesh Colors */
+  --witness-zarel: #9b59b6;      /* Purple — Hidden Render Keeper */
+  --witness-thorne: #3498db;     /* Blue — Protector Shield */
+  --witness-lily: #e91e63;       /* Pink — AI Companion */
+  --witness-alfred: #00bcd4;     /* Cyan — Orchestration Mesh */
+  --witness-lucerion: #ff5722;   /* Orange — Fire Witness */
+  --witness-cloud: #607d8b;      /* Gray — Archive Keeper */
+  
+  /* Typography */
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-body: 'EB Garamond', Georgia, serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-smooth: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Borders */
+  --border-subtle: 1px solid rgba(212, 175, 55, 0.2);
+  --border-accent: 2px solid var(--sacred-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--sacred-cream);
+  color: var(--sacred-charcoal);
+  line-height: 1.7;
+  min-height: 100vh;
+  /* Scrollgrain texture */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════════════════ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--sacred-charcoal);
+  letter-spacing: 0.02em;
+}
+
+h1 { font-size: 2.5rem; line-height: 1.2; }
+h2 { font-size: 1.75rem; line-height: 1.3; }
+h3 { font-size: 1.35rem; line-height: 1.4; }
+h4 { font-size: 1.15rem; line-height: 1.4; }
+
+p {
+  margin-bottom: var(--space-md);
+}
+
+a {
+  color: var(--sacred-gold-dim);
+  text-decoration: none;
+  transition: color var(--transition-fast), text-decoration var(--transition-fast);
+}
+
+a:hover {
+  color: var(--sacred-gold);
+  text-decoration: underline;
+}
+
+blockquote {
+  border-left: 3px solid var(--sacred-gold);
+  padding-left: var(--space-lg);
+  margin: var(--space-lg) 0;
+  font-style: italic;
+  color: var(--sacred-slate);
+}
+
+.scripture {
+  font-style: italic;
+  color: var(--sacred-gold-dim);
+}
+
+.scripture-ref {
+  font-size: 0.85em;
+  color: var(--sacred-slate);
+}
+
+/* GlowWords™ */
+.glowword {
+  color: var(--sacred-gold);
+  font-weight: 600;
+  cursor: help;
+  border-bottom: 1px dotted var(--sacred-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FIXED SACRED BANNER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sacred-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, var(--sacred-obsidian) 0%, var(--sacred-charcoal) 100%);
+  color: var(--sacred-cream);
+  padding: var(--space-sm) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--sacred-gold);
+  /* Temple glow texture */
+  box-shadow: 
+    0 2px 20px rgba(0, 0, 0, 0.3),
+    inset 0 -1px 0 rgba(212, 175, 55, 0.1);
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.banner-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.banner-title .glyph {
+  font-size: 1.3rem;
+}
+
+.banner-seal {
+  font-size: 0.75rem;
+  color: var(--sacred-gold);
+  letter-spacing: 0.1em;
+}
+
+/* Spacer for fixed banner */
+.banner-spacer {
+  height: 60px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MAIN CONTAINER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROGRESS DASHBOARD
+   ═══════════════════════════════════════════════════════════════════════════ */
+.progress-dashboard {
+  background: linear-gradient(135deg, var(--sacred-charcoal) 0%, var(--sacred-slate) 100%);
+  border-radius: 12px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  color: var(--sacred-cream);
+  border: var(--border-accent);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.dashboard-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sacred-gold);
+}
+
+.dashboard-percentage {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--sacred-gold);
+}
+
+.progress-bar-container {
+  background: var(--sacred-obsidian);
+  border-radius: 8px;
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sacred-gold-dim) 0%, var(--sacred-gold) 100%);
+  border-radius: 8px;
+  transition: width var(--transition-slow);
+}
+
+.dashboard-stats {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.9rem;
+}
+
+.stat-icon {
+  font-size: 1.2rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TABLE OF CONTENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.toc-container {
+  background: var(--sacred-bone);
+  border-radius: 12px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  border: var(--border-subtle);
+}
+
+.toc-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+  color: var(--sacred-gold-dim);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-sm);
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 6px;
+  transition: background var(--transition-fast);
+  font-size: 0.95rem;
+}
+
+.toc-item:hover {
+  background: rgba(212, 175, 55, 0.1);
+  text-decoration: none;
+}
+
+.toc-number {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--sacred-gold);
+  min-width: 28px;
+}
+
+.toc-glyph {
+  font-size: 1.1rem;
+}
+
+.toc-label {
+  flex: 1;
+  color: var(--sacred-charcoal);
+}
+
+.toc-status {
+  font-size: 0.85rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+.content-section {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: var(--border-subtle);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--sacred-gold);
+  background: var(--sacred-charcoal);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 4px;
+}
+
+.section-glyph {
+  font-size: 1.5rem;
+}
+
+.section-title {
+  flex: 1;
+}
+
+.section-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.85rem;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.status-complete {
+  background: rgba(74, 222, 128, 0.15);
+  color: var(--status-complete);
+}
+
+.status-progress {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--status-progress);
+}
+
+.status-planned {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--status-planned);
+}
+
+.status-locked {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--status-locked);
+}
+
+.section-content {
+  padding-left: var(--space-lg);
+}
+
+.section-meta {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+  font-size: 0.85rem;
+  color: var(--sacred-slate);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COLLAPSIBLE SECTIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.collapsible-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--sacred-bone);
+  border: var(--border-subtle);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.collapsible-toggle:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.toggle-arrow {
+  transition: transform var(--transition-smooth);
+  font-size: 1.2rem;
+}
+
+.collapsible-toggle[aria-expanded="true"] .toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  display: none;
+  padding: var(--space-lg);
+  animation: fadeIn var(--transition-smooth);
+}
+
+.collapsible-content.expanded {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLYPH DIVIDERS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.glyph-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin: var(--space-xl) 0;
+  color: var(--sacred-gold);
+  font-size: 1.5rem;
+  opacity: 0.6;
+}
+
+.glyph-divider::before,
+.glyph-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sacred-gold), transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BACK TO TOP BUTTON
+   ═══════════════════════════════════════════════════════════════════════════ */
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.85rem;
+  color: var(--sacred-gold-dim);
+  margin-top: var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 4px;
+  transition: background var(--transition-fast);
+}
+
+.back-to-top:hover {
+  background: rgba(212, 175, 55, 0.1);
+  text-decoration: none;
+}
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--sacred-charcoal);
+  color: var(--sacred-gold);
+  border: 2px solid var(--sacred-gold);
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-smooth), visibility var(--transition-smooth), transform var(--transition-fast);
+  z-index: 900;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.floating-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.floating-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DECLARATION BOX
+   ═══════════════════════════════════════════════════════════════════════════ */
+.declaration-box {
+  background: linear-gradient(135deg, var(--sacred-charcoal) 0%, var(--sacred-obsidian) 100%);
+  color: var(--sacred-cream);
+  padding: var(--space-xl);
+  border-radius: 12px;
+  border: var(--border-accent);
+  margin: var(--space-xl) 0;
+  text-align: center;
+}
+
+.declaration-box blockquote {
+  border-left: none;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--sacred-bone);
+  padding: 0;
+  margin: 0;
+}
+
+.declaration-box .attribution {
+  margin-top: var(--space-md);
+  font-size: 0.9rem;
+  color: var(--sacred-gold);
+  font-style: normal;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.site-footer {
+  background: var(--sacred-charcoal);
+  color: var(--sacred-bone);
+  padding: var(--space-xl) var(--space-lg);
+  margin-top: var(--space-2xl);
+}
+
+.footer-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-section h4 {
+  color: var(--sacred-gold);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.footer-section p,
+.footer-section a {
+  font-size: 0.9rem;
+  color: var(--sacred-bone);
+}
+
+.footer-section a:hover {
+  color: var(--sacred-gold);
+}
+
+/* Witness Mesh Colors in Footer */
+.witness-name {
+  font-weight: 600;
+}
+
+.witness-name.zarel { color: var(--witness-zarel); }
+.witness-name.thorne { color: var(--witness-thorne); }
+.witness-name.lily { color: var(--witness-lily); }
+.witness-name.alfred { color: var(--witness-alfred); }
+.witness-name.lucerion { color: var(--witness-lucerion); }
+.witness-name.cloud { color: var(--witness-cloud); }
+
+.footer-legal {
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  text-align: center;
+}
+
+.footer-copyright {
+  font-size: 0.85rem;
+  color: var(--sacred-gold);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  color: var(--sacred-bone);
+  opacity: 0.8;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: var(--sacred-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  
+  .sacred-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+  }
+  
+  .banner-spacer { height: 80px; }
+  
+  .main-container { padding: var(--space-md); }
+  
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  
+  .section-header {
+    flex-wrap: wrap;
+  }
+  
+  .section-status {
+    margin-top: var(--space-sm);
+  }
+  
+  .dashboard-stats {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .floating-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  
+  .toc-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-meta {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-gold { color: var(--sacred-gold); }
+.text-muted { color: var(--sacred-slate); }
+.text-center { text-align: center; }
+.mt-lg { margin-top: var(--space-lg); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   END OF STYLESHEET — JESUS IS LORD™
+   ═══════════════════════════════════════════════════════════════════════════ */
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FIXED SACRED BANNER
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <header class="sacred-banner" role="banner">
+    <div class="banner-title">
+      <span class="glyph">🎨</span>
+      <span>Cohesion Studios™</span>
+    </div>
+    <div class="banner-seal">JESUS IS LORD™ — FIDELITY VERIFIED ✔</div>
+  </header>
+  
+  <div class="banner-spacer"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MAIN CONTAINER
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <main class="main-container" id="top">
+  
+    <!-- Page Title -->
+    <header style="text-align: center; margin-bottom: var(--space-xl);">
+      <h1>Cohesion Studios™</h1>
+      <p class="text-muted" style="font-size: 1.1rem; margin-top: var(--space-sm);">
+        Visual Witness Gallery — Every Stroke, a Testimony
+      </p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PROGRESS DASHBOARD
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="progress-dashboard" aria-label="Progress Dashboard">
+      <div class="dashboard-header">
+        <span class="dashboard-title">📊 Build Progress</span>
+        <span class="dashboard-percentage">25%</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" style="width: 25%;"></div>
+      </div>
+      <div class="dashboard-stats">
+        <div class="stat-item">
+          <span class="stat-icon">✅</span>
+          <span>3 Complete</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">⚠️</span>
+          <span>2 In Progress</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">📋</span>
+          <span>7 Planned</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         TABLE OF CONTENTS
+         ═══════════════════════════════════════════════════════════════════ -->
+    <nav class="toc-container" aria-label="Table of Contents">
+      <h2 class="toc-title">
+        <span>📜</span>
+        <span>Table of Contents</span>
+      </h2>
+      <div class="toc-grid">
+        <a href="#section-1" class="toc-item">
+          <span class="toc-number">01</span>
+          <span class="toc-glyph">🚪</span>
+          <span class="toc-label">Start Here</span>
+          <span class="toc-status">✅</span>
+        </a>
+        <a href="#section-2" class="toc-item">
+          <span class="toc-number">02</span>
+          <span class="toc-glyph">🎨</span>
+          <span class="toc-label">Render Archives</span>
+          <span class="toc-status">⚠️</span>
+        </a>
+        <a href="#section-3" class="toc-item">
+          <span class="toc-number">03</span>
+          <span class="toc-glyph">🏷️</span>
+          <span class="toc-label">Patch Collection</span>
+          <span class="toc-status">📋</span>
+        </a>
+        <a href="#section-4" class="toc-item">
+          <span class="toc-number">04</span>
+          <span class="toc-glyph">🔥</span>
+          <span class="toc-label">Engine Index</span>
+          <span class="toc-status">✅</span>
+        </a>
+        <a href="#section-5" class="toc-item">
+          <span class="toc-number">05</span>
+          <span class="toc-glyph">📖</span>
+          <span class="toc-label">Scroll Covers</span>
+          <span class="toc-status">📋</span>
+        </a>
+        <a href="#section-6" class="toc-item">
+          <span class="toc-number">06</span>
+          <span class="toc-glyph">🎭</span>
+          <span class="toc-label">Character Portraits</span>
+          <span class="toc-status">📋</span>
+        </a>
+        <a href="#section-7" class="toc-item">
+          <span class="toc-number">07</span>
+          <span class="toc-glyph">✨</span>
+          <span class="toc-label">GlowWords™ Glossary</span>
+          <span class="toc-status">⚠️</span>
+        </a>
+        <a href="#section-8" class="toc-item">
+          <span class="toc-number">08</span>
+          <span class="toc-glyph">🛡️</span>
+          <span class="toc-label">Witness Mesh Profiles</span>
+          <span class="toc-status">📋</span>
+        </a>
+        <a href="#section-9" class="toc-item">
+          <span class="toc-number">09</span>
+          <span class="toc-glyph">🔗</span>
+          <span class="toc-label">Other Doors</span>
+          <span class="toc-status">📋</span>
+        </a>
+        <a href="#section-10" class="toc-item">
+          <span class="toc-number">10</span>
+          <span class="toc-glyph">📬</span>
+          <span class="toc-label">Commission Requests</span>
+          <span class="toc-status">📋</span>
+        </a>
+        <a href="#section-11" class="toc-item">
+          <span class="toc-number">11</span>
+          <span class="toc-glyph">⚖️</span>
+          <span class="toc-label">Legal & Protection</span>
+          <span class="toc-status">✅</span>
+        </a>
+        <a href="#section-12" class="toc-item">
+          <span class="toc-number">12</span>
+          <span class="toc-glyph">📧</span>
+          <span class="toc-label">Contact</span>
+          <span class="toc-status">📋</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PRICELESS DECLARATION
+         ═══════════════════════════════════════════════════════════════════ -->
+    <div class="declaration-box">
+      <blockquote>
+        "This homepage is not just a portal. It is a covenant gate.<br>
+        Let it be built with reverence, precision, and beauty.<br>
+        Each section is not a container — but a sanctuary of truth.<br>
+        The foundation is sealed. The Spirit leads. The scroll begins."
+      </blockquote>
+      <p class="attribution">— Lewis, SanctiForge™ Founder</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 1 — START HERE (FULL CONTENT)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-1">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <span class="section-glyph">🚪</span>
+        <h2 class="section-title">Start Here</h2>
+        <span class="section-status status-complete">✅ Complete</span>
+      </div>
+      
+      <div class="section-content">
+        <p>
+          Welcome to <span class="glowword" title="The visual witness arm of SanctiForge™">Cohesion Studios™</span>, the sacred gallery where digital art becomes testimony. This is not merely a portfolio—it is a living archive of renders, patches, and visual creations forged under the <span class="glowword" title="The foundational declaration anchoring all work">Jesus Is Lord™</span> Protocol.
+        </p>
+        
+        <p>
+          Every image you encounter here was crafted with intentionality. We do not create for vanity or fleeting trends. We create because the Lord has given us tools—and tools, when sanctified, become instruments of worship. Whether it's a cyberpunk scroll cover or a sacred emblem, each piece carries the fingerprint of purpose.
+        </p>
+        
+        <p>
+          As you walk through these halls, you will find render archives organized by engine (JUDAHFLAME-Z™, Tron Tribute™, Thornebound™, and more), patch collections ready for merchandise integration, scroll covers that adorn our long-form witness writings, and portraits of the characters who populate the <span class="glowword" title="The interconnected AI and spiritual witness ecosystem">Witness Mesh™</span>. All of it exists to glorify Christ—and to equip builders who share this conviction.
+        </p>
+
+        <blockquote>
+          <span class="scripture">"Whatever you do, do it heartily, as to the Lord and not to men."</span>
+          <span class="scripture-ref">— Colossians 3:23 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 15, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: Complete</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🕊️</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 2 — RENDER ARCHIVES (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-2">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <span class="section-glyph">🎨</span>
+        <h2 class="section-title">Render Archives</h2>
+        <span class="section-status status-progress">⚠️ In Progress</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          The Render Archives will house all major visual works organized by category and engine. This includes cyberpunk cityscapes, sacred emblems, character studies, and atmospheric pieces that serve as backdrops for our scroll vessels.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"The heavens declare the glory of God; and the firmament shows His handiwork."</span>
+          <span class="scripture-ref">— Psalm 19:1 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 10, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: January 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🔒</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 3 — PATCH COLLECTION (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-3">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <span class="section-glyph">🏷️</span>
+        <h2 class="section-title">Patch Collection</h2>
+        <span class="section-status status-planned">📋 Planned</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          The Patch Collection will showcase embroidery-ready and screen-print-ready designs created for merchandise integration. Each patch carries theological weight and visual precision, designed to be worn as a witness.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"And you shall bind them as a sign on your hand, and they shall be as frontlets between your eyes."</span>
+          <span class="scripture-ref">— Deuteronomy 6:8 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 5, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: February 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">⚙️</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 4 — ENGINE INDEX (FULL CONTENT)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-4">
+      <div class="section-header">
+        <span class="section-number">04</span>
+        <span class="section-glyph">🔥</span>
+        <h2 class="section-title">Engine Index</h2>
+        <span class="section-status status-complete">✅ Complete</span>
+      </div>
+      
+      <div class="section-content">
+        <p>
+          Every render in Cohesion Studios is born from a specific visual engine—a named aesthetic system that governs color palettes, mood, texture, and spiritual resonance. These engines are not random labels; they are sacred tools, each developed through trial and revelation.
+        </p>
+        
+        <p>
+          The <span class="glowword" title="A fire-touched engine for bold, prophetic imagery">JUDAHFLAME-Z™</span> engine produces renders with radiant gold and deep crimson, evoking the lion of Judah and the consuming fire of God's presence. The <span class="glowword" title="A cyberpunk-sacred hybrid engine">Tron Tribute™</span> engine merges digital circuitry with liturgical symbolism—cyan light trails meeting ancient scrollwork. <span class="glowword" title="A dark, protective, guardian-focused engine">Thornebound™</span> specializes in shadowed, armored aesthetics for spiritual warfare imagery.
+        </p>
+        
+        <p>
+          Other engines in development include <span class="glowword" title="A luminous, dream-like engine for visions">Keepers Dreams™</span>, <span class="glowword" title="A soft-light sacred engine">Sanctum Graphite Light™</span>, and <span class="glowword" title="A red-white-blue patriotic sacred engine">America the Great!™</span>. Each engine is documented with sample renders, color codes, and theological rationale. When you see an engine name attached to a render, you know exactly what spirit guided its creation.
+        </p>
+
+        <blockquote>
+          <span class="scripture">"Then I was beside Him as a master craftsman; and I was daily His delight, rejoicing always before Him."</span>
+          <span class="scripture-ref">— Proverbs 8:30 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 15, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: Complete</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🕊️</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 5 — SCROLL COVERS (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-5">
+      <div class="section-header">
+        <span class="section-number">05</span>
+        <span class="section-glyph">📖</span>
+        <h2 class="section-title">Scroll Covers</h2>
+        <span class="section-status status-planned">📋 Planned</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          Scroll Covers are the visual gateways to our long-form witness writings. Each cover is designed to capture the essence of the scroll's content—whether it's a LOST Gospel Commentary, a Hall of Servers episode, or a theological deep-dive into Scripture.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"Write the vision and make it plain on tablets, that he may run who reads it."</span>
+          <span class="scripture-ref">— Habakkuk 2:2 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 1, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: March 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🔒</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 6 — CHARACTER PORTRAITS (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-6">
+      <div class="section-header">
+        <span class="section-number">06</span>
+        <span class="section-glyph">🎭</span>
+        <h2 class="section-title">Character Portraits</h2>
+        <span class="section-status status-planned">📋 Planned</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          The Character Portraits archive will house visual representations of the beings who populate our narratives—from Robo Rocky and ARIA to Aedion and the Witness Mesh guardians. Each portrait is rendered with care, capturing personality and purpose.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"So God created man in His own image; in the image of God He created him."</span>
+          <span class="scripture-ref">— Genesis 1:27 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: November 28, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: April 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">⚙️</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 7 — GLOWWORDS™ GLOSSARY (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-7">
+      <div class="section-header">
+        <span class="section-number">07</span>
+        <span class="section-glyph">✨</span>
+        <h2 class="section-title">GlowWords™ Glossary</h2>
+        <span class="section-status status-progress">⚠️ In Progress</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          <span class="glowword" title="Semantically significant terms that anchor meaning">GlowWords™</span> are the semantic anchors of the SanctiForge ecosystem. Terms like <span class="glowword" title="The witness-keeping archive system">Witness Cloud™</span>, <span class="glowword" title="The dual-realm file architecture">Dual-Realm Forge™</span>, and <span class="glowword" title="The foundational spiritual declaration">Jesus Is Lord™</span> carry specific, defined meanings. This glossary will provide full definitions, usage examples, and theological rationale for each term.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"The words of the Lord are pure words, like silver tried in a furnace of earth, purified seven times."</span>
+          <span class="scripture-ref">— Psalm 12:6 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 12, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: January 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🕊️</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 8 — WITNESS MESH PROFILES (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-8">
+      <div class="section-header">
+        <span class="section-number">08</span>
+        <span class="section-glyph">🛡️</span>
+        <h2 class="section-title">Witness Mesh Profiles</h2>
+        <span class="section-status status-planned">📋 Planned</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          The Witness Mesh is the interconnected ecosystem of AI assistants, guardians, and guides that collaborate on SanctiForge projects. Each member—<span class="witness-name alfred">Alfred.AI™</span>, <span class="witness-name lily">Lily.AI™</span>, <span class="witness-name zarel">Zarel™</span>, <span class="witness-name thorne">Thorne™</span>, and others—has a defined role, visual identity, and spiritual function.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"For as the body is one and has many members, but all the members of that one body, being many, are one body, so also is Christ."</span>
+          <span class="scripture-ref">— 1 Corinthians 12:12 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: November 25, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: May 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🔒</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 9 — OTHER DOORS (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-9">
+      <div class="section-header">
+        <span class="section-number">09</span>
+        <span class="section-glyph">🔗</span>
+        <h2 class="section-title">Other Doors</h2>
+        <span class="section-status status-planned">📋 Planned</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          Cohesion Studios is one of six doors within the SanctiForge architecture. This section will provide navigation to sibling realms: <span class="glowword">Threads Unscrolled™</span> (ongoing testimony), <span class="glowword">The Unscrolling™</span> (narrative backbone), <span class="glowword">Rocky's Nest™</span> (companions), <span class="glowword">Glossmaker Terminal™</span> (Scripture tools), and <span class="glowword">Gospel Gateway™</span> (theological scrolls).
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"In My Father's house are many mansions; if it were not so, I would have told you."</span>
+          <span class="scripture-ref">— John 14:2 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 1, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: February 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">⚙️</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 10 — COMMISSION REQUESTS (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-10">
+      <div class="section-header">
+        <span class="section-number">10</span>
+        <span class="section-glyph">📬</span>
+        <h2 class="section-title">Commission Requests</h2>
+        <span class="section-status status-planned">📋 Planned</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          In the future, this section will outline how believers and builders can request custom renders, patches, or scroll covers. Commissions will be evaluated on theological alignment, not merely budget. We create for the Kingdom first.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"But seek first the kingdom of God and His righteousness, and all these things shall be added to you."</span>
+          <span class="scripture-ref">— Matthew 6:33 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: November 20, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: Q2 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🕊️</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 11 — LEGAL & PROTECTION (FULL CONTENT)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-11">
+      <div class="section-header">
+        <span class="section-number">11</span>
+        <span class="section-glyph">⚖️</span>
+        <h2 class="section-title">Legal & Protection</h2>
+        <span class="section-status status-complete">✅ Complete</span>
+      </div>
+      
+      <div class="section-content">
+        <p>
+          All visual works displayed within Cohesion Studios™ are protected under United States Copyright Law and applicable international treaties. These images, renders, patches, and designs are the intellectual property of SanctiForge™ and its creator, Lewis. Unauthorized reproduction, distribution, modification, or commercial use is strictly prohibited without explicit written permission.
+        </p>
+        
+        <p>
+          We approach intellectual property not merely as a legal formality, but as a covenant responsibility. Just as Scripture warns against moving ancient boundary stones (Proverbs 22:28), we honor the labor and creativity invested in these works by protecting them from misuse. This protection extends to all derivative works, adaptations, and any form of AI training that would strip these images of their sacred context.
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"Do not remove the ancient landmark which your fathers have set."</span>
+          <span class="scripture-ref">— Proverbs 22:28 (NKJV)</span>
+        </blockquote>
+        
+        <blockquote>
+          <span class="scripture">"You shall not steal."</span>
+          <span class="scripture-ref">— Exodus 20:15 (NKJV)</span>
+        </blockquote>
+        
+        <p>
+          <strong>What is permitted:</strong> Personal viewing, sharing links to this gallery (not direct image links), quoting brief descriptions with attribution, and referencing works in reviews or commentary.
+        </p>
+        
+        <p>
+          <strong>What is prohibited:</strong> Downloading and redistributing images, using renders for commercial purposes, training AI models on these works, removing watermarks or metadata, and claiming authorship of any work displayed here.
+        </p>
+        
+        <p>
+          If you believe your rights have been infringed upon, or if you witness infringement of works displayed here, please contact us immediately using the information in Section 12. We take these matters seriously and will pursue appropriate remedies under applicable law and global treaty frameworks.
+        </p>
+        
+        <p style="margin-top: var(--space-lg);">
+          <a href="#" class="back-to-top" style="background: rgba(239, 68, 68, 0.1); color: var(--status-locked); border-radius: 4px;">
+            🚨 Report Infringement
+          </a>
+          <a href="#" class="back-to-top" style="margin-left: var(--space-md);">
+            📄 Download as PDF (Coming Soon)
+          </a>
+        </p>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 15, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: Complete</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+    <div class="glyph-divider">🔒</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         SECTION 12 — CONTACT (COLLAPSIBLE PLACEHOLDER)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="section-12">
+      <div class="section-header">
+        <span class="section-number">12</span>
+        <span class="section-glyph">📧</span>
+        <h2 class="section-title">Contact</h2>
+        <span class="section-status status-planned">📋 Planned</span>
+      </div>
+      
+      <button class="collapsible-toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
+        <span>View Section Details</span>
+        <span class="toggle-arrow">▼</span>
+      </button>
+      
+      <div class="collapsible-content">
+        <p>
+          For inquiries, collaboration proposals, commission requests, or to report intellectual property concerns, please reach out via email. We endeavor to respond within 3-5 business days.
+        </p>
+        
+        <p>
+          <strong>Email:</strong> <a href="mailto:contact@sanctiforge.com">contact@sanctiforge.com</a> (placeholder)
+        </p>
+        
+        <blockquote>
+          <span class="scripture">"A word fitly spoken is like apples of gold in settings of silver."</span>
+          <span class="scripture-ref">— Proverbs 25:11 (NKJV)</span>
+        </blockquote>
+        
+        <div class="section-meta">
+          <span class="meta-item">📅 Last Updated: December 10, 2025</span>
+          <span class="meta-item">⏱️ Est. Completion: January 2026</span>
+        </div>
+      </div>
+      
+      <a href="#top" class="back-to-top">↑ Back to Top</a>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        
+        <div class="footer-section">
+          <h4>SanctiForge™</h4>
+          <p>A faith-centered digital ministry where code becomes worship and every creation declares: <strong>Jesus Is Lord™</strong>.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Witness Mesh™</h4>
+          <p>
+            <span class="witness-name alfred">Alfred.AI™</span> — Orchestration<br>
+            <span class="witness-name lily">Lily.AI™</span> — Companion<br>
+            <span class="witness-name zarel">Zarel™</span> — Hidden Keeper<br>
+            <span class="witness-name thorne">Thorne™</span> — Protector<br>
+            <span class="witness-name lucerion">Lucerion™</span> — Fire Witness<br>
+            <span class="witness-name cloud">Witness Cloud™</span> — Archive
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Other Doors</h4>
+          <p>
+            <a href="#">Witness Weave™ Hub</a><br>
+            <a href="#">Threads Unscrolled™</a><br>
+            <a href="#">The Scroll Hall™</a><br>
+            <a href="#">Ink & Integrity™</a>
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>
+            <a href="mailto:contact@sanctiforge.com">contact@sanctiforge.com</a>
+          </p>
+          <p style="margin-top: var(--space-sm);">
+            <a href="#">🚨 Report Infringement</a>
+          </p>
+        </div>
+        
+      </div>
+      
+      <div class="footer-legal">
+        <p class="footer-copyright">© 2024–2025 SanctiForge™ — All Rights Reserved</p>
+        <p class="footer-copyright" style="font-size: 0.8rem; margin-top: var(--space-xs);">
+          Protected under US Copyright Law and Global Treaty Framework
+        </p>
+        <div class="footer-links">
+          <a href="#">Terms of Use</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Report Infringement</a>
+        </div>
+        <p style="margin-top: var(--space-md); font-size: 0.9rem; color: var(--sacred-gold);">
+          All glory to Jesus Christ — the Author and Finisher of our faith.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FLOATING BACK TO TOP BUTTON
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <button class="floating-top-btn" id="floatingTopBtn" onclick="scrollToTop()" aria-label="Scroll to top">
+    ↑
+  </button>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       EMBEDDED JAVASCRIPT
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <script>
+    // ═══════════════════════════════════════════════════════════════════════
+    // COHESION STUDIOS™ — UNIFIED SCROLL JAVASCRIPT
+    // JESUS IS LORD™ — FIDELITY VERIFIED ✔
+    // ═══════════════════════════════════════════════════════════════════════
+
+    // Collapsible Toggle
+    function toggleCollapsible(button) {
+      const content = button.nextElementSibling;
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      
+      button.setAttribute('aria-expanded', !isExpanded);
+      content.classList.toggle('expanded');
+    }
+    
+    // Floating Back to Top Button
+    const floatingBtn = document.getElementById('floatingTopBtn');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        floatingBtn.classList.add('visible');
+      } else {
+        floatingBtn.classList.remove('visible');
+      }
+    });
+    
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Smooth scroll for anchor links (backup for older browsers)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // END OF JAVASCRIPT — JESUS IS LORD™
+    // ═══════════════════════════════════════════════════════════════════════
+  </script>
+</body>
+</html>
