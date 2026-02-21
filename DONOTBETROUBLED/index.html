@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Do Not Be Troubled — Prologue</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <style>
+    :root {
+      --page-bg: #f7f3ea;
+      --page-text: #2c2620;
+      --page-width: 780px;
+      --page-padding: 2.5rem;
+      --base-font-size: 18px;
+      --line-height: 1.6;
+      --turn-speed: 0.4s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      touch-action: pan-x;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #f0ebe1 0%, #d6d0c3 40%, #b5afa2 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--page-text);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* ── BOOK SHELL ── */
+    .book-shell {
+      width: 100%;
+      max-width: var(--page-width);
+      height: calc(100vh - 2rem);
+      max-height: 960px;
+      display: flex;
+      justify-content: center;
+      padding: 0 0.75rem;
+    }
+
+    .sacred-scroll-page {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--page-bg);
+      padding: var(--page-padding);
+      border-radius: 6px;
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.30),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+      font-size: var(--base-font-size);
+      line-height: var(--line-height);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sacred-scroll-page::before {
+      content: "";
+      position: absolute;
+      inset: 1.2rem;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.04);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── CHAPTER HEADER ── */
+    .chapter-meta {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .chapter-label {
+      font-size: 0.75em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+
+    .chapter-title {
+      margin-top: 0.35rem;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.55em;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .chapter-verse {
+      margin-top: 0.6rem;
+      font-size: 0.85em;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    /* ── CONTENT VIEWPORT ── */
+    .content-viewport {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      min-height: 0;
+    }
+
+    .page-slot {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateX(30px);
+      transition:
+        opacity var(--turn-speed) ease,
+        transform var(--turn-speed) ease;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .page-slot.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .page-slot.exit-left {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    .page-slot.exit-right {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    .book-content p {
+      margin: 0 0 0.9rem;
+      text-indent: 1.25em;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .book-content p:first-child {
+      text-indent: 0;
+    }
+
+    /* ── PAGE FOOTER ── */
+    .page-footer {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8em;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+
+    .page-number {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+
+    .font-toggle {
+      border: none;
+      background: transparent;
+      font: inherit;
+      font-size: 0.85em;
+      text-decoration: underline;
+      text-decoration-color: rgba(0,0,0,0.2);
+      text-underline-offset: 2px;
+      cursor: pointer;
+      padding: 0.25em 0;
+      color: var(--page-text);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      position: relative;
+      z-index: 20;
+    }
+
+    .font-toggle:hover {
+      opacity: 1;
+    }
+
+    /* ── NAVIGATION ZONES ── */
+    .nav-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 22%;
+      z-index: 10;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+
+    .nav-zone-left {
+      left: 0;
+      border-radius: 6px 0 0 6px;
+    }
+
+    .nav-zone-right {
+      right: 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .nav-zone:hover {
+      background: rgba(0,0,0,0.018);
+    }
+
+    .nav-zone:active {
+      background: rgba(0,0,0,0.035);
+    }
+
+    /* subtle chevron on hover */
+    .nav-zone::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      border-style: solid;
+      border-color: rgba(0,0,0,0.12);
+      border-width: 0 2px 2px 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-zone:hover::after {
+      opacity: 1;
+    }
+
+    .nav-zone-left::after {
+      left: 1rem;
+      transform: translateY(-50%) rotate(135deg);
+    }
+
+    .nav-zone-right::after {
+      right: 1rem;
+      transform: translateY(-50%) rotate(-45deg);
+    }
+
+    /* ── PROGRESS DOTS ── */
+    .progress-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      padding-top: 0.4rem;
+    }
+
+    .progress-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.12);
+      transition: all 0.35s ease;
+    }
+
+    .progress-dot.active {
+      background: rgba(0,0,0,0.4);
+      transform: scale(1.4);
+    }
+
+    /* ── TOOLTIP HINT ── */
+    .hint-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.8s ease;
+    }
+
+    .hint-overlay.dismissed {
+      opacity: 0;
+    }
+
+    .hint-card {
+      background: rgba(44, 38, 32, 0.88);
+      color: #f7f3ea;
+      padding: 0.9rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.82em;
+      letter-spacing: 0.02em;
+      line-height: 1.55;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      animation: hintPulse 3s ease-in-out infinite;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .hint-card .hint-sub {
+      display: block;
+      margin-top: 0.45rem;
+      font-size: 0.78em;
+      opacity: 0.5;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+      50% { transform: scale(1.015); box-shadow: 0 10px 35px rgba(0,0,0,0.3); }
+    }
+
+    /* ── LARGE TEXT MODE ── */
+    .large-text {
+      --base-font-size: 20px;
+      --line-height: 1.75;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      :root {
+        --page-padding: 1.5rem 1.1rem 1.1rem;
+        --base-font-size: 16px;
+      }
+
+      .book-shell {
+        height: calc(100vh - 0.5rem);
+        padding: 0 0.25rem;
+      }
+
+      .chapter-title {
+        font-size: 1.3em;
+      }
+
+      .chapter-meta {
+        margin-bottom: 1rem;
+      }
+
+      .nav-zone {
+        width: 18%;
+      }
+
+      .hint-card {
+        max-width: 240px;
+        font-size: 0.78em;
+        padding: 0.75rem 1.2rem;
+      }
+
+      .large-text {
+        --base-font-size: 18px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      :root {
+        --base-font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="book-shell">
+    <article class="sacred-scroll-page" id="bookPage">
+
+      <header class="chapter-meta">
+        <div class="chapter-label">Prologue</div>
+        <h1 class="chapter-title">To the One Who Can&#x2019;t Stop Thinking About It All</h1>
+        <div class="chapter-verse">
+          &#x201C;And you shall know the truth, and the truth shall make you free.&#x201D; &#x2014; John 8:32 (NKJV)
+        </div>
+      </header>
+
+      <div class="content-viewport" id="contentViewport"></div>
+
+      <div class="progress-bar" id="progressBar"></div>
+
+      <footer class="page-footer">
+        <button type="button" class="font-toggle" id="fontToggle">A / A+</button>
+        <div class="page-number" id="pageNumber">Page&nbsp;1</div>
+      </footer>
+
+      <!-- Navigation zones -->
+      <div class="nav-zone nav-zone-left" id="navLeft" role="button" aria-label="Previous page"></div>
+      <div class="nav-zone nav-zone-right" id="navRight" role="button" aria-label="Next page"></div>
+
+      <!-- Tooltip hint -->
+      <div class="hint-overlay" id="hintOverlay">
+        <div class="hint-card" id="hintCard">
+          Tap the edges to turn pages<span class="hint-sub">tap to dismiss</span>
+        </div>
+      </div>
+
+    </article>
+  </div>
+
+  <!-- SOURCE PARAGRAPHS (hidden template, used by paginator) -->
+  <template id="sourceContent">
+    <p>This page is for the believer whose stomach tightens every time they open the news. For the one who scrolls a little, feels the weight rise, puts the phone down, picks it up again, and wonders why it feels like the world is falling apart in front of their eyes.</p>
+
+    <p>It is for you if you have seen too much to pretend everything is fine, but you are too tired to keep living in a constant state of alarm. You know that children are being harmed. You know that people are dying in ways that should never happen. You know that systems are breaking, trust is eroding, and love around you feels thinner than it used to. You do not have to be convinced that evil is real. You already know.</p>
+
+    <p>Maybe you remember the first time you saw something that shattered your sense of how the world works. A documentary, a confession, a leak, a story that slipped past the usual filters. It showed you things you could not unsee. Some of it turned out to be exaggerated, some of it was half&#x2013;truth, but woven through it were enough real pieces that you started to question everything. Over the years you have tried to sort it all out. You have held different theories up to the light, thrown some away, kept others on the shelf of &#x201C;I don&#x2019;t know yet.&#x201D; And through it all, one thing has become very clear: this present world is not safe, not stable, and not in your control.</p>
+
+    <p>At the same time, you know the Scriptures. You remember Jesus&#x2019; words about the last days. Wars and rumors of wars. Nation rising against nation. Lawlessness increasing. Hearts failing from fear because of the things coming on the earth. You hear people argue endlessly about timelines and charts, but beneath all of that noise is a simple, quiet realization: He told us this kind of shaking would come.</p>
+
+    <p>That awareness can do two opposite things inside a believer. For some, it brings a strange peace: &#x201C;My Lord told me this ahead of time. None of this surprises Him.&#x201D; For others, it adds pressure: &#x201C;If the Bible is really describing what I am watching, then I have to do something. I cannot just live my little life while everything is burning.&#x201D; If you find yourself in that second group, this book is especially for you.</p>
+
+    <p>Because here is what often happens in a heart like yours. Your compassion is real. Your sense of justice is real. Your hatred of evil is real. You love Jesus and you love people, and you cannot stand the thought of anyone being hurt, especially the weak and voiceless. Somewhere along the way, without you noticing, compassion quietly turns into a vow: &#x201C;I will carry this. I will hold the pain of the world in front of me so that I do not forget. I will not relax while others are suffering. If I rest too much, maybe that means I do not care enough.&#x201D;</p>
+
+    <p>It feels holy. It feels loyal. It feels like what a serious Christian is supposed to do in a serious time. But slowly, it begins to crush you from the inside out.</p>
+
+    <p>You might recognize the signs. Sleep that does not refresh you because your thoughts will not turn off. Moments of joy that are cut short by a sudden stab of guilt. A constant hum of dread behind ordinary tasks. A feeling that you are always &#x201C;on call&#x201D; for the world&#x2019;s emergencies, even though no one actually gave you that job but you. You go deeper into information, hoping to understand more so you can somehow hurt less, and find that the more you know, the heavier your chest feels.</p>
+
+    <p>This book is not here to mock that sensitivity. It is not here to tell you to &#x201C;just cheer up&#x201D; or &#x201C;stop thinking about it.&#x201D; Your grief over the state of the world is not a flaw. It is part of how you image the heart of God, who sees everything more clearly than you ever will. The problem is not that you care. The problem is that you have started to believe it is your job to carry what only God can carry.</p>
+
+    <p>Jesus did not hide the darkness of the last days from His disciples, but He also did not hand them the weight of running the universe. He told them plainly what would come, and then said something that almost sounds impossible when you look around: &#x201C;See that you are not troubled&#x201D; (Matthew 24:6). He did not say, &#x201C;See that you figure everything out.&#x201D; He did not say, &#x201C;See that you never miss a headline.&#x201D; He did not say, &#x201C;See that you sacrifice your peace so that I know you are paying attention.&#x201D; He said, &#x201C;Do not be troubled.&#x201D;</p>
+
+    <p>If those words land in you like a rebuke, you are not alone. Many believers secretly feel like it would be irresponsible not to be troubled. If I really care, the thought goes, then my heart should stay heavy. But what if you have that backwards? What if staying in a constant state of panic actually makes you less available to God, not more?</p>
+
+    <p>When worry is in charge, your world shrinks. Everything becomes about survival and control. You either grasp for more information, hoping it will give you a sense of power, or you shut down and try not to feel at all. In both cases, your ability to hear the gentle direction of the Holy Spirit gets weaker. Your reactions get louder, but your discernment gets softer.</p>
+
+    <p>Jesus offers you a different way. He does not deny the shaking. He does not ignore injustice. But He invites you to live rooted in a different center than the headlines. &#x201C;Come to Me, all you who labor and are heavy laden, and I will give you rest&#x201D; (Matthew 11:28). Notice what He does not say. He does not say, &#x201C;Come to Me and I will give you more things to obsess over.&#x201D; He does not say, &#x201C;Come to Me and I will make you feel the pain of the world every second so that you know you are spiritual.&#x201D; He says, &#x201C;Rest.&#x201D;</p>
+
+    <p>This rest is not denial. It is not putting your head in the sand. It is the rest of a child whose Father is still on the throne when the earth shakes. It is the rest of someone who has finally understood this: &#x201C;I am not the Savior. I am not the Judge. I am not the One holding all things together. I am a beloved child, called to be faithful in a small plot of ground while my God governs the whole story.&#x201D;</p>
+
+    <p>That is what this book is about. Not proving to you that the world is dark. You already know that. Not mapping out every possible scheme or system. Others are already doing that loudly enough. This is a letter inviting you back to the words of Jesus about fear, about tomorrow, about the end of the age, and about the kind of peace He gives in the middle of real trouble.</p>
+
+    <p>If you keep reading, you will not get a list of things to panic over. You will not get a call to stick your fingers in your ears and hum worship songs until the storm passes. You will get something quieter and stronger: reminders of what your Shepherd actually said, and gentle help laying down weights He never asked you to pick up.</p>
+
+    <p>You are not crazy for seeing what you see. You are not weak for feeling what you feel. You are simply not God. And that is very good news.</p>
+  </template>
+
+  
+  <script>
+    (function () {
+      /* ── ELEMENTS ── */
+      var page        = document.getElementById("bookPage");
+      var viewport    = document.getElementById("contentViewport");
+      var pageNum     = document.getElementById("pageNumber");
+      var progressBar = document.getElementById("progressBar");
+      var toggle      = document.getElementById("fontToggle");
+      var navLeft     = document.getElementById("navLeft");
+      var navRight    = document.getElementById("navRight");
+      var hint        = document.getElementById("hintOverlay");
+      var hintCard    = document.getElementById("hintCard");
+
+      /* ── SOURCE PARAGRAPHS ── */
+      var template = document.getElementById("sourceContent");
+      var allParas = Array.from(template.content.querySelectorAll("p"));
+
+      var pages       = [];
+      var current     = 0;
+      var hintShown   = true;
+      var isAnimating = false;
+
+      /* ── PAGINATOR ── */
+      function paginate() {
+        viewport.innerHTML = "";
+        pages   = [];
+        current = 0;
+
+        var viewH = viewport.clientHeight;
+        if (viewH < 60) return;
+
+        /* Measure each paragraph in an offscreen probe */
+        var probe = document.createElement("div");
+        probe.className = "book-content";
+        probe.style.cssText =
+          "position:absolute;top:0;left:0;width:" +
+          viewport.clientWidth + "px;visibility:hidden;pointer-events:none;";
+        page.appendChild(probe);
+
+        var paraHeights = allParas.map(function (p) {
+          probe.innerHTML = "";
+          probe.appendChild(p.cloneNode(true));
+          return probe.scrollHeight;
+        });
+
+        page.removeChild(probe);
+
+        /* Bin paragraphs into pages */
+        var runH = 0;
+        var bin  = [];
+
+        for (var i = 0; i < allParas.length; i++) {
+          var h = paraHeights[i];
+          if (bin.length > 0 && runH + h > viewH) {
+            pages.push(bin);
+            bin  = [];
+            runH = 0;
+          }
+          bin.push(i);
+          runH += h;
+        }
+        if (bin.length) pages.push(bin);
+
+        /* Build page-slot divs */
+        pages.forEach(function (indices, pi) {
+          var slot = document.createElement("div");
+          slot.className = "page-slot" + (pi === 0 ? " active" : "");
+
+          var sec = document.createElement("section");
+          sec.className = "book-content";
+
+          indices.forEach(function (idx) {
+            sec.appendChild(allParas[idx].cloneNode(true));
+          });
+
+          slot.appendChild(sec);
+          viewport.appendChild(slot);
+        });
+
+        /* Build progress dots */
+        progressBar.innerHTML = "";
+        pages.forEach(function (_, pi) {
+          var dot = document.createElement("div");
+          dot.className = "progress-dot" + (pi === 0 ? " active" : "");
+          progressBar.appendChild(dot);
+        });
+
+        updateFooter();
+      }
+
+      function updateFooter() {
+        pageNum.innerHTML =
+          "Page&nbsp;1." + (current + 1) +
+          "&nbsp;of&nbsp;1." + pages.length;
+
+        var dots = progressBar.querySelectorAll(".progress-dot");
+        for (var d = 0; d < dots.length; d++) {
+          dots[d].classList.toggle("active", d === current);
+        }
+      }
+
+      /* ── PAGE TURN ── */
+      function goTo(n) {
+        if (isAnimating) return;
+        if (n < 0 || n >= pages.length || n === current) return;
+
+        isAnimating = true;
+        var slots     = viewport.querySelectorAll(".page-slot");
+        var direction = n > current ? "exit-left" : "exit-right";
+
+        /* Exit current */
+        slots[current].classList.remove("active");
+        slots[current].classList.add(direction);
+
+        /* Prepare next off-screen on the correct side */
+        var enter = n > current ? "exit-right" : "exit-left";
+        slots[n].classList.remove("exit-left", "exit-right");
+        slots[n].classList.add(enter);
+
+        /* Force reflow then animate in */
+        void slots[n].offsetWidth;
+        slots[n].classList.remove(enter);
+        slots[n].classList.add("active");
+
+        current = n;
+        updateFooter();
+
+        setTimeout(function () {
+          for (var s = 0; s < slots.length; s++) {
+            if (s !== current) {
+              slots[s].classList.remove("exit-left", "exit-right");
+            }
+          }
+          isAnimating = false;
+        }, 420);
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      /* ── HINT DISMISSAL ── */
+      function dismissHint() {
+        if (!hintShown) return;
+        hintShown = false;
+        hint.classList.add("dismissed");
+        setTimeout(function () { hint.style.display = "none"; }, 900);
+      }
+
+      var autoHide = setTimeout(dismissHint, 4500);
+
+      hintCard.addEventListener("click", function (e) {
+        e.stopPropagation();
+        clearTimeout(autoHide);
+        dismissHint();
+      });
+
+      /* ── CLICK NAV ── */
+      navLeft.addEventListener("click", function ()  { dismissHint(); prev(); });
+      navRight.addEventListener("click", function () { dismissHint(); next(); });
+
+      /* ── KEYBOARD ── */
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " ") {
+          dismissHint(); next(); e.preventDefault();
+        }
+        if (e.key === "ArrowLeft") {
+          dismissHint(); prev(); e.preventDefault();
+        }
+      });
+
+      /* ── SWIPE ── */
+      var touchX = null;
+      page.addEventListener("touchstart", function (e) {
+        touchX = e.changedTouches[0].clientX;
+      }, { passive: true });
+
+      page.addEventListener("touchend", function (e) {
+        if (touchX === null) return;
+        var dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if (Math.abs(dx) < 40) return;
+        dismissHint();
+        if (dx < 0) next(); else prev();
+      }, { passive: true });
+
+      /* ── FONT TOGGLE ── */
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        page.classList.toggle("large-text");
+        setTimeout(paginate, 60);
+      });
+
+      /* ── INIT ── */
+      paginate();
+
+      /* Re-paginate on resize (debounced) */
+      var resizeTimer;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(paginate, 200);
+      });
+    })();
+  </script>
+</body>
+</html>
